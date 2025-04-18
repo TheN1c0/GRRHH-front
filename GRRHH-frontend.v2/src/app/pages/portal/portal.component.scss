@@ -1,0 +1,189 @@
+.contentmain {
+    margin: 0 !important;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background-color: #fdf6f6;
+
+}
+
+.left,
+.right {
+    padding: 2rem;
+    flex: 1;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo img {
+    height: 200px;
+    width: 200px;
+
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    color: #80392f;
+    font-weight: bold;
+}
+
+.image-container {
+    border-radius: 2rem;
+    overflow: hidden;
+    width: 80%;
+    margin-bottom: 2rem;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.quienes-somos {
+    position: relative;
+    /* Referencia para el absolute */
+    background: #002f53;
+    color: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    /* Evita que se salga */
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+.quienes-somos:hover {
+    border-color: #f77a2c;
+}
+
+
+
+
+
+.right {
+    background-color: #002f53;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f7e2d9;
+}
+
+.form-title {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 60%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: none;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.registro-text {
+    margin: 2rem 0 1rem 0;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.registro-btn {
+    background-color: white;
+    color: black;
+    padding: 1rem 2rem;
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.registro-btn:hover {
+    border-color: #f77a2c;
+}
+
+@media (max-width: 768px) {
+    .contentmain {
+        flex-direction: column;
+    }
+
+    .left,
+    .right {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 80%;
+    }
+
+    .image-container {
+        width: 100%;
+    }
+
+
+}
+@media (max-width:2559px) {
+    .left,
+    .right {
+        height: 100vh;
+    }
+}
+
+@media (min-width: 2560px) {
+
+    .left,
+    .right {
+        height: 100vh;
+    }
+
+    .quienes-somos {
+        font-size: 5rem;
+    }
+
+    .logo img {
+        height: 500px;
+        width: 500px;
+
+    }
+
+    .logo h1 {
+        font-size: 6.5rem;
+        font-weight: bold;
+    }
+
+    .form-title {
+        font-size: 4rem;
+        letter-spacing: 2px;
+
+
+    }
+
+    input[type="text"],
+    input[type="password"],.registro-text,.registro-btn {
+        font-size: 2.5rem;
+    }
+    
+}
