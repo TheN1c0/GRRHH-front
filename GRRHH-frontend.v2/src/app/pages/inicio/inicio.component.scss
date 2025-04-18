@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .contentmain {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #003252;
+    color: #fff;
+  }
+  
+  .sidebar {
+    background-color: #002438;
+    padding: 20px;
+    width: 220px;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #00f9d2;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar li {
+    padding: 15px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .sidebar li:hover {
+    background-color: #004d73;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    background-color: #fdf5f3;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border-bottom: 5px solid #002438;
+  }
+  
+  .header .user-icon {
+    font-size: 28px;
+    margin-left: 10px;
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    padding: 30px;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .card {
+    background-color: #ffffff;
+    color: #002438;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
+  
+  .card.highlight {
+    background: linear-gradient(to right, #00f9d2, #00c7a8);
+    color: #003252;
+  }
+  
+  .card.circle {
+    font-size: 28px;
+    background-color: #e6faff;
+    color: #006b85;
+  }
+  
+  .card.chart,
+  .card.bars {
+    background-color: #e6faff;
+  }
+  
+  .card.list {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  

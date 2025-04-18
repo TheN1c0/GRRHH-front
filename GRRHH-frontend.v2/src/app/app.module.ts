@@ -7,12 +7,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PortalDeAccesoComponent } from './pages/portal-de-acceso/portal-de-acceso.component';
 import { PortalComponent } from './pages/portal/portal.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InicioComponent } from './pages/inicio/inicio.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     PortalDeAccesoComponent,
-    PortalComponent
+    PortalComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
