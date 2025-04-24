@@ -1,0 +1,39 @@
+.header {
+    background-color: #fdf5f3;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 5px solid #002438;
+}
+
+/* Alinea ícono ☰ y título horizontalmente */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* espacio entre ícono y texto */
+}
+
+/* Título bien alineado y sin márgenes */
+.welcome-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Ícono hamburguesa */
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+/* Ícono del usuario a la derecha */
+.header .user-icon {
+    font-size: 28px;
+    margin-left: 10px;
+}

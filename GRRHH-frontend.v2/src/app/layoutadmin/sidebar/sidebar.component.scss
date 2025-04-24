@@ -1,0 +1,34 @@
+.sidebar {
+    background-color: #002438;
+    padding: 20px;
+    width: 220px;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #00f9d2;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar li {
+    padding: 15px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .sidebar li:hover {
+    background-color: #004d73;
+  }
+  
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  

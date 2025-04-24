@@ -1,27 +1,44 @@
-
 <div class="contentmain">
-    <div class="left">
-        <div class="logo">
-            <img src="logo.svg" alt="Logo Tigre" />
-            <h1>GGRRHH</h1>
-        </div>
-        <div class="image-container">
-            <img src="/images/banner_1x.jpg" srcset="/images/banner_1x.jpg 640w,
-                /images/banner_2x.jpg 1280w,
-                /images/banner_3x.jpg 1920w" sizes="(max-width: 768px) 100vw, 50vw"
-                alt="Imagen de fondo de sala moderna">
-
-        </div>
-        <div class="quienes-somos">
-            ¿Quienes somos?
-        </div>
-
+  <div class="left">
+    <div class="logo">
+      <img src="logo.svg" alt="Logo Tigre" />
+      <h1>GGRRHH</h1>
     </div>
-    <div class="right">
-        <div class="form-title">INICIO DE SESIÓN COLABORADOR</div>
-        <input type="text" placeholder="Correo" />
-        <input type="password" placeholder="Contraseña" />
-        <div class="registro-text">SI QUIERES SER PARTE DE ESTA EMPRESA:</div>
-        <button class="registro-btn">¡Haz click aquí!</button>
+    <div class="image-container">
+      <img
+        src="/images/banner_1x.jpg"
+        srcset="
+          /images/banner_1x.jpg  640w,
+          /images/banner_2x.jpg 1280w,
+          /images/banner_3x.jpg 1920w
+        "
+        sizes="(max-width: 768px) 100vw, 50vw"
+        alt="Imagen de fondo de sala moderna"
+      />
     </div>
+    <div class="quienes-somos">¿Quienes somos?</div>
+  </div>
+
+  <div class="right">
+    <div class="form-title">INICIO DE SESIÓN COLABORADOR</div>
+
+    <!-- Conexión con Angular -->
+    <input type="text" placeholder="Correo" [(ngModel)]="loginEmail" />
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="loginPassword"
+    />
+
+    <!-- Muestra error si lo hay -->
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <!-- Botón que llama a onLogin() -->
+    <button class="login-btn" (click)="onLogin()">Iniciar sesión</button>
+
+    <div class="registro-text">SI QUIERES SER PARTE DE ESTA EMPRESA:</div>
+    <button class="registro-btn" (click)="onRegister()">
+      ¡Haz click aquí!
+    </button>
+  </div>
 </div>

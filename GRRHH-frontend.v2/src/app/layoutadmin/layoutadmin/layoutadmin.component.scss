@@ -1,0 +1,77 @@
+/* Estilos globales (puedes ponerlos en styles.css si los usarás más) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.layout-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor principal que organiza sidebar y contenido */
+.contentmain {
+    display: flex;
+    flex: 1;
+    background-color: #003252;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar fijo */
+.layout-sidebar {
+    width: 220px;
+    background-color: #002438;
+    transition: width 0.3s ease, display 0.3s ease;
+}
+
+/* Contenedor del header y contenido */
+.layout-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+}
+
+/* Header */
+.layout-header {
+    height: 60px;
+    flex-shrink: 0;
+}
+
+/* Contenido del router-outlet (antes main-content) */
+.layout-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.layout-sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+    display: none;
+}
+
+
+.layout-main.expanded {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contentmain {
+        flex-direction: column;
+    }
+
+    .layout-sidebar {
+        width: 100%;
+    }
+
+    .layout-sidebar.collapsed {
+        display: none;
+    }
+}

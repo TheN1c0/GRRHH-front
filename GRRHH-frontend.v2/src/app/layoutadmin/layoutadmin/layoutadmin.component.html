@@ -1,0 +1,17 @@
+<div class="layout-wrapper">
+  <div class="contentmain">
+    <div class="layout-sidebar" [ngClass]="{ collapsed: !sidebarVisible }">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <div class="layout-main" [ngClass]="{ expanded: !sidebarVisible }">
+      <div class="layout-header">
+        <app-header (menuToggled)="toggleSidebar()"></app-header>
+      </div>
+
+      <div class="layout-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

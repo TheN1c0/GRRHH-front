@@ -4,13 +4,26 @@ import { PortalDeAccesoComponent } from './pages/portal-de-acceso/portal-de-acce
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PortalComponent } from './pages/portal/portal.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'portal', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  
   { path: 'portal', component: PortalComponent },
   { path: 'portal-de-acceso', component: PortalDeAccesoComponent },
   { path: 'inicio', component: InicioComponent },
+  {
+    path: '',
+    component: LayoutadminComponent, // contiene header y sidebar
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      // { path: 'nomina', component: NominaComponent },
+      // { path: 'reportes', component: ReportesComponent },
+    ]
+  },
+
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dashboard' }
 ];
 
 @NgModule({
