@@ -11,6 +11,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { HeaderComponent } from './layoutadmin/header/header.component';
 import { SidebarComponent } from './layoutadmin/sidebar/sidebar.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
+import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.comp
     InicioComponent,
     HeaderComponent,
     SidebarComponent,
-    LayoutadminComponent
+    LayoutadminComponent,
+    ColaboradoresComponent
   ],
   imports: [
     BrowserModule,

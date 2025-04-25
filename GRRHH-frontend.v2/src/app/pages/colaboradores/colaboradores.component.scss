@@ -1,0 +1,387 @@
+/* @import "bourbon@5.*"; */
+
+// Breakpoints
+$bp-maggie: 15em;
+$bp-lisa: 30em;
+$bp-bart: 48em;
+$bp-marge: 62em;
+$bp-homer: 75em;
+
+// Styles
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    /* font-family: $font-stack-system; */
+    color: rgba(0, 0, 0, .87);
+}
+
+a {
+    color: rgba(38, 137, 13, 1);
+
+    &:hover,
+    &:focus {
+        color: rgba(4, 106, 56, 1);
+    }
+}
+
+.container {
+    margin: 5% 3%;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (min-width: $bp-bart) {
+        margin: 2%;
+    }
+
+    @media (min-width: $bp-homer) {
+        margin: 2em auto;
+        max-width: $bp-homer;
+    }
+}
+
+.responsive-table td,
+.responsive-table th {
+    color: #222;
+    /* o el que prefieras */
+}
+
+.responsive-table {
+    width: 100%;
+    margin-bottom: 1.5em;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+
+    @media (min-width: $bp-bart) {
+        font-size: .9em;
+    }
+
+    @media (min-width: $bp-marge) {
+        font-size: 1em;
+    }
+
+    thead {
+        // Accessibly hide <thead> on narrow viewports
+        position: absolute;
+        clip: rect(1px 1px 1px 1px);
+        /* IE6, IE7 */
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+
+        @media (min-width: $bp-bart) {
+            // Unhide <thead> on wide viewports
+            position: relative;
+            clip: auto;
+            height: auto;
+            width: auto;
+            overflow: auto;
+        }
+
+        th {
+            background-color: #cceeff;
+            border: 1px solid #dddddd;
+            font-weight: normal;
+            text-align: center;
+            color: rgb(0, 0, 0);
+
+            &:first-of-type {
+                text-align: left;
+            }
+        }
+    }
+
+    // Set these items to display: block for narrow viewports
+    tbody,
+    tr,
+    th,
+    td {
+        display: block;
+        padding: 0;
+        text-align: left;
+        white-space: normal;
+    }
+
+    tr {
+        @media (min-width: $bp-bart) {
+            // Undo display: block 
+            display: table-row;
+        }
+    }
+
+    th,
+    td {
+        padding: .5em;
+        vertical-align: middle;
+
+        @media (min-width: $bp-lisa) {
+            padding: .75em .5em;
+        }
+
+        @media (min-width: $bp-bart) {
+            // Undo display: block 
+            display: table-cell;
+            padding: .5em;
+        }
+
+        @media (min-width: $bp-marge) {
+            padding: .75em .5em;
+        }
+
+        @media (min-width: $bp-homer) {
+            padding: .75em;
+        }
+    }
+
+    caption {
+        margin-bottom: 1em;
+        font-size: 1em;
+        font-weight: bold;
+        text-align: center;
+
+        @media (min-width: $bp-bart) {
+            font-size: 1.5em;
+        }
+    }
+
+    tfoot {
+        font-size: .8em;
+        font-style: italic;
+
+        @media (min-width: $bp-marge) {
+            font-size: .9em;
+        }
+    }
+
+    tbody {
+        @media (min-width: $bp-bart) {
+            // Undo display: block 
+            display: table-row-group;
+        }
+
+        tr {
+            margin-bottom: 1em;
+
+            @media (min-width: $bp-bart) {
+                // Undo display: block 
+                display: table-row;
+                border-width: 1px;
+            }
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            &:nth-of-type(even) {
+                @media (min-width: $bp-bart) {
+                    background-color: rgba(0, 0, 0, .12);
+                }
+            }
+        }
+
+        th[scope="row"] {
+            background-color: rgba(38, 137, 13, 1);
+            color: rgb(0, 0, 0);
+
+            @media (min-width: $bp-lisa) {
+                border-left: 1px solid rgba(134, 188, 37, 1);
+                border-bottom: 1px solid rgba(134, 188, 37, 1);
+            }
+
+            @media (min-width: $bp-bart) {
+                background-color: transparent;
+                color: rgba(0, 0, 0.87);
+                text-align: left;
+            }
+        }
+
+        td {
+            text-align: right;
+
+            @media (min-width: $bp-bart) {
+                border-left: 1px solid #dddddd;
+                border-bottom: 1px solid #dddddd;
+                text-align: center;
+            }
+
+            &:last-of-type {
+                @media (min-width: $bp-bart) {
+                    border-right: 1px solid #dddddd;
+                }
+            }
+        }
+
+        td[data-type=currency] {
+            text-align: right;
+        }
+
+        td[data-title]:before {
+            content: attr(data-title);
+            float: left;
+            font-size: .8em;
+            color: rgba(0, 0, 0, .54);
+
+            @media (min-width: $bp-lisa) {
+                font-size: .9em;
+            }
+
+            @media (min-width: $bp-bart) {
+                // Don’t show data-title labels 
+                content: none;
+            }
+        }
+    }
+
+}
+
+.barra-superior {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.btn-agregar {
+    background-color: #cceeff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-agregar:hover {
+    background-color: #4da2cc;
+}
+
+.barra-filtros {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.busqueda {
+    position: relative;
+}
+
+.busqueda input {
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.icono-buscar {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdown-filtro {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.foto-colaborador {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.activo {
+    color: green;
+    font-weight: bold;
+}
+
+.inactivo {
+    color: gray;
+    font-weight: bold;
+}
+
+.btn-editar {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-desvincular-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 2; // garantiza que quede sobre otras celdas
+}
+
+.btn-desvincular {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-desvincular:hover {
+    background-color: #d32f2f;
+    transform: scale(1.03);
+}
+
+.confirmacion {
+    position: absolute;
+    top: -3.5rem; // ahora se muestra arriba del botón
+    left: 0;
+    display: flex;
+    gap: 0.4rem;
+    opacity: 0;
+    pointer-events: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 0.4rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.btn-desvincular-wrapper.abierto .confirmacion {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.confirmar,
+.cancelar {
+    background-color: #eee;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.confirmar:hover {
+    background-color: #4caf50;
+    color: white;
+}
+
+.cancelar:hover {
+    background-color: #bdbdbd;
+}

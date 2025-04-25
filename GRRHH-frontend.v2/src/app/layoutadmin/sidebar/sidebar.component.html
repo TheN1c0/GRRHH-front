@@ -17,13 +17,30 @@
     </div>
     <h2>Dashboard</h2>
   </div>
-  <ul>
-    <li>🏠 Inicio</li>
-    <li>📄 Nómina</li>
-    <li>📊 Reportes</li>
-    <li>💼 Reclutamiento</li>
-    <li>🛠 Soporte</li>
-    <li>👁 Visualización</li>
-    <li>🔧 Ajustes</li>
+  <ul class="sidebar-menu">
+    <li routerLink="/dashboard" routerLinkActive="active">
+      <span>🏠</span> Inicio
+    </li>
+    <li routerLink="/colaboradores" routerLinkActive="active">
+      <span>🙋‍♂️</span> Colaboradores
+    </li>
+    <li routerLink="/nomina" routerLinkActive="active">
+      <span>📄</span> Nómina
+    </li>
+    <li routerLink="/reportes" routerLinkActive="active">
+      <span>📊</span> Reportes
+    </li>
+    <li routerLink="/reclutamiento" routerLinkActive="active">
+      <span>💼</span> Reclutamiento
+    </li>
+    <li routerLink="/soporte" routerLinkActive="active">
+      <span>🛠</span> Soporte
+    </li>
+    <li routerLink="/visualizacion" routerLinkActive="active">
+      <span>👁</span> Visualización
+    </li>
+    <li routerLink="/ajustes" routerLinkActive="active">
+      <span>🔧</span> Ajustes
+    </li>
   </ul>
 </aside>

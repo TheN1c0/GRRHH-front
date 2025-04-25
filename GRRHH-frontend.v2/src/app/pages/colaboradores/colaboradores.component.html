@@ -1,0 +1,79 @@
+<div class="container">
+  <!-- Barra superior interna -->
+  <div class="barra-superior">
+    <button class="btn-agregar">+ Agregar Colaborador</button>
+
+    <div class="barra-filtros">
+      <div class="busqueda">
+        <input type="text" placeholder="Buscar colaborador..." />
+        <span class="icono-buscar">🔍</span>
+      </div>
+
+      <select class="dropdown-filtro">
+        <option value="">Filtrar por...</option>
+        <option value="activo">Activos</option>
+        <option value="inactivo">Inactivos</option>
+        <option value="marketing">Marketing</option>
+        <option value="ti">TI</option>
+        <option value="rrhh">RRHH</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de colaboradores -->
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Nombre completo</th>
+        <th>Cargo</th>
+        <th>Área</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let colaborador of colaboradores">
+        <td>
+          <img [src]="colaborador.foto" alt="Foto" class="foto-colaborador" />
+        </td>
+        <td>{{ colaborador.nombre }}</td>
+        <td>{{ colaborador.cargo }}</td>
+        <td>{{ colaborador.area }}</td>
+        <td>
+          <span
+            [class.activo]="colaborador.estado === 'activo'"
+            [class.inactivo]="colaborador.estado === 'inactivo'"
+          >
+            {{ colaborador.estado }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-editar">Editar</button>
+
+          <div
+            class="btn-desvincular-wrapper"
+            [class.abierto]="colaborador.confirmar"
+          >
+            <button
+              class="btn-desvincular"
+              (click)="toggleConfirm(colaborador)"
+            >
+              <span *ngIf="!colaborador.confirmar">Desvincular</span>
+              <span *ngIf="colaborador.confirmar">¿Seguro?</span>
+            </button>
+
+            <div class="confirmacion">
+              <button (click)="desvincular(colaborador)" class="confirmar">
+                Sí
+              </button>
+              <button (click)="colaborador.confirmar = false" class="cancelar">
+                No
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
