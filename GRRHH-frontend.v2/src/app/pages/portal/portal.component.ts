@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-portal',
   templateUrl: './portal.component.html',
@@ -25,7 +26,7 @@ export class PortalComponent {
 
   onLogin() {
     this.errorMessage = ''; // Limpiar mensaje anterior
-
+    console.log(this.loginEmail, this.loginPassword);
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);

@@ -12,6 +12,9 @@ import { HeaderComponent } from './layoutadmin/header/header.component';
 import { SidebarComponent } from './layoutadmin/sidebar/sidebar.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
 import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.component';
+import { EmpleadoFormularioComponent } from './formularios/empleado-formulario/empleado-formulario.component';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,15 +25,17 @@ import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.comp
     HeaderComponent,
     SidebarComponent,
     LayoutadminComponent,
-    ColaboradoresComponent
+    ColaboradoresComponent,
+    EmpleadoFormularioComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

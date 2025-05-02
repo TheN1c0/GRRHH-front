@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoService, Empleado } from '../../services/empleado.service';
+import { EmpleadoFormularioComponent } from '../../formularios/empleado-formulario/empleado-formulario.component';
 
 @Component({
   selector: 'app-colaboradores',
@@ -46,5 +47,10 @@ export class ColaboradoresComponent implements OnInit {
       if (c !== colaborador) c.confirmar = false;
     });
     colaborador.confirmar = !colaborador.confirmar;
+  }
+  mostrarModalEmpleado = false;
+
+  refrescarEmpleados() {
+    // Aquí puedes volver a hacer GET a empleados si quieres actualizar la tabla
   }
 }

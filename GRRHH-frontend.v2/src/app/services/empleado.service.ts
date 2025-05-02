@@ -25,4 +25,19 @@ export class EmpleadoService {
   getEmpleados(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(this.apiUrl, { withCredentials: true });
   }
+
+  getCargos(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8000/personal/api/cargos/', {
+      withCredentials: true,
+    });
+  }
+  crearEmpleado(empleado: any): Observable<any> {
+    return this.http.post(
+      'http://localhost:8000/personal/api/empleados/',
+      empleado,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }

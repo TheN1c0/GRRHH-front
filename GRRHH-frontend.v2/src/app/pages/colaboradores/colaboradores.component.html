@@ -1,8 +1,15 @@
 <div class="container">
   <!-- Barra superior interna -->
   <div class="barra-superior">
-    <button class="btn-agregar">+ Agregar Colaborador</button>
-
+    <button class="btn-agregar" (click)="mostrarModalEmpleado = true">
+      + Agregar Colaborador
+    </button>
+    <app-empleado-formulario
+      [visible]="mostrarModalEmpleado"
+      (cerrar)="mostrarModalEmpleado = false"
+      (guardado)="refrescarEmpleados()"
+    >
+    </app-empleado-formulario>
     <div class="barra-filtros">
       <div class="busqueda">
         <input type="text" placeholder="Buscar colaborador..." />
