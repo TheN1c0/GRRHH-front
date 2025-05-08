@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmpleadoService } from '../../services/empleado.service'; // ajusta la ruta según tu estructura
 
@@ -7,11 +14,12 @@ import { EmpleadoService } from '../../services/empleado.service'; // ajusta la 
   templateUrl: './empleado-formulario.component.html',
   styleUrl: './empleado-formulario.component.scss',
 })
-export class EmpleadoFormularioComponent {
+export class EmpleadoFormularioComponent implements OnChanges {
   @Input() visible: boolean = false;
   @Output() cerrar = new EventEmitter<void>();
   @Output() guardado = new EventEmitter<void>();
-
+  @Input() modo: 'crear' | 'editar' = 'crear';
+  @Input() empleadoAEditar: any = null;
   nuevoEmpleado: any = {
     primer_nombre: '',
     otros_nombres: '',
@@ -41,18 +49,33 @@ export class EmpleadoFormularioComponent {
         console.error('Error al cargar cargos:', err);
       },
     });
+    if (this.modo === 'editar' && this.empleadoAEditar) {
+      this.nuevoEmpleado = { ...this.empleadoAEditar };
+    }
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Modo:', this.modo);
+    console.log('Empleado recibido:', this.empleadoAEditar);
+
+    if (
+      changes['empleadoAEditar'] &&
+      this.modo === 'editar' &&
+      this.empleadoAEditar
+    ) {
+      console.log('Empleado recibido:', this.empleadoAEditar);
+      this.nuevoEmpleado = { ...this.empleadoAEditar }; // Copia los datos al modelo del formulario
+    }
   }
 
   guardar() {
-    this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe({
-      next: () => {
-        this.guardado.emit();
-        this.cerrar.emit();
-      },
-      error: (err) => {
-        console.error('Error al guardar empleado:', err);
-      },
-    });
+    if (this.modo === 'crear') {
+      // Lógica para agregar colaborador
+    } else if (this.modo === 'editar') {
+      // Lógica para actualizar colaborador
+    }
+
+    this.cerrar.emit(); // Cierra el modal
+    this.guardado.emit(); // Notifica al padre para refrescar la tabla
   }
 
   cancelar() {

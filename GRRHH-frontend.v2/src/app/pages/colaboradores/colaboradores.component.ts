@@ -9,21 +9,15 @@ import { EmpleadoFormularioComponent } from '../../formularios/empleado-formular
 })
 export class ColaboradoresComponent implements OnInit {
   colaboradores: any[] = [];
-
+  mostrarModalEmpleado = false;
+  modoFormulario: 'crear' | 'editar' = 'crear';
+  colaboradorSeleccionado: any = null;
   constructor(private empleadoService: EmpleadoService) {}
 
   ngOnInit(): void {
     this.empleadoService.getEmpleados().subscribe({
       next: (data) => {
-        // Adaptamos los datos a tu tabla
-        this.colaboradores = data.map((empleado) => ({
-          foto: 'https://via.placeholder.com/40', // foto temporal
-          nombre: empleado.nombre_usuario,
-          cargo: empleado.nombre_cargo,
-          area: empleado.nombre_departamento,
-          estado: 'activo', // Por ahora todos activos. Luego puedes mapear de verdad.
-          confirmar: false,
-        }));
+        this.colaboradores = data; // ✅ Guardamos todos los datos del backend
       },
       error: (error) => {
         console.error('Error al cargar empleados:', error);
@@ -48,9 +42,21 @@ export class ColaboradoresComponent implements OnInit {
     });
     colaborador.confirmar = !colaborador.confirmar;
   }
-  mostrarModalEmpleado = false;
 
   refrescarEmpleados() {
     // Aquí puedes volver a hacer GET a empleados si quieres actualizar la tabla
+  }
+
+  abrirModalCrear() {
+    this.modoFormulario = 'crear';
+    this.colaboradorSeleccionado = null;
+    this.mostrarModalEmpleado = true;
+  }
+
+  abrirModalEditar(colaborador: any) {
+    this.modoFormulario = 'editar';
+    this.colaboradorSeleccionado = colaborador;
+    console.log(this.colaboradorSeleccionado);
+    this.mostrarModalEmpleado = true;
   }
 }

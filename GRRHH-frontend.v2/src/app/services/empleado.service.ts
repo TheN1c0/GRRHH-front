@@ -11,6 +11,8 @@ export interface Empleado {
   nombre_usuario: string;
   nombre_cargo: string;
   nombre_departamento: string;
+  primer_nombre: string;
+  apellido_paterno: string;
 }
 
 @Injectable({
@@ -24,6 +26,11 @@ export class EmpleadoService {
 
   getEmpleados(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(this.apiUrl, { withCredentials: true });
+  }
+  updateEmpleado(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}${id}/`, data, {
+      withCredentials: true,
+    });
   }
 
   getCargos(): Observable<any[]> {

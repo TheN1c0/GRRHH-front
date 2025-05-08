@@ -64,7 +64,9 @@
       </select>
 
       <div class="modal-buttons">
-        <button type="submit">Guardar</button>
+        <button type="submit">
+          {{ modo === "editar" ? "Actualizar" : "Guardar" }}
+        </button>
         <button type="button" (click)="cancelar()">Cancelar</button>
       </div>
     </form>

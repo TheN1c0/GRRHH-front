@@ -14,6 +14,12 @@ import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.comp
 import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.component';
 import { EmpleadoFormularioComponent } from './formularios/empleado-formulario/empleado-formulario.component';
 import { RouterModule } from '@angular/router';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import { tokenRefreshInterceptor } from './auth/token-refresh.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [provideHttpClient(withInterceptors([tokenRefreshInterceptor]))],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

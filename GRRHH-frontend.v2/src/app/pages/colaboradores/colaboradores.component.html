@@ -1,15 +1,17 @@
 <div class="container">
   <!-- Barra superior interna -->
   <div class="barra-superior">
-    <button class="btn-agregar" (click)="mostrarModalEmpleado = true">
+    <button class="btn-agregar" (click)="abrirModalCrear()">
       + Agregar Colaborador
     </button>
     <app-empleado-formulario
       [visible]="mostrarModalEmpleado"
+      [modo]="modoFormulario"
+      [empleadoAEditar]="colaboradorSeleccionado"
       (cerrar)="mostrarModalEmpleado = false"
       (guardado)="refrescarEmpleados()"
-    >
-    </app-empleado-formulario>
+    ></app-empleado-formulario>
+
     <div class="barra-filtros">
       <div class="busqueda">
         <input type="text" placeholder="Buscar colaborador..." />
@@ -44,9 +46,10 @@
         <td>
           <img [src]="colaborador.foto" alt="Foto" class="foto-colaborador" />
         </td>
-        <td>{{ colaborador.nombre }}</td>
-        <td>{{ colaborador.cargo }}</td>
-        <td>{{ colaborador.area }}</td>
+        <td>{{ colaborador.nombre_usuario }}</td>
+        <td>{{ colaborador.nombre_cargo }}</td>
+        <td>{{ colaborador.nombre_departamento }}</td>
+        <td>{{ colaborador.estado }}</td>
         <td>
           <span
             [class.activo]="colaborador.estado === 'activo'"
@@ -56,7 +59,9 @@
           </span>
         </td>
         <td>
-          <button class="btn-editar">Editar</button>
+          <button class="btn-editar" (click)="abrirModalEditar(colaborador)">
+            Editar
+          </button>
 
           <div
             class="btn-desvincular-wrapper"
