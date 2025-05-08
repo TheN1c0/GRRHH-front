@@ -19,7 +19,7 @@ import {
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
-import { tokenRefreshInterceptor } from './auth/token-refresh.interceptor';
+import { TokenRefreshInterceptor } from './auth/token-refresh.interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,13 @@ import { tokenRefreshInterceptor } from './auth/token-refresh.interceptor';
     HttpClientModule,
     RouterModule,
   ],
-  providers: [provideHttpClient(withInterceptors([tokenRefreshInterceptor]))],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenRefreshInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

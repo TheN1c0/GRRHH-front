@@ -1,41 +1,50 @@
 import {
-  HttpInterceptorFn,
-  HttpHandlerFn,
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
   HttpRequest,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Observable, throwError, switchMap, catchError } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { catchError, switchMap, throwError, of } from 'rxjs';
 
-export const tokenRefreshInterceptor: HttpInterceptorFn = (
-  req,
-  next: HttpHandlerFn
-) => {
-  const http = inject(HttpClient);
-  const router = inject(Router);
+@Injectable()
+export class TokenRefreshInterceptor implements HttpInterceptor {
+  private isRefreshing = false;
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        // Intentamos refrescar token
-        return http
-          .post('/auth/api/refresh/', {}, { withCredentials: true })
-          .pipe(
-            switchMap(() => {
-              // Reintentamos la petición original
-              return next(req);
-            }),
-            catchError(() => {
-              // Si falla, redirigimos a login
-              router.navigate(['/login']);
-              return throwError(() => error);
-            })
-          );
-      }
+  constructor(private http: HttpClient, private router: Router) {}
 
-      return throwError(() => error);
-    })
-  );
-};
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401 && !this.isRefreshing) {
+          this.isRefreshing = true;
+
+          return this.http
+            .post(
+              'http://localhost:8000/auth/api/refresh/',
+              {},
+              { withCredentials: true }
+            )
+            .pipe(
+              switchMap(() => {
+                this.isRefreshing = false;
+                return next.handle(req);
+              }),
+              catchError((refreshError) => {
+                this.isRefreshing = false;
+                this.router.navigate(['/portal']);
+                return throwError(() => refreshError);
+              })
+            );
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+}
