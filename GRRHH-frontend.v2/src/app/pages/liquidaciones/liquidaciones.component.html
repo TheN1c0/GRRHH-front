@@ -1,0 +1,125 @@
+<!-- generar-liquidacion.component.html -->
+<div class="container p-4">
+  <h2>Generar Liquidación</h2>
+
+  <form (ngSubmit)="generarLiquidacion()" #formulario="ngForm">
+    <div class="form-group">
+      <label>Contrato ID</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="form.contrato_id"
+        name="contrato_id"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Periodo Inicio</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="form.periodo_inicio"
+        name="periodo_inicio"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Periodo Término</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="form.periodo_termino"
+        name="periodo_termino"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de Gratificación</label>
+      <select
+        class="form-control"
+        [(ngModel)]="form.gratificacion_tipo"
+        name="gratificacion_tipo"
+        required
+      >
+        <option value="legal">Legal</option>
+        <option value="pactada">Pactada</option>
+      </select>
+    </div>
+
+    <hr />
+    <h4>Haberes</h4>
+    <div *ngFor="let haber of form.haberes; let i = index" class="mb-2">
+      <input
+        class="form-control mb-1"
+        placeholder="Nombre"
+        [(ngModel)]="haber.nombre"
+        name="haber_nombre_{{ i }}"
+      />
+      <select
+        class="form-control mb-1"
+        [(ngModel)]="haber.tipo"
+        name="haber_tipo_{{ i }}"
+      >
+        <option value="imponible">Imponible</option>
+        <option value="no_imponible">No Imponible</option>
+      </select>
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Monto"
+        [(ngModel)]="haber.monto"
+        name="haber_monto_{{ i }}"
+      />
+    </div>
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      (click)="agregarHaber()"
+    >
+      + Agregar Haber
+    </button>
+
+    <hr />
+    <h4>Descuentos</h4>
+    <div *ngFor="let desc of form.descuentos; let j = index" class="mb-2">
+      <input
+        class="form-control mb-1"
+        placeholder="Tipo"
+        [(ngModel)]="desc.tipo"
+        name="desc_tipo_{{ j }}"
+      />
+      <input
+        type="number"
+        class="form-control mb-1"
+        placeholder="Monto"
+        [(ngModel)]="desc.monto"
+        name="desc_monto_{{ j }}"
+      />
+      <input
+        class="form-control"
+        placeholder="Descripción"
+        [(ngModel)]="desc.descripcion"
+        name="desc_desc_{{ j }}"
+      />
+    </div>
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      (click)="agregarDescuento()"
+    >
+      + Agregar Descuento
+    </button>
+
+    <hr />
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!formulario.valid"
+    >
+      Generar Liquidación
+    </button>
+  </form>
+</div>

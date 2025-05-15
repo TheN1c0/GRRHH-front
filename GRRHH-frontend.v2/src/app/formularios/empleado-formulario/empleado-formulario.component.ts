@@ -53,10 +53,21 @@ export class EmpleadoFormularioComponent implements OnChanges {
       this.nuevoEmpleado = { ...this.empleadoAEditar };
     }
   }
+
   ngOnChanges(changes: SimpleChanges) {
     console.log('Modo:', this.modo);
     console.log('Empleado recibido:', this.empleadoAEditar);
-
+    if (this.modo === 'crear') {
+      // Reinicia los campos
+      this.nuevoEmpleado = {
+        nombre: '',
+        cargo: '',
+        area: '',
+        telefono: '',
+        rut: '',
+        estado: 'activo',
+      };
+    }
     if (
       changes['empleadoAEditar'] &&
       this.modo === 'editar' &&
@@ -69,13 +80,29 @@ export class EmpleadoFormularioComponent implements OnChanges {
 
   guardar() {
     if (this.modo === 'crear') {
-      // Lógica para agregar colaborador
+      this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe({
+        next: () => {
+          this.cerrar.emit(); // Cierra modal
+          this.guardado.emit(); // Actualiza tabla
+        },
+        error: (err) => {
+          console.error('Error al crear empleado:', err);
+          // Aquí podrías mostrar un error al usuario
+        },
+      });
     } else if (this.modo === 'editar') {
-      // Lógica para actualizar colaborador
+      this.empleadoService
+        .updateEmpleado(this.nuevoEmpleado.id, this.nuevoEmpleado)
+        .subscribe({
+          next: () => {
+            this.cerrar.emit();
+            this.guardado.emit();
+          },
+          error: (err) => {
+            console.error('Error al actualizar empleado:', err);
+          },
+        });
     }
-
-    this.cerrar.emit(); // Cierra el modal
-    this.guardado.emit(); // Notifica al padre para refrescar la tabla
   }
 
   cancelar() {

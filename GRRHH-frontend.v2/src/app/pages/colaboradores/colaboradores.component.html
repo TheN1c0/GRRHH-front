@@ -46,7 +46,10 @@
         <td>
           <img [src]="colaborador.foto" alt="Foto" class="foto-colaborador" />
         </td>
-        <td>{{ colaborador.nombre_usuario }}</td>
+        <td>
+          {{ colaborador.primer_nombre }} {{ colaborador.otros_nombres }}
+          {{ colaborador.apellido_paterno }} {{ colaborador.apellido_materno }}
+        </td>
         <td>{{ colaborador.nombre_cargo }}</td>
         <td>{{ colaborador.nombre_departamento }}</td>
         <td>{{ colaborador.estado }}</td>

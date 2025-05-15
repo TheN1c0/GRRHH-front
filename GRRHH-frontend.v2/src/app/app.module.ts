@@ -20,6 +20,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { TokenRefreshInterceptor } from './auth/token-refresh.interceptor';
+import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TokenRefreshInterceptor } from './auth/token-refresh.interceptor';
     LayoutadminComponent,
     ColaboradoresComponent,
     EmpleadoFormularioComponent,
+    LiquidacionesComponent,
   ],
   imports: [
     BrowserModule,
