@@ -17,7 +17,15 @@ export class LiquidacionesComponent {
   };
 
   constructor(private http: HttpClient) {}
+  contratos: any[] = [];
 
+  ngOnInit() {
+    this.http
+      .get(`${environment.apiUrl}personal/api/contratos/`)
+      .subscribe((res: any) => {
+        this.contratos = res;
+      });
+  }
   agregarHaber() {
     this.form.haberes.push({ nombre: '', tipo: 'imponible', monto: 0 });
   }
@@ -27,14 +35,25 @@ export class LiquidacionesComponent {
   }
 
   generarLiquidacion() {
+    console.log('Formulario enviado:', this.form);
+    this.form.contrato_id = Number(this.form.contrato_id);
+
     this.http
       .post(
         `${environment.apiUrl}personal/api/liquidaciones/generar/`,
-        this.form
+        this.form,
+        {
+          responseType: 'blob',
+        }
       )
       .subscribe({
-        next: (res: any) => {
-          alert('Liquidación generada con ID: ' + res.id);
+        next: (blob: Blob) => {
+          const a = document.createElement('a');
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = 'liquidacion.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
         },
         error: (err) => {
           console.error(err);

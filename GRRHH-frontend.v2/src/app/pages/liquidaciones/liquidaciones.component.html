@@ -4,16 +4,18 @@
 
   <form (ngSubmit)="generarLiquidacion()" #formulario="ngForm">
     <div class="form-group">
-      <label>Contrato ID</label>
-      <input
-        type="number"
+      <label for="contrato_id">Seleccionar Trabajador</label>
+      <select
         class="form-control"
         [(ngModel)]="form.contrato_id"
         name="contrato_id"
         required
-      />
+      >
+        <option *ngFor="let c of contratos" [value]="c.id">
+          {{ c.nombre_empleado }} - {{ c.cargo }}
+        </option>
+      </select>
     </div>
-
     <div class="form-group">
       <label>Periodo Inicio</label>
       <input
