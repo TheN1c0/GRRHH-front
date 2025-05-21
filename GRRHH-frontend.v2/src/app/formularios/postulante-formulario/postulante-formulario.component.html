@@ -1,0 +1,36 @@
+<form
+  [formGroup]="formulario"
+  (ngSubmit)="enviarFormulario()"
+  enctype="multipart/form-data"
+  class="formulario"
+>
+  <label>Primer nombre:</label>
+  <input formControlName="primer_nombre" type="text" />
+
+  <label>Apellido paterno:</label>
+  <input formControlName="apellido_paterno" type="text" />
+
+  <label>Apellido materno:</label>
+  <input formControlName="apellido_materno" type="text" />
+
+  <label>Correo:</label>
+  <input formControlName="email" type="email" />
+
+  <label>Teléfono:</label>
+  <input formControlName="telefono" type="text" />
+
+  <label>Dirección:</label>
+  <input formControlName="direccion" type="text" />
+
+  <label>Cargo postulado:</label>
+  <select formControlName="cargo_postulado">
+    <option *ngFor="let cargo of cargos" [value]="cargo.id">
+      {{ cargo.nombre }}
+    </option>
+  </select>
+
+  <label>Curriculum (PDF):</label>
+  <input type="file" (change)="seleccionarArchivo($event)" />
+
+  <button type="submit">Enviar</button>
+</form>

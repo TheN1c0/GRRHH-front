@@ -14,6 +14,7 @@ import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.comp
 import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.component';
 import { EmpleadoFormularioComponent } from './formularios/empleado-formulario/empleado-formulario.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
@@ -22,6 +23,10 @@ import {
 import { TokenRefreshInterceptor } from './auth/token-refresh.interceptor';
 import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { PostulanteFormularioComponent } from './formularios/postulante-formulario/postulante-formulario.component';
+import { ReclutamientoComponent } from './pages/reclutamiento/reclutamiento.component';
+import { PostulanteListadoComponent } from './pages/reclutamiento/postulante-listado/postulante-listado.component';
+import { PostulanteContratarComponent } from './pages/reclutamiento/postulante-contratar/postulante-contratar.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,10 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
     EmpleadoFormularioComponent,
     LiquidacionesComponent,
     ReportesComponent,
+    PostulanteFormularioComponent,
+    ReclutamientoComponent,
+    PostulanteListadoComponent,
+    PostulanteContratarComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +53,7 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
     FormsModule,
     HttpClientModule,
     RouterModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

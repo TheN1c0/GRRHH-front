@@ -1,0 +1,49 @@
+<div class="filtros">
+  <select [(ngModel)]="filtroCargo">
+    <option value="">Todos los cargos</option>
+    <option *ngFor="let cargo of cargos" [value]="cargo.id">
+      {{ cargo.nombre }}
+    </option>
+  </select>
+
+  <select [(ngModel)]="filtroEstado">
+    <option value="">Todos los estados</option>
+    <option value="postulado">Postulado</option>
+    <option value="entrevista">Entrevista</option>
+    <option value="evaluacion">Evaluación</option>
+    <option value="seleccionado">Seleccionado</option>
+    <option value="descartado">Descartado</option>
+  </select>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Cargo</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Etiquetas</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of filtrar()">
+      <td>{{ p.primer_nombre }} {{ p.apellido_paterno }}</td>
+      <td>{{ p.email }}</td>
+      <td>{{ p.cargo_postulado }}</td>
+      <td>{{ p.estado }}</td>
+      <td>{{ p.fecha_postulacion | date }}</td>
+      <td>
+        <span *ngFor="let etiqueta of p.etiquetas" class="etiqueta">
+          {{ etiqueta.nombre }}
+        </span>
+      </td>
+      <td>
+        <button>👁️</button>
+        <button>✅</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
