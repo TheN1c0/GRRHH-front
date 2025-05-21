@@ -1,0 +1,32 @@
+<!-- MODO EXPANDIDO -->
+<div *ngIf="tarjetaActiva" class="tarjeta-expandida">
+  <button class="btn-cerrar" (click)="cerrarDetalle()">✖ Cerrar</button>
+  <h2>{{ tarjetaActiva.titulo }}</h2>
+
+  <p class="valor-expandido" *ngIf="tarjetaActiva.tipo === 'porcentaje'">
+    🔵 {{ tarjetaActiva.valor }}%
+  </p>
+  <p class="valor-expandido" *ngIf="tarjetaActiva.tipo === 'clp'">
+    {{ tarjetaActiva.valor | currency : "CLP" }}
+  </p>
+  <p class="valor-expandido" *ngIf="tarjetaActiva.tipo === 'numero'">
+    {{ tarjetaActiva.valor }}
+  </p>
+
+  <p class="detalle-expandido">{{ tarjetaActiva.detalle }}</p>
+</div>
+
+<!-- MODO NORMAL -->
+<div class="grid-reporte" *ngIf="!tarjetaActiva">
+  <div class="tarjeta" *ngFor="let t of tarjetas" (click)="expandirTarjeta(t)">
+    <p class="titulo">{{ t.titulo }}</p>
+
+    <p class="valor" *ngIf="t.tipo === 'porcentaje'">🔵 {{ t.valor }}%</p>
+    <p class="valor" *ngIf="t.tipo === 'clp'">
+      {{ t.valor | currency : "CLP" }}
+    </p>
+    <p class="valor" *ngIf="t.tipo === 'numero'">
+      {{ t.valor }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.grid-reporte {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    background-color: #002b49;
+    margin-top: 20%;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    color: #212121;
+    border: 1px solid #e0e0e0;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.titulo {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.valor {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00796b;
+    margin: 0.5rem 0;
+}
+
+/* TARJETA EXPANDIDA */
+.tarjeta-expandida {
+    background: linear-gradient(135deg, #00bfa5, #0097a7);
+    color: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valor-expandido {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 1.2rem 0;
+    text-align: center;
+}
+
+.detalle-expandido {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.btn-cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #ffffff;
+    border: none;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    color: #00796b;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.2s ease;
+}
+
+.btn-cerrar:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 600px) {
+
+    .valor,
+    .valor-expandido {
+        font-size: 1.3rem;
+    }
+
+    .titulo {
+        font-size: 1rem;
+    }
+
+    .btn-cerrar {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .detalle-expandido {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+}

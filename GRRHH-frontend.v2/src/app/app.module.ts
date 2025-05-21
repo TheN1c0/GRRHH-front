@@ -21,6 +21,7 @@ import {
 } from '@angular/common/http';
 import { TokenRefreshInterceptor } from './auth/token-refresh.interceptor';
 import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.comp
     ColaboradoresComponent,
     EmpleadoFormularioComponent,
     LiquidacionesComponent,
+    ReportesComponent,
   ],
   imports: [
     BrowserModule,

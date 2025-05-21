@@ -5,6 +5,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PortalComponent } from './pages/portal/portal.component';
 import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.component';
 import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
 
@@ -20,6 +22,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'colaboradores', component: ColaboradoresComponent },
       { path: 'liquidaciones', component: LiquidacionesComponent },
+      { path: 'reportes', component: ReportesComponent },
       // { path: 'reportes', component: ReportesComponent },
     ],
   },
