@@ -26,8 +26,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
 import { PostulanteFormularioComponent } from './formularios/postulante-formulario/postulante-formulario.component';
 import { ReclutamientoComponent } from './pages/reclutamiento/reclutamiento.component';
 import { PostulanteListadoComponent } from './pages/reclutamiento/postulante-listado/postulante-listado.component';
-import { PostulanteContratarComponent } from './pages/reclutamiento/postulante-contratar/postulante-contratar.component';
-
+import { CommonModule } from '@angular/common';
+import { PostulanteContratarComponent } from './formularios/postulante-contratar/postulante-contratar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +54,7 @@ import { PostulanteContratarComponent } from './pages/reclutamiento/postulante-c
     HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [
     {

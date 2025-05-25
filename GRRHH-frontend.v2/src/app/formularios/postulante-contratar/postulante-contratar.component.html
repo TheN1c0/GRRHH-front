@@ -1,0 +1,85 @@
+<h2>Contratar a Postulante</h2>
+
+<form [formGroup]="formulario" (ngSubmit)="contratar()">
+    <!-- 📋 Datos del Postulante -->
+    <fieldset>
+        <legend>Datos Personales</legend>
+
+        <label>RUT:</label>
+        <input formControlName="rut" />
+
+        <label>Primer Nombre:</label>
+        <input formControlName="primer_nombre" />
+
+        <label>Otros Nombres:</label>
+        <input formControlName="otros_nombres" />
+
+        <label>Apellido Paterno:</label>
+        <input formControlName="apellido_paterno" />
+
+        <label>Apellido Materno:</label>
+        <input formControlName="apellido_materno" />
+
+        <label>Correo:</label>
+        <input type="email" formControlName="correo" />
+
+        <label>Teléfono:</label>
+        <input formControlName="telefono" />
+
+        <label>Dirección:</label>
+        <input formControlName="direccion" />
+    </fieldset>
+
+    <!-- 💼 Contratación -->
+    <fieldset>
+        <legend>Información de Contrato</legend>
+
+        <label>Cargo:</label>
+        <select formControlName="cargo_postulado">
+            <option *ngFor="let cargo of cargos" [value]="cargo.id">
+                {{ cargo.nombre }}
+            </option>
+        </select>
+
+        <label>Tipo de Contrato:</label>
+        <input formControlName="tipo_contrato" />
+
+        <label>Fecha Inicio:</label>
+        <input type="date" formControlName="fecha_inicio" />
+
+        <label>Fecha Fin:</label>
+        <input type="date" formControlName="fecha_fin" />
+
+        <label>Sueldo Base:</label>
+        <input type="number" formControlName="sueldo_base" />
+    </fieldset>
+
+    <!-- 🏥 Previsión -->
+    <fieldset>
+        <legend>Datos Previsionales</legend>
+
+        <label>AFP:</label>
+        <select formControlName="afp">
+            <option *ngFor="let afp of afps" [value]="afp.id">
+                {{ afp.nombre }}
+            </option>
+        </select>
+
+        <label>Salud:</label>
+        <select formControlName="salud">
+            <option *ngFor="let salud of saludOpciones" [value]="salud.id">
+                {{ salud.tipo === 'FONASA' ? 'Fonasa' : 'Isapre: ' + salud.nombre }}
+            </option>
+        </select>
+
+        <label>Seguro Cesantía:</label>
+        <select formControlName="seguro_cesantia">
+            <option *ngFor="let seguro of segurosCesantia" [value]="seguro.id">
+                {{ seguro.nombre }}
+            </option>
+        </select>
+    </fieldset>
+
+    <!-- ✔️ Botón Final -->
+    <button type="submit">✅ Confirmar Contratación</button>
+</form>

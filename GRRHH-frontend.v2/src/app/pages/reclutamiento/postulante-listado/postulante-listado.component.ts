@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { EmpleadoService, Empleado } from '../../../services/empleado.service';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-postulante-listado',
   templateUrl: './postulante-listado.component.html',
@@ -11,12 +12,19 @@ export class PostulanteListadoComponent implements OnInit {
   cargos: any[] = [];
   filtroCargo = '';
   filtroEstado = '';
-
-  constructor(private http: HttpClient) {}
+  postulanteSeleccionado: any = null;
+  constructor(
+    private http: HttpClient,
+    private empleadoService: EmpleadoService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerPostulantes();
     this.obtenerCargos();
+  }
+
+  verPostulante(p: any) {
+    this.postulanteSeleccionado = p;
   }
 
   obtenerPostulantes() {
@@ -25,15 +33,24 @@ export class PostulanteListadoComponent implements OnInit {
     });
 
     this.http
-      .get<any[]>('/personal/api/postulantes/', { headers })
-      .subscribe((data) => {
-        this.postulantes = data;
+      .get<any[]>(`${environment.apiUrl}/personal/api/postulantes/`, {
+        headers,
+        withCredentials: true,
+      })
+      .subscribe({
+        next: (data) => {
+          this.postulantes = data;
+        },
+        error: (err) => {
+          console.error('❌ Error al obtener postulantes:', err);
+        },
       });
   }
 
   obtenerCargos() {
-    this.http.get<any[]>('/personal/api/cargos/').subscribe((data) => {
-      this.cargos = data;
+    this.empleadoService.getCargos().subscribe({
+      next: (data) => (this.cargos = data),
+      error: (err) => console.error('Error al cargar cargos', err),
     });
   }
 

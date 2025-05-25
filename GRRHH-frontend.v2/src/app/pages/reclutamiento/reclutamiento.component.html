@@ -1,15 +1,10 @@
 <div class="grid-reclutamiento">
   <div class="tarjeta" (click)="modo = 'formulario'">📤 Agregar Postulante</div>
   <div class="tarjeta" (click)="modo = 'listado'">📋 Ver Postulantes</div>
-  <div class="tarjeta" (click)="modo = 'contratar'">✅ Contratar</div>
 </div>
 
 <div class="contenedor-contenido">
-  <app-postulante-formulario
-    *ngIf="modo === 'formulario'"
-  ></app-postulante-formulario>
+  <app-postulante-formulario *ngIf="modo === 'formulario'"></app-postulante-formulario>
   <app-postulante-listado *ngIf="modo === 'listado'"></app-postulante-listado>
-  <app-postulante-contratar
-    *ngIf="modo === 'contratar'"
-  ></app-postulante-contratar>
+  <!-- <app-postulante-contratar *ngIf="modo === 'contratar'"></app-postulante-contratar> -->
 </div>

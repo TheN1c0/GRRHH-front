@@ -45,5 +45,8 @@
         <button>✅</button>
       </td>
     </tr>
+    <!-- Mostrar el formulario de contratación -->
+    <app-postulante-contratar *ngIf="postulanteSeleccionado"
+      [postulante]="postulanteSeleccionado"></app-postulante-contratar>
   </tbody>
 </table>
