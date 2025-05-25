@@ -1,9 +1,4 @@
-<form
-  [formGroup]="formulario"
-  (ngSubmit)="enviarFormulario()"
-  enctype="multipart/form-data"
-  class="formulario"
->
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" enctype="multipart/form-data" class="formulario">
   <label>Primer nombre:</label>
   <input formControlName="primer_nombre" type="text" />
 
@@ -14,7 +9,7 @@
   <input formControlName="apellido_materno" type="text" />
 
   <label>Correo:</label>
-  <input formControlName="email" type="email" />
+  <input formControlName="correo" type="email" />
 
   <label>Teléfono:</label>
   <input formControlName="telefono" type="text" />
