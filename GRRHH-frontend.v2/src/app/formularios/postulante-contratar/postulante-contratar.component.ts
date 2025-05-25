@@ -13,7 +13,7 @@ export class PostulanteContratarComponent implements OnInit {
   afps: any[] = [];
   saludOpciones: any[] = [];
   segurosCesantia: any[] = [];
-
+  cargos: any[] = [];
   constructor(
     private fb: FormBuilder,
     private previsionService: PrevisionService,
@@ -21,6 +21,10 @@ export class PostulanteContratarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.empleadoService.getCargos().subscribe({
+      next: (data) => (this.cargos = data),
+      error: (err) => console.error('Error al cargar cargos', err),
+    });
     this.previsionService.getAfps().subscribe((data) => (this.afps = data));
     this.previsionService
       .getSalud()
@@ -62,5 +66,45 @@ export class PostulanteContratarComponent implements OnInit {
         cargo_postulado: this.postulante.cargo_postulado?.id,
       });
     }
+  }
+
+  contratar() {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+
+    const form = this.formulario.value;
+
+    const payload = {
+      empleado: {
+        rut: form.rut,
+        primer_nombre: form.primer_nombre,
+        otros_nombres: form.otros_nombres,
+        apellido_paterno: form.apellido_paterno,
+        apellido_materno: form.apellido_materno,
+        correo: form.correo,
+        telefono: form.telefono,
+        direccion: form.direccion,
+        cargo: form.cargo_postulado,
+        empleador: 1, // por ahora fijo, si tienes uno predeterminado
+      },
+      contrato: {
+        tipo_contrato: form.tipo_contrato,
+        fecha_inicio: form.fecha_inicio,
+        fecha_fin: form.fecha_fin,
+        sueldo_base: form.sueldo_base,
+      },
+      prevision: {
+        afp: form.afp,
+        salud: form.salud,
+        seguro_cesantia: form.seguro_cesantia,
+      },
+    };
+
+    this.empleadoService.crearConjuntoContratacion(payload).subscribe({
+      next: () => alert('✅ Empleado contratado con éxito'),
+      error: (err) => console.error('❌ Error al contratar:', err),
+    });
   }
 }

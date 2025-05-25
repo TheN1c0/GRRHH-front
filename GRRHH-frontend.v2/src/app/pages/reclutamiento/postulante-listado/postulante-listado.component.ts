@@ -61,4 +61,8 @@ export class PostulanteListadoComponent implements OnInit {
         (this.filtroEstado === '' || p.estado === this.filtroEstado)
     );
   }
+
+  contratarPostulante(p: any) {
+    this.postulanteSeleccionado = p;
+  }
 }

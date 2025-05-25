@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 export interface Empleado {
   id: number;
   rut: string;
@@ -42,6 +42,16 @@ export class EmpleadoService {
     return this.http.post(
       'http://localhost:8000/personal/api/empleados/',
       empleado,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  crearConjuntoContratacion(payload: any): Observable<any> {
+    return this.http.post(
+      `${environment.apiUrl}/personal/api/contratar/`,
+      payload,
       {
         withCredentials: true,
       }
