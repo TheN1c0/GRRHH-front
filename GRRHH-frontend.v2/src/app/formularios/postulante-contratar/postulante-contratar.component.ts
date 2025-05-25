@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrevisionService } from '../../services/prevision.service';
-
+import { EmpleadoService } from 'app/services/empleado.service';
 @Component({
   selector: 'app-postulante-contratar',
   templateUrl: './postulante-contratar.component.html',
@@ -16,7 +16,8 @@ export class PostulanteContratarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private previsionService: PrevisionService
+    private previsionService: PrevisionService,
+    private empleadoService: EmpleadoService
   ) {}
 
   ngOnInit(): void {
