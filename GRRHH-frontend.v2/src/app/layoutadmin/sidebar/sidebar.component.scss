@@ -54,3 +54,37 @@
 .label {
   flex: 1;
 }
+
+.submenu {
+  padding-left: 2rem;
+  /* mayor indentación visual */
+  margin-top: -0.5rem;
+}
+
+.submenu li {
+  font-size: 0.85rem;
+  padding: 0.4rem 0;
+  color: #bfbfbf;
+  transition: all 0.2s;
+  padding-left: 3rem;
+}
+
+.submenu li:hover {
+  color: white;
+}
+
+.has-submenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.arrow {
+  transition: transform 0.2s;
+  font-size: 0.8rem;
+}
+
+.arrow.rotate {
+  transform: rotate(90deg);
+}

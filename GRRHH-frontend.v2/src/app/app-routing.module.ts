@@ -7,7 +7,10 @@ import { ColaboradoresComponent } from './pages/colaboradores/colaboradores.comp
 import { LiquidacionesComponent } from './pages/liquidaciones/liquidaciones.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { ReclutamientoComponent } from './pages/reclutamiento/reclutamiento.component';
-
+import { PrevisionComponent } from './pages/admin-laboral/prevision/prevision.component';
+import { TiposContratoComponent } from './pages/admin-laboral/tipos-contrato/tipos-contrato.component';
+import { CargasComponent } from './pages/admin-laboral/cargas/cargas.component';
+import { AsistenciaComponent } from './pages/admin-laboral/asistencia/asistencia.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
 
@@ -25,7 +28,13 @@ const routes: Routes = [
       { path: 'liquidaciones', component: LiquidacionesComponent },
       { path: 'reportes', component: ReportesComponent },
       { path: 'reclutamiento', component: ReclutamientoComponent },
-      // { path: 'reportes', component: ReportesComponent },
+      { path: 'admin-laboral/prevision', component: PrevisionComponent },
+      {
+        path: 'admin-laboral/tipos-contrato',
+        component: TiposContratoComponent,
+      },
+      { path: 'admin-laboral/cargas', component: CargasComponent },
+      { path: 'admin-laboral/asistencia', component: AsistenciaComponent },
     ],
   },
 

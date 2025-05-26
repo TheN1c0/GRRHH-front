@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrevisionService } from '../../services/prevision.service';
 import { EmpleadoService } from 'app/services/empleado.service';
+import { AFP } from '../../interfaces/afp.model';
+import { Salud } from '../../interfaces/salud.model';
+import { Cesantia } from '../../interfaces/cesantia.model';
 @Component({
   selector: 'app-postulante-contratar',
   templateUrl: './postulante-contratar.component.html',
@@ -9,11 +12,11 @@ import { EmpleadoService } from 'app/services/empleado.service';
 })
 export class PostulanteContratarComponent implements OnInit {
   @Input() postulante: any;
-  formulario!: FormGroup;
-  afps: any[] = [];
-  saludOpciones: any[] = [];
-  segurosCesantia: any[] = [];
+  afps: AFP[] = [];
+  saludOpciones: Salud[] = [];
+  cesantias: Cesantia[] = [];
   cargos: any[] = [];
+  formulario!: FormGroup;
   constructor(
     private fb: FormBuilder,
     private previsionService: PrevisionService,
@@ -25,13 +28,17 @@ export class PostulanteContratarComponent implements OnInit {
       next: (data) => (this.cargos = data),
       error: (err) => console.error('Error al cargar cargos', err),
     });
-    this.previsionService.getAfps().subscribe((data) => (this.afps = data));
+    // Cargar datos previsionales
+    this.previsionService
+      .getAFP()
+      .subscribe((data: any[]) => (this.afps = data));
+
     this.previsionService
       .getSalud()
       .subscribe((data) => (this.saludOpciones = data));
     this.previsionService
-      .getSegurosCesantia()
-      .subscribe((data) => (this.segurosCesantia = data));
+      .getCesantia()
+      .subscribe((data) => (this.cesantias = data));
     this.formulario = this.fb.group({
       rut: [''],
       primer_nombre: [''],

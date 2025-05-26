@@ -1,18 +1,13 @@
 <aside class="sidebar">
   <div class="dashboard-title">
     <div class="logo-container">
-      <img
-        src="logo.svg"
-        style="
+      <img src="logo.svg" style="
           background-color: white;
           border: 1px solid black;
           border-radius: 50%;
           height: 40px;
           width: 40px;
-        "
-        alt="Logo"
-        class="logo"
-      />
+        " alt="Logo" class="logo" />
       <div class="logo-text">GGRRHH</div>
     </div>
     <h2>Dashboard</h2>
@@ -33,6 +28,21 @@
     <li routerLink="/reclutamiento" routerLinkActive="active">
       <span>💼</span> Reclutamiento
     </li>
+    <!-- Toggle principal -->
+    <li class="has-submenu" (click)="toggleAdminLaboral()">
+      <span>⚙️</span> Administración Laboral
+      <span class="arrow" [class.rotate]="adminLaboralOpen">▸</span>
+    </li>
+
+    <!-- Submenú (más pequeño) -->
+    <ul *ngIf="adminLaboralOpen" class="submenu">
+      <li routerLink="/admin-laboral/prevision" routerLinkActive="active">Previsión</li>
+      <li routerLink="/admin-laboral/tipos-contrato" routerLinkActive="active">Tipos de Contrato</li>
+      <li routerLink="/admin-laboral/cargas" routerLinkActive="active">Cargas Familiares</li>
+      <li routerLink="/admin-laboral/asistencia" routerLinkActive="active">Asistencia</li>
+    </ul>
+
+
     <li routerLink="/soporte" routerLinkActive="active">
       <span>🛠</span> Soporte
     </li>

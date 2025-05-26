@@ -28,6 +28,10 @@ import { ReclutamientoComponent } from './pages/reclutamiento/reclutamiento.comp
 import { PostulanteListadoComponent } from './pages/reclutamiento/postulante-listado/postulante-listado.component';
 import { CommonModule } from '@angular/common';
 import { PostulanteContratarComponent } from './formularios/postulante-contratar/postulante-contratar.component';
+import { PrevisionComponent } from './pages/admin-laboral/prevision/prevision.component';
+import { TiposContratoComponent } from './pages/admin-laboral/tipos-contrato/tipos-contrato.component';
+import { CargasComponent } from './pages/admin-laboral/cargas/cargas.component';
+import { AsistenciaComponent } from './pages/admin-laboral/asistencia/asistencia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +50,10 @@ import { PostulanteContratarComponent } from './formularios/postulante-contratar
     ReclutamientoComponent,
     PostulanteListadoComponent,
     PostulanteContratarComponent,
+    PrevisionComponent,
+    TiposContratoComponent,
+    CargasComponent,
+    AsistenciaComponent,
   ],
   imports: [
     BrowserModule,

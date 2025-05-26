@@ -74,7 +74,7 @@
 
         <label>Seguro Cesantía:</label>
         <select formControlName="seguro_cesantia">
-            <option *ngFor="let seguro of segurosCesantia" [value]="seguro.id">
+            <option *ngFor="let seguro of cesantias" [value]="seguro.id">
                 {{ seguro.nombre }}
             </option>
         </select>

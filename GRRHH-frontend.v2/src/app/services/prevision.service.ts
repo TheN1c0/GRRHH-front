@@ -2,27 +2,70 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+import { AFP } from '../interfaces/afp.model';
+import { Salud } from '../interfaces/salud.model';
+import { Cesantia } from '../interfaces/cesantia.model';
 @Injectable({
   providedIn: 'root',
 })
 export class PrevisionService {
   constructor(private http: HttpClient) {}
-  getAfps(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/personal/api/afps/`, {
+
+  // AFP
+  getAFP(): Observable<AFP[]> {
+    return this.http.get<AFP[]>(`${environment.apiUrl}personal/api/afp/`, {
       withCredentials: true,
     });
   }
 
-  getSalud(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/personal/api/salud/`, {
+  crearAFP(data: any) {
+    return this.http.post(`${environment.apiUrl}personal/api/afp/`, data, {
       withCredentials: true,
     });
   }
 
-  getSegurosCesantia(): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${environment.apiUrl}/personal/api/seguros-cesantia/`,
+  eliminarAFP(id: number) {
+    return this.http.delete(`${environment.apiUrl}personal/api/afp/${id}/`, {
+      withCredentials: true,
+    });
+  }
+
+  // SALUD
+  getSalud(): Observable<Salud[]> {
+    return this.http.get<Salud[]>(`${environment.apiUrl}personal/api/salud/`, {
+      withCredentials: true,
+    });
+  }
+
+  crearSalud(data: any) {
+    return this.http.post(`${environment.apiUrl}personal/api/salud/`, data, {
+      withCredentials: true,
+    });
+  }
+
+  eliminarSalud(id: number) {
+    return this.http.delete(`${environment.apiUrl}personal/api/salud/${id}/`, {
+      withCredentials: true,
+    });
+  }
+
+  // CESANTÍA
+  getCesantia(): Observable<Cesantia[]> {
+    return this.http.get<Cesantia[]>(
+      `${environment.apiUrl}personal/api/cesantia/`,
+      { withCredentials: true }
+    );
+  }
+
+  crearCesantia(data: any) {
+    return this.http.post(`${environment.apiUrl}personal/api/cesantia/`, data, {
+      withCredentials: true,
+    });
+  }
+
+  eliminarCesantia(id: number) {
+    return this.http.delete(
+      `${environment.apiUrl}personal/api/cesantia/${id}/`,
       {
         withCredentials: true,
       }
