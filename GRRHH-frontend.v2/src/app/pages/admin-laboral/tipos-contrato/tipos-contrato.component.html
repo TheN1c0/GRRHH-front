@@ -1,1 +1,46 @@
-<p>tipos-contrato works!</p>
+<h2 class="titulo-seccion">🧩 Reglas de Contrato</h2>
+
+<div class="formulario">
+  <input
+    type="text"
+     [(ngModel)]="nuevaRegla['nombre']"
+    placeholder="Nombre de la regla"
+  />
+
+  <label
+    *ngFor="let campo of [
+      'requiere_cotizaciones',
+      'controla_asistencia',
+      'requiere_liquidacion',
+      'genera_vacaciones',
+      'afecta_antiguedad',
+      'requiere_firma_digital',
+      'aplica_seguro_invalidez'
+    ]"
+  >
+    <input type="checkbox" [(ngModel)]="nuevaRegla[campo]" />
+    {{ formatearTexto(campo) }}
+  </label>
+
+  <button (click)="agregarRegla()" [disabled]="!(nuevaRegla['nombre'] || '').trim()"
+>Agregar Regla</button>
+</div>
+
+<div class="lista">
+  <ul>
+    <li *ngFor="let regla of reglas">
+      <div>
+        <strong>{{ regla.nombre }}</strong>
+        <ul class="detalle-regla">
+          <li *ngFor="let clave of getClaves(regla)">
+  <span *ngIf="clave !== 'id' && clave !== 'nombre'">
+    {{ formatearTexto(clave) }}: {{ regla[clave] ? '✅' : '❌' }}
+  </span>
+</li>
+
+        </ul>
+      </div>
+      <button (click)="eliminarRegla(regla.id)">🗑</button>
+    </li>
+  </ul>
+</div>
