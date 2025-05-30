@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Departamento } from '../interfaces/departamento.model';
+import { Cargo } from '../interfaces/cargo.model';
+
 export interface Empleado {
   id: number;
   rut: string;
@@ -19,24 +22,34 @@ export interface Empleado {
   providedIn: 'root',
 })
 export class EmpleadoService {
-  private apiUrl = 'http://localhost:8000/personal/api/empleados/';
   // Cambia esto en producción
 
   constructor(private http: HttpClient) {}
 
   getEmpleados(): Observable<Empleado[]> {
-    return this.http.get<Empleado[]>(this.apiUrl, { withCredentials: true });
+    return this.http.get<Empleado[]>(environment.apiUrl, {
+      withCredentials: true,
+    });
   }
   updateEmpleado(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}${id}/`, data, {
+    return this.http.put(`${environment.apiUrl}${id}/`, data, {
       withCredentials: true,
     });
   }
 
-  getCargos(): Observable<any[]> {
+  /*   getCargos(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8000/personal/api/cargos/', {
       withCredentials: true,
     });
+  } */
+
+  getCargos(): Observable<Cargo[]> {
+    return this.http.get<Cargo[]>(
+      `${environment.apiUrl}/personal/api/cargos/`,
+      {
+        withCredentials: true,
+      }
+    );
   }
   crearEmpleado(empleado: any): Observable<any> {
     return this.http.post(
@@ -52,6 +65,69 @@ export class EmpleadoService {
     return this.http.post(
       `${environment.apiUrl}/personal/api/contratar/`,
       payload,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  // DEPARTAMENTOS
+  getDepartamentos(): Observable<Departamento[]> {
+    return this.http.get<Departamento[]>(
+      `${environment.apiUrl}/personal/api/departamentos/`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  crearDepartamento(data: any) {
+    return this.http.post(
+      `${environment.apiUrl}/personal/api/departamentos/`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  eliminarDepartamento(id: number) {
+    return this.http.delete(
+      `${environment.apiUrl}/personal/api/departamentos/${id}/`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  // CARGOS
+  crearCargo(data: any) {
+    return this.http.post(`${environment.apiUrl}/personal/api/cargos/`, data, {
+      withCredentials: true,
+    });
+  }
+
+  eliminarCargo(id: number) {
+    return this.http.delete(
+      `${environment.apiUrl}/personal/api/cargos/${id}/`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  editarDepartamento(id: number, data: any) {
+    return this.http.put(
+      `${environment.apiUrl}/personal/api/departamentos/${id}/`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  actualizarCargo(id: number, data: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiUrl}personal/api/cargos/${id}/`,
+      data,
       {
         withCredentials: true,
       }

@@ -32,6 +32,7 @@ import { PrevisionComponent } from './pages/admin-laboral/prevision/prevision.co
 import { TiposContratoComponent } from './pages/admin-laboral/tipos-contrato/tipos-contrato.component';
 import { CargasComponent } from './pages/admin-laboral/cargas/cargas.component';
 import { AsistenciaComponent } from './pages/admin-laboral/asistencia/asistencia.component';
+import { EstructuraOrganizacionalComponent } from './pages/admin-laboral/estructura-organizacional/estructura-organizacional.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { AsistenciaComponent } from './pages/admin-laboral/asistencia/asistencia
     TiposContratoComponent,
     CargasComponent,
     AsistenciaComponent,
+    EstructuraOrganizacionalComponent,
   ],
   imports: [
     BrowserModule,
