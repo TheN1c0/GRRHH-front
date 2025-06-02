@@ -42,7 +42,12 @@
         </select>
 
         <label>Tipo de Contrato:</label>
-        <input formControlName="tipo_contrato" />
+        <select formControlName="tipo_contrato">
+            <option *ngFor="let tipo of tiposContrato" [value]="tipo.id">
+                {{ tipo.nombre }}
+            </option>
+        </select>
+
 
         <label>Fecha Inicio:</label>
         <input type="date" formControlName="fecha_inicio" />

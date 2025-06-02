@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { EmpleadoService, Empleado } from '../../services/empleado.service';
+
 @Component({
   selector: 'app-postulante-formulario',
   templateUrl: './postulante-formulario.component.html',
@@ -19,13 +20,14 @@ export class PostulanteFormularioComponent implements OnInit {
     private empleadoService: EmpleadoService
   ) {
     this.formulario = this.fb.group({
-      primer_nombre: [''],
-      apellido_paterno: [''],
-      apellido_materno: [''],
-      correo: [''],
-      telefono: [''],
-      direccion: [''],
-      cargo_postulado: [''],
+      primer_nombre: ['', Validators.required],
+      apellido_paterno: ['', Validators.required],
+      apellido_materno: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', Validators.required],
+      direccion: ['', Validators.required],
+      fecha_nacimiento: ['', Validators.required],
+      cargo_postulado: ['', Validators.required],
     });
   }
 
@@ -40,8 +42,16 @@ export class PostulanteFormularioComponent implements OnInit {
   enviarFormulario() {
     const formData = new FormData();
     for (const key in this.formulario.value) {
-      formData.append(key, this.formulario.value[key]);
+      let valor = this.formulario.value[key];
+
+      // Si es fecha, formatear a YYYY-MM-DD
+      if (key === 'fecha_nacimiento' && valor instanceof Date) {
+        valor = valor.toISOString().split('T')[0];
+      }
+
+      formData.append(key, valor);
     }
+
     if (this.archivoCV) {
       formData.append('curriculum', this.archivoCV);
     }

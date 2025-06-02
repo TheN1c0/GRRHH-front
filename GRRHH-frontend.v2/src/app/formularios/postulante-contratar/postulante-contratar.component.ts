@@ -5,6 +5,8 @@ import { EmpleadoService } from 'app/services/empleado.service';
 import { AFP } from '../../interfaces/afp.model';
 import { Salud } from '../../interfaces/salud.model';
 import { Cesantia } from '../../interfaces/cesantia.model';
+import { ContratoConfigService } from 'app/services/contrato-config.service';
+
 @Component({
   selector: 'app-postulante-contratar',
   templateUrl: './postulante-contratar.component.html',
@@ -16,11 +18,14 @@ export class PostulanteContratarComponent implements OnInit {
   saludOpciones: Salud[] = [];
   cesantias: Cesantia[] = [];
   cargos: any[] = [];
+  tiposContrato: any[] = [];
+
   formulario!: FormGroup;
   constructor(
     private fb: FormBuilder,
     private previsionService: PrevisionService,
-    private empleadoService: EmpleadoService
+    private empleadoService: EmpleadoService,
+    private contratoConfigService: ContratoConfigService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +37,10 @@ export class PostulanteContratarComponent implements OnInit {
     this.previsionService
       .getAFP()
       .subscribe((data: any[]) => (this.afps = data));
+    this.contratoConfigService.getTipos().subscribe({
+      next: (data: any) => (this.tiposContrato = data),
+      error: (err) => console.error('Error al cargar tipos de contrato', err),
+    });
 
     this.previsionService
       .getSalud()
@@ -90,6 +99,7 @@ export class PostulanteContratarComponent implements OnInit {
         otros_nombres: form.otros_nombres,
         apellido_paterno: form.apellido_paterno,
         apellido_materno: form.apellido_materno,
+        fecha_nacimiento: this.postulante.fecha_nacimiento,
         correo: form.correo,
         telefono: form.telefono,
         direccion: form.direccion,

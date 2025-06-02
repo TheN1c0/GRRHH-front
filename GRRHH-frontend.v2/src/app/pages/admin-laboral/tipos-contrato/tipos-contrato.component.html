@@ -1,46 +1,57 @@
-<h2 class="titulo-seccion">🧩 Reglas de Contrato</h2>
+<h2 class="titulo-seccion">📄 Tipos de Contrato</h2>
 
-<div class="formulario">
-  <input
-    type="text"
-     [(ngModel)]="nuevaRegla['nombre']"
-    placeholder="Nombre de la regla"
-  />
-
-  <label
-    *ngFor="let campo of [
-      'requiere_cotizaciones',
-      'controla_asistencia',
-      'requiere_liquidacion',
-      'genera_vacaciones',
-      'afecta_antiguedad',
-      'requiere_firma_digital',
-      'aplica_seguro_invalidez'
-    ]"
-  >
-    <input type="checkbox" [(ngModel)]="nuevaRegla[campo]" />
-    {{ formatearTexto(campo) }}
-  </label>
-
-  <button (click)="agregarRegla()" [disabled]="!(nuevaRegla['nombre'] || '').trim()"
->Agregar Regla</button>
+<div class="mensaje-info" *ngIf="cargandoTipos">
+  🔄 Cargando tipos de contrato...
+</div>
+<div class="mensaje-vacio" *ngIf="!cargandoTipos && tiposContrato.length === 0 && !errorTipos">
+  ⚠️ No hay tipos de contrato registrados.
+</div>
+<div class="mensaje-error" *ngIf="errorTipos">
+  ❌ Ocurrió un error al cargar los tipos de contrato.
 </div>
 
-<div class="lista">
-  <ul>
-    <li *ngFor="let regla of reglas">
-      <div>
-        <strong>{{ regla.nombre }}</strong>
-        <ul class="detalle-regla">
-          <li *ngFor="let clave of getClaves(regla)">
-  <span *ngIf="clave !== 'id' && clave !== 'nombre'">
-    {{ formatearTexto(clave) }}: {{ regla[clave] ? '✅' : '❌' }}
-  </span>
-</li>
-
-        </ul>
+<div class="lista grid-contratos">
+  <div class="contrato-card" *ngFor="let tipo of tiposContrato">
+    <div *ngIf="tipoEditando?.id !== tipo.id">
+      <h3>{{ tipo.nombre }}</h3>
+      <p class="regla-aplicada">🔗 Regla: {{ tipo.reglas_nombre || 'No asignada' }}</p>
+      <div class="acciones">
+        <button (click)="editarTipo(tipo)">✏️ Editar</button>
+        <button (click)="eliminarTipoContrato(tipo.id)">🗑 Eliminar</button>
+        <button (click)="abrirModalReglas(tipo)">⚙️ Editar reglas</button>
       </div>
-      <button (click)="eliminarRegla(regla.id)">🗑</button>
-    </li>
-  </ul>
+    </div>
+
+    <div *ngIf="tipoEditando?.id === tipo.id" class="edicion-contrato">
+      <input [(ngModel)]="tipoEditando.nombre" placeholder="Nuevo nombre" />
+      <button (click)="guardarEdicionTipo()">💾 Guardar</button>
+      <button (click)="cancelarEdicionTipo()">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+<!-- 🪟 Ventana emergente para editar reglas -->
+<div class="modal-reglas" *ngIf="tipoParaEditarReglas" (click)="cerrarModalReglas()">
+  <div class="modal-contenido" (click)="$event.stopPropagation()">
+    <h3>Editar reglas para: {{ tipoParaEditarReglas.nombre }}</h3>
+
+    <div class="checkboxes">
+      <label *ngFor="let campo of [
+        'requiere_cotizaciones',
+        'controla_asistencia',
+        'requiere_liquidacion',
+        'genera_vacaciones',
+        'afecta_antiguedad',
+        'requiere_firma_digital',
+        'aplica_seguro_invalidez'
+      ]">
+        <input type="checkbox" [(ngModel)]="tipoParaEditarReglas[campo]" />
+        {{ formatearTexto(campo) }}
+      </label>
+    </div>
+
+    <div class="acciones">
+      <button (click)="guardarReglasEditadas()">💾 Guardar</button>
+      <button (click)="cerrarModalReglas()">❌ Cancelar</button>
+    </div>
+  </div>
 </div>

@@ -27,14 +27,19 @@ export class EmpleadoService {
   constructor(private http: HttpClient) {}
 
   getEmpleados(): Observable<Empleado[]> {
-    return this.http.get<Empleado[]>(environment.apiUrl, {
-      withCredentials: true,
-    });
+    return this.http.get<Empleado[]>(
+      `${environment.apiUrl}personal/api/empleados/`,
+      {
+        withCredentials: true,
+      }
+    );
   }
   updateEmpleado(id: number, data: any): Observable<any> {
-    return this.http.put(`${environment.apiUrl}${id}/`, data, {
-      withCredentials: true,
-    });
+    return this.http.put(
+      `${environment.apiUrl}personal/api/empleados/${id}/`,
+      data,
+      { withCredentials: true }
+    );
   }
 
   /*   getCargos(): Observable<any[]> {
@@ -53,17 +58,15 @@ export class EmpleadoService {
   }
   crearEmpleado(empleado: any): Observable<any> {
     return this.http.post(
-      'http://localhost:8000/personal/api/empleados/',
+      `${environment.apiUrl}personal/api/empleados/`,
       empleado,
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
   }
 
   crearConjuntoContratacion(payload: any): Observable<any> {
     return this.http.post(
-      `${environment.apiUrl}/personal/api/contratar/`,
+      `${environment.apiUrl}personal/api/contratar/`,
       payload,
       {
         withCredentials: true,

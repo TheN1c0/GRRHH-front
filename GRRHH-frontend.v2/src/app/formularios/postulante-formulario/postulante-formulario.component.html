@@ -17,6 +17,9 @@
   <label>Dirección:</label>
   <input formControlName="direccion" type="text" />
 
+  <label>Fecha de nacimiento:</label>
+  <input formControlName="fecha_nacimiento" type="date" required />
+
   <label>Cargo postulado:</label>
   <select formControlName="cargo_postulado">
     <option *ngFor="let cargo of cargos" [value]="cargo.id">

@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContratoConfigService {
-
-  private reglasUrl = `${environment.apiUrl}personal/reglas-contrato/`;
-  private tiposUrl = `${environment.apiUrl}personal/tipo-contrato/`;
+  private reglasUrl = `${environment.apiUrl}personal/api/reglas-contrato/`;
+  private tiposUrl = `${environment.apiUrl}personal/api/tipo-contrato/`;
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +20,17 @@ export class ContratoConfigService {
   }
 
   eliminarRegla(id: number) {
-    return this.http.delete(`${this.reglasUrl}${id}/`, { withCredentials: true });
+    return this.http.delete(`${this.reglasUrl}${id}/`, {
+      withCredentials: true,
+    });
+  }
+  getReglaPorId(id: number) {
+    return this.http.get(`${this.reglasUrl}${id}/`, { withCredentials: true });
+  }
+  editarRegla(id: number, data: any) {
+    return this.http.put(`${this.reglasUrl}${id}/`, data, {
+      withCredentials: true,
+    });
   }
 
   // 🔹 TipoContrato
@@ -34,6 +43,13 @@ export class ContratoConfigService {
   }
 
   eliminarTipo(id: number) {
-    return this.http.delete(`${this.tiposUrl}${id}/`, { withCredentials: true });
+    return this.http.delete(`${this.tiposUrl}${id}/`, {
+      withCredentials: true,
+    });
+  }
+  editarTipo(id: number, data: any) {
+    return this.http.put(`${this.tiposUrl}${id}/`, data, {
+      withCredentials: true,
+    });
   }
 }
