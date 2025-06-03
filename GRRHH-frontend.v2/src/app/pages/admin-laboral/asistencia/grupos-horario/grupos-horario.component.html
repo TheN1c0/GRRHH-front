@@ -1,0 +1,22 @@
+<form [formGroup]="grupoHorarioForm" (ngSubmit)="guardarGrupoHorario()">
+    <label>Nombre:</label>
+    <input formControlName="nombre" />
+
+    <label>Descripción:</label>
+    <textarea formControlName="descripcion"></textarea>
+
+    <h3>Horarios del grupo</h3>
+    <div formArrayName="horarios">
+        <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i">
+            <select formControlName="dia_semana">
+                <option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</option>
+            </select>
+            <input type="time" formControlName="hora_entrada" />
+            <input type="time" formControlName="hora_salida" />
+            <button type="button" (click)="eliminarHorario(i)">Eliminar</button>
+        </div>
+    </div>
+
+    <button type="button" (click)="agregarHorario()">+ Agregar horario</button>
+    <button type="submit" [disabled]="grupoHorarioForm.invalid">Guardar Grupo</button>
+</form>

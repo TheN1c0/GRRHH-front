@@ -11,4 +11,8 @@ export class SidebarComponent {
   toggleAdminLaboral() {
     this.adminLaboralOpen = !this.adminLaboralOpen;
   }
+  asistenciaOpen = false;
+  toggleAsistencia() {
+    this.asistenciaOpen = !this.asistenciaOpen;
+  }
 }
