@@ -1,0 +1,203 @@
+:host {
+    display: block;
+    background-color: #002b45; // fondo general
+    color: white;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.barra-superior {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+
+    button {
+        background-color: #6c8ea6;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: all 0.2s ease;
+
+        &.activo {
+            background-color: #4d6a7f;
+            transform: scale(1.05);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.botones-accion {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    button {
+        background-color: #5c86a1;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: all 0.2s ease;
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    }
+}
+
+table {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid violet;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+
+    thead {
+        background-color: #d3d3d3;
+
+        th {
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 900;
+            color: black;
+            font-size: 1rem;
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 2px solid #888;
+
+            td {
+                padding: 0.6rem;
+                text-align: center;
+                color: black;
+
+                input[type="time"],
+                select {
+                    width: 90%;
+                    padding: 0.3rem;
+                    font-size: 0.95rem;
+                }
+
+                button {
+                    margin: 0 4px;
+                }
+            }
+
+            td:first-child {
+                width: 50px;
+
+                input[type="checkbox"] {
+                    width: 20px;
+                    height: 20px;
+                    accent-color: black;
+                    border: 2px solid black;
+                    cursor: pointer;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.panel-grupos {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-left: 2rem;
+    width: 200px;
+    min-height: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+
+    h3 {
+        background-color: #ccc;
+        text-align: center;
+        font-weight: bold;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            padding: 0.5rem;
+            margin: 0.2rem 0;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: #e0e0e0;
+            }
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .modal-content {
+        background-color: white;
+        color: black;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 400px;
+
+        h3 {
+            margin-top: 0;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+
+            button {
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+    }
+}

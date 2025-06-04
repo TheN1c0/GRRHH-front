@@ -31,7 +31,6 @@ import { PostulanteContratarComponent } from './formularios/postulante-contratar
 import { PrevisionComponent } from './pages/admin-laboral/prevision/prevision.component';
 import { TiposContratoComponent } from './pages/admin-laboral/tipos-contrato/tipos-contrato.component';
 import { CargasComponent } from './pages/admin-laboral/cargas/cargas.component';
-import { AsistenciaComponent } from './pages/admin-laboral/asistencia/asistencia.component';
 import { EstructuraOrganizacionalComponent } from './pages/admin-laboral/estructura-organizacional/estructura-organizacional.component';
 import { GruposHorarioComponent } from './pages/admin-laboral/asistencia/grupos-horario/grupos-horario.component';
 import { AsignarHorarioComponent } from './pages/admin-laboral/asistencia/asignar-horario/asignar-horario.component';
@@ -57,7 +56,6 @@ import { RegistrosComponent } from './pages/admin-laboral/asistencia/registros/r
     PrevisionComponent,
     TiposContratoComponent,
     CargasComponent,
-    AsistenciaComponent,
     EstructuraOrganizacionalComponent,
     GruposHorarioComponent,
     AsignarHorarioComponent,

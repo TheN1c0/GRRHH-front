@@ -1,22 +1,96 @@
-<form [formGroup]="grupoHorarioForm" (ngSubmit)="guardarGrupoHorario()">
-    <label>Nombre:</label>
-    <input formControlName="nombre" />
+<div class="barra-superior">
+    <button (click)="modo = 'individual'" [class.activo]="modo === 'individual'">ADMINISTRAR INDIVIDUALMENTE</button>
+    <button (click)="modo = 'grupo'" [class.activo]="modo === 'grupo'">ADMINISTRAR GRUPOS</button>
+</div>
 
-    <label>Descripción:</label>
-    <textarea formControlName="descripcion"></textarea>
+<div class="botones-accion">
+    <button (click)="activarAgregar()" [disabled]="modo !== 'individual'">AGREGAR</button>
+    <button (click)="activarEditar()" [disabled]="modo !== 'individual' || seleccionados.size !== 1">EDITAR</button>
+    <button (click)="eliminarSeleccionados()" [disabled]="seleccionados.size === 0">ELIMINAR</button>
+    <button (click)="abrirFormularioAgrupar()" [disabled]="seleccionados.size < 2">AGRUPAR</button>
+</div>
 
-    <h3>Horarios del grupo</h3>
-    <div formArrayName="horarios">
-        <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i">
-            <select formControlName="dia_semana">
-                <option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</option>
-            </select>
-            <input type="time" formControlName="hora_entrada" />
-            <input type="time" formControlName="hora_salida" />
-            <button type="button" (click)="eliminarHorario(i)">Eliminar</button>
-        </div>
+<!-- 👉 Tabla siempre visible -->
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>DÍA</th>
+            <th>HORA_ENTRADA</th>
+            <th>HORA_SALIDA</th>
+            <th>IDENTIFICADOR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Fila de nuevo horario -->
+        <tr *ngIf="agregando">
+            <td></td>
+            <td><select [(ngModel)]="nuevoHorario.dia_semana">
+                    <option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</option>
+                </select></td>
+            <td><input type="time" [(ngModel)]="nuevoHorario.hora_entrada" /></td>
+            <td><input type="time" [(ngModel)]="nuevoHorario.hora_salida" /></td>
+            <td>
+                <button (click)="guardarNuevoHorario()">💾</button>
+                <button (click)="cancelarAgregar()">❌</button>
+            </td>
+        </tr>
+
+        <!-- Fila normal o editable -->
+        <tr *ngFor="let h of listaHorarios">
+            <td><input type="checkbox" [checked]="seleccionados.has(h.id)" (change)="toggleSeleccion(h.id)" /></td>
+
+            <!-- Fila editable -->
+            <ng-container *ngIf="editandoId === h.id; else vistaNormal">
+                <td><select [(ngModel)]="h.dia_semana">
+                        <option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</option>
+                    </select></td>
+                <td><input type="time" [(ngModel)]="h.hora_entrada" /></td>
+                <td><input type="time" [(ngModel)]="h.hora_salida" /></td>
+                <td>
+                    <button (click)="guardarEdicion(h)">💾</button>
+                    <button (click)="cancelarEditar()">❌</button>
+                </td>
+            </ng-container>
+
+            <!-- Vista normal -->
+            <ng-template #vistaNormal>
+                <td>{{ h.dia_semana }}</td>
+                <td>{{ h.hora_entrada }}</td>
+                <td>{{ h.hora_salida }}</td>
+                <td>{{ h.id }}</td>
+            </ng-template>
+        </tr>
+
+        <!-- Mensaje si no hay horarios -->
+        <tr *ngIf="listaHorarios.length === 0 && !agregando">
+            <td colspan="5" style="text-align: center;">No hay horarios disponibles.</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Panel lateral de grupos -->
+<div class="panel-grupos" *ngIf="modo === 'grupo'">
+    <h3>GRUPOS</h3>
+    <ul>
+        <li *ngFor="let grupo of listaGrupos" (click)="filtrarPorGrupo(grupo)">
+            {{ grupo.nombre }}
+        </li>
+        <li (click)="verTodos()">🔄 Ver individuales</li>
+    </ul>
+</div>
+
+<!-- Formulario de agrupación flotante -->
+<div class="modal" *ngIf="mostrarFormularioAgrupar">
+    <div class="modal-content">
+        <h3>Nuevo grupo</h3>
+        <form [formGroup]="formGrupo" (ngSubmit)="crearGrupo()">
+            <input formControlName="nombre" placeholder="Nombre del grupo" />
+            <textarea formControlName="descripcion" placeholder="Descripción"></textarea>
+            <div class="modal-actions">
+                <button type="submit" [disabled]="formGrupo.invalid">Guardar</button>
+                <button type="button" (click)="cancelarAgrupacion()">Cancelar</button>
+            </div>
+        </form>
     </div>
-
-    <button type="button" (click)="agregarHorario()">+ Agregar horario</button>
-    <button type="submit" [disabled]="grupoHorarioForm.invalid">Guardar Grupo</button>
-</form>
+</div>
