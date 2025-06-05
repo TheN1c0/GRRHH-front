@@ -1,6 +1,6 @@
 export interface Horario {
-  id: number;
+  id?: number;
   dia_semana: string;
-  hora_entrada: string;
+  hora_entrada: string; // formato HH:mm:ss
   hora_salida: string;
 }

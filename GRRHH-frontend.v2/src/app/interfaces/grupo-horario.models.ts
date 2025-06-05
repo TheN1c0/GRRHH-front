@@ -1,6 +1,6 @@
 export interface GrupoHorario {
   id?: number;
   nombre: string;
-  descripcion?: string;
-  horarios: number[]; // lista de IDs
+  descripcion: string;
+  horarios: number[];
 }

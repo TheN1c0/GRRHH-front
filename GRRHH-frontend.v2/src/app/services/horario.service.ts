@@ -48,11 +48,18 @@ export class HorarioService {
   }
 
   // ✅ Crear grupo horario
-  crearGrupoHorario(grupo: GrupoHorario): Observable<GrupoHorario> {
+  // Solo esta función cambia
+  crearGrupoHorario(grupo: {
+    nombre: string;
+    descripcion?: string;
+    horarios: number[];
+  }) {
     return this.http.post<GrupoHorario>(
       `${this.baseUrl}/grupo-horarios/`,
       grupo,
-      { withCredentials: true }
+      {
+        withCredentials: true,
+      }
     );
   }
 }

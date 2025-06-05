@@ -38,7 +38,9 @@
 
         <!-- Fila normal o editable -->
         <tr *ngFor="let h of listaHorarios">
-            <td><input type="checkbox" [checked]="seleccionados.has(h.id)" (change)="toggleSeleccion(h.id)" /></td>
+            <td><input type="checkbox" *ngIf="h.id !== undefined" [checked]="seleccionados.has(h.id!)"
+                    (change)="toggleSeleccion(h.id!)" />
+            </td>
 
             <!-- Fila editable -->
             <ng-container *ngIf="editandoId === h.id; else vistaNormal">

@@ -68,17 +68,17 @@ export class GruposHorarioComponent implements OnInit {
     });
   }
 
-  toggleSeleccion(id: number): void {
-    this.seleccionados.has(id)
-      ? this.seleccionados.delete(id)
-      : this.seleccionados.add(id);
+  toggleSeleccion(id: number | undefined): void {
+    this.seleccionados.has(id!)
+      ? this.seleccionados.delete(id!)
+      : this.seleccionados.add(id!);
   }
 
   seleccionarTodos(): void {
     if (this.seleccionados.size === this.listaHorarios.length) {
       this.seleccionados.clear();
     } else {
-      this.listaHorarios.forEach((h) => this.seleccionados.add(h.id));
+      this.listaHorarios.forEach((h) => this.seleccionados.add(h.id!));
     }
   }
 
@@ -102,10 +102,12 @@ export class GruposHorarioComponent implements OnInit {
       return;
 
     this.horarioService.crearHorario(this.nuevoHorario as Horario).subscribe({
-      next: (h) => {
-        this.listaHorarios.push(h);
-        this.todosHorarios.push(h);
-        this.cancelarAgregar();
+      next: () => {
+        this.horarioService.obtenerHorarios().subscribe((horarios) => {
+          this.listaHorarios = horarios;
+          this.todosHorarios = [...horarios];
+          this.cancelarAgregar();
+        });
       },
       error: (err) => console.error('Error al crear horario:', err),
     });
@@ -124,7 +126,7 @@ export class GruposHorarioComponent implements OnInit {
   }
 
   guardarEdicion(horario: Horario): void {
-    this.horarioService.actualizarHorario(horario.id, horario).subscribe({
+    this.horarioService.actualizarHorario(horario.id!, horario).subscribe({
       next: () => {
         this.editandoId = null;
       },
@@ -159,7 +161,7 @@ export class GruposHorarioComponent implements OnInit {
   crearGrupo(): void {
     const grupoData = {
       ...this.formGrupo.value,
-      horarios: Array.from(this.seleccionados),
+      horarios: Array.from(this.seleccionados), // Lista de IDs
     };
 
     this.horarioService.crearGrupoHorario(grupoData).subscribe({
@@ -183,7 +185,7 @@ export class GruposHorarioComponent implements OnInit {
 
   filtrarPorGrupo(grupo: GrupoHorario): void {
     this.listaHorarios = this.todosHorarios.filter((h) =>
-      grupo.horarios.includes(h.id)
+      grupo.horarios.includes(h.id!)
     );
     this.seleccionados.clear();
     this.modo = 'grupo';
