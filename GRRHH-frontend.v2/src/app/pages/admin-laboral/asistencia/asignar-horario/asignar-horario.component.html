@@ -1,1 +1,40 @@
-<p>asignar-horario works!</p>
+<div class="barra-superior">
+  <button (click)="cargarEmpleados()">Actualizar</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Cargo</th>
+      <th>Grupo horario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of empleados">
+      <ng-container *ngIf="editandoId === emp.id; else vista">
+        <td>{{ emp.primer_nombre }} {{ emp.apellido_paterno }}</td>
+        <td>{{ emp.nombre_cargo }}</td>
+        <td>
+          <select [(ngModel)]="grupoSeleccionado" [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="null">Sin grupo</option>
+            <option *ngFor="let g of grupos" [ngValue]="g">{{ g.nombre }}</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="guardarEdicion(emp)">💾</button>
+          <button (click)="cancelarEdicion()">❌</button>
+        </td>
+      </ng-container>
+      <ng-template #vista>
+        <td>{{ emp.primer_nombre }} {{ emp.apellido_paterno }}</td>
+        <td>{{ emp.nombre_cargo }}</td>
+        <td>{{ grupos.find(g => g.id === (emp as any).grupo_horario)?.nombre || '-' }}</td>
+        <td>
+          <button (click)="iniciarEdicion(emp)">Editar</button>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
