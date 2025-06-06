@@ -16,6 +16,8 @@ export interface Empleado {
   nombre_departamento: string;
   primer_nombre: string;
   apellido_paterno: string;
+  // Identificador del grupo horario asignado al empleado (puede ser null)
+  grupo_horario?: number | null;
 }
 
 @Injectable({
