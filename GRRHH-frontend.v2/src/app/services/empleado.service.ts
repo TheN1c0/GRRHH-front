@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Departamento } from '../interfaces/departamento.model';
 import { Cargo } from '../interfaces/cargo.model';
+import { Empleado } from '../interfaces/empleado.model';
 
-export interface Empleado {
+/* export interface Empleado {
   id: number;
   rut: string;
   fecha_nacimiento: string;
@@ -17,7 +18,7 @@ export interface Empleado {
   primer_nombre: string;
   apellido_paterno: string;
 }
-
+ */
 @Injectable({
   providedIn: 'root',
 })

@@ -1,0 +1,25 @@
+<h3>✏️ Editar Grupo Horario</h3>
+
+<form [formGroup]="formulario" (ngSubmit)="guardarCambios()" class="formulario-edicion">
+    <table class="tabla-edicion">
+        <thead>
+            <tr>
+                <th>Día</th>
+                <th>Hora Entrada</th>
+                <th>Hora Salida</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let h of horarios.controls; let i = index" [formGroup]="asFormGroup(h)">
+                <td>{{ h.get('dia')?.value }}</td>
+                <td><input type="time" formControlName="hora_entrada" /></td>
+                <td><input type="time" formControlName="hora_salida" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="acciones-modal">
+        <button type="submit">💾 Guardar</button>
+        <button type="button" (click)="cancelar()">❌ Cancelar</button>
+    </div>
+</form>

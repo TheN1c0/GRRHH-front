@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { EmpleadoService, Empleado } from '../../services/empleado.service';
+import { EmpleadoService } from '../../services/empleado.service';
+import { Empleado } from '../../interfaces/empleado.model';
 
 @Component({
   selector: 'app-postulante-formulario',

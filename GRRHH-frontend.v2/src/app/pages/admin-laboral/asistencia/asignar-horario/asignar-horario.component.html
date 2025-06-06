@@ -1,1 +1,57 @@
-<p>asignar-horario works!</p>
+<h2 class="titulo-seccion">🕒 Asignación de Grupo Horario</h2>
+
+<!-- 🔘 Botones de acción -->
+<div class="botones-accion">
+    <button (click)="abrirFormularioAsignacion()">AGREGAR</button>
+    <button [disabled]="seleccionados.size === 0" (click)="abrirModalEditar()">EDITAR</button>
+    <button [disabled]="seleccionados.size === 0" (click)="eliminarAsignaciones()">ELIMINAR</button>
+</div>
+
+<!-- 📋 Tabla de empleados -->
+<table class="tabla-empleados">
+    <thead>
+        <tr>
+            <th><input type="checkbox" (change)="toggleTodos($event)" /></th>
+            <th>Nombre</th>
+            <th>Cargo</th>
+            <th>Grupo Horario</th>
+            <th>Desde</th>
+            <th>Hasta</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of empleados">
+            <td>
+                <input type="checkbox" [checked]="seleccionados.has(emp.id)" (change)="toggleSeleccion(emp.id)" />
+            </td>
+            <td>{{ emp.primer_nombre }} {{ emp.apellido_paterno }}</td>
+            <td>{{ emp.nombre_cargo }}</td>
+            <td>
+                {{ emp.grupo_nombre }}
+                <span *ngIf="emp.es_personalizado">✏️</span>
+                <span *ngIf="!emp.es_personalizado">🔒</span>
+            </td>
+            <td>{{ emp.fecha_inicio }}</td>
+            <td>{{ emp.fecha_fin || '—' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ✏️ Modal de edición -->
+<ng-container *ngIf="modalEditarVisible">
+    <div class="modal-overlay">
+        <div class="modal-contenido">
+            <h3>Editar Grupo Horario Personalizado</h3>
+
+            <!-- Reutilizar tabla de días editable si ya la tienes -->
+            <app-editar-horario *ngIf="grupoSeleccionado" [grupoOriginal]="grupoSeleccionado"
+                [empleadosSeleccionados]="empleadosSeleccionados">
+            </app-editar-horario>
+
+
+
+
+            <button (click)="cerrarModalEditar()">Cerrar</button>
+        </div>
+    </div>
+</ng-container>

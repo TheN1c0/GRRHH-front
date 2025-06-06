@@ -1,0 +1,94 @@
+.titulo-seccion {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 🔘 Botones de acción */
+.botones-accion {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.botones-accion button {
+    background-color: #00d1b2;
+    color: #002b49;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botones-accion button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* 📋 Tabla */
+.tabla-empleados {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.tabla-empleados th,
+.tabla-empleados td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.tabla-empleados thead {
+    background-color: #eeeeee;
+    font-weight: bold;
+}
+
+.tabla-empleados tbody tr:hover {
+    background-color: #f4f4f4;
+}
+
+/* ✏️ Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-contenido {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+@media (max-width: 768px) {
+    .botones-accion {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .tabla-empleados th,
+    .tabla-empleados td {
+        padding: 0.6rem;
+    }
+}

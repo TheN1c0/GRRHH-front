@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GrupoHorario } from '../interfaces/grupo-horario.models';
 import { Horario } from '../interfaces/horario.models';
+import { HorarioEmpleado } from '../interfaces/horario-empleado.model';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -57,6 +59,46 @@ export class HorarioService {
     return this.http.post<GrupoHorario>(
       `${this.baseUrl}/grupo-horarios/`,
       grupo,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  asignarHorarioEmpleado(data: HorarioEmpleado): Observable<HorarioEmpleado> {
+    return this.http.post<HorarioEmpleado>(
+      `${this.baseUrl}/horario-empleado/`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  obtenerGrupo(id: number): Observable<GrupoHorario> {
+    return this.http.get<GrupoHorario>(
+      `${this.baseUrl}/grupo-horarios/${id}/`,
+      { withCredentials: true }
+    );
+  }
+
+  actualizarHorarios(horarios: Horario[]): Observable<any> {
+    return this.http.put(`${this.baseUrl}/horarios/bulk/`, horarios, {
+      withCredentials: true,
+    });
+  }
+  actualizarHorariosEmpleado(data: HorarioEmpleado[]): Observable<any> {
+    return this.http.put(
+      `${this.baseUrl}/horario-empleado/editar-multiples/`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+  asignarHorarioEmpleadoBulk(data: HorarioEmpleado[]): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/horario-empleado/crear-multiples/`,
+      data,
       {
         withCredentials: true,
       }

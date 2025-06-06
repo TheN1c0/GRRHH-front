@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EmpleadoService, Empleado } from '../../../services/empleado.service';
+import { EmpleadoService } from '../../../services/empleado.service';
 import { environment } from '../../../../environments/environment';
+import { Empleado } from '../../../interfaces/empleado.model';
+
 @Component({
   selector: 'app-postulante-listado',
   templateUrl: './postulante-listado.component.html',
