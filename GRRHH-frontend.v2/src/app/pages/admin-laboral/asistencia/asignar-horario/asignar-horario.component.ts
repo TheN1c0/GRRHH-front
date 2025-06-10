@@ -67,25 +67,28 @@ export class AsignarHorarioComponent implements OnInit {
   }
 
   abrirModalEditar(): void {
+    console.log();
     const primero = this.empleados.find((e) => this.seleccionados.has(e.id));
 
     if (primero?.grupo_id) {
-      const grupo = this.grupos.find((g) => g.id === primero.grupo_id);
-      if (!grupo) {
-        alert('No se encontró el grupo en la lista cargada.');
-        return;
-      }
+      this.horarioService
+        .obtenerGrupo(primero.grupo_id)
+        .subscribe((grupoCompleto) => {
+          if (!grupoCompleto?.horarios?.length) {
+            alert('Este grupo no tiene horarios asignados.');
+            return;
+          }
 
-      this.grupoSeleccionado = grupo;
-      this.empleadosSeleccionados = this.empleados.filter((e) =>
-        this.seleccionados.has(e.id)
-      );
-      this.modalEditarVisible = true;
+          this.grupoSeleccionado = grupoCompleto;
+          this.empleadosSeleccionados = this.empleados.filter((e) =>
+            this.seleccionados.has(e.id)
+          );
+          this.modalEditarVisible = true;
+        });
     } else {
       alert('No se encontró grupo asignado.');
     }
   }
-
   cerrarModalEditar(): void {
     this.modalEditarVisible = false;
     this.cargarEmpleados();
