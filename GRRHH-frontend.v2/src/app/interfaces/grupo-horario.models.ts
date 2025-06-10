@@ -3,4 +3,5 @@ export interface GrupoHorario {
   nombre: string;
   descripcion: string;
   horarios: number[];
+  dias?: string[];
 }

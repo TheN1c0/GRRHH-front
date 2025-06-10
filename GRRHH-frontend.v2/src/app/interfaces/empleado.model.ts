@@ -16,4 +16,5 @@ export interface Empleado {
   es_personalizado?: boolean; // <- También esto si lo usas en la vista
   fecha_inicio?: string;
   fecha_fin?: string;
+  nombre_cargo?: string;
 }

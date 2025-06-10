@@ -24,7 +24,7 @@ export class AsignarHorarioComponent implements OnInit {
 
   modalEditarVisible = false;
   modalAsignacionVisible = false;
-  grupoSeleccionado: number | null = null;
+  grupoSeleccionado: GrupoHorario | null = null;
 
   constructor(
     private empleadoService: EmpleadoService,
@@ -44,6 +44,7 @@ export class AsignarHorarioComponent implements OnInit {
 
   cargarGrupos(): void {
     this.horarioService.obtenerGrupos().subscribe((data) => {
+      console.log('📦 Grupos recibidos:', data);
       this.grupos = data;
     });
   }
@@ -67,8 +68,15 @@ export class AsignarHorarioComponent implements OnInit {
 
   abrirModalEditar(): void {
     const primero = this.empleados.find((e) => this.seleccionados.has(e.id));
+
     if (primero?.grupo_id) {
-      this.grupoSeleccionado = primero.grupo_id;
+      const grupo = this.grupos.find((g) => g.id === primero.grupo_id);
+      if (!grupo) {
+        alert('No se encontró el grupo en la lista cargada.');
+        return;
+      }
+
+      this.grupoSeleccionado = grupo;
       this.empleadosSeleccionados = this.empleados.filter((e) =>
         this.seleccionados.has(e.id)
       );
@@ -84,10 +92,6 @@ export class AsignarHorarioComponent implements OnInit {
     this.seleccionados.clear();
   }
 
-  abrirFormularioAsignacion(): void {
-    this.modalAsignacionVisible = true;
-  }
-
   eliminarAsignaciones(): void {
     if (!confirm('¿Estás seguro de eliminar las asignaciones seleccionadas?'))
       return;
@@ -96,11 +100,12 @@ export class AsignarHorarioComponent implements OnInit {
     this.seleccionados.clear();
   }
 
-  asignarGrupoAGrupoSeleccionado(): void {
-    if (!this.grupoIdSeleccionado || !this.fechaInicio) {
-      alert('Debes seleccionar un grupo y fecha de inicio');
-      return;
-    }
+  asignarGrupoAGrupoSeleccionado(evento: {
+    grupoId: number;
+    fecha_inicio: string;
+    fecha_fin?: string;
+  }) {
+    const { grupoId, fecha_inicio, fecha_fin } = evento;
 
     const empleadosAAsignar = this.empleados.filter((e) =>
       this.seleccionados.has(e.id)
@@ -108,19 +113,19 @@ export class AsignarHorarioComponent implements OnInit {
 
     const payload: HorarioEmpleado[] = empleadosAAsignar.map((e) => ({
       empleado: e.id,
-      grupo_horario: this.grupoIdSeleccionado!,
-      fecha_inicio: this.fechaInicio,
-      fecha_fin: this.fechaFin || undefined,
+      grupo_horario: grupoId,
+      fecha_inicio,
+      fecha_fin,
     }));
+
+    // 🧪 Log para revisar qué se envía al backend
+    console.table(payload);
 
     this.horarioService.asignarHorarioEmpleadoBulk(payload).subscribe({
       next: () => {
         alert('✅ Grupo horario asignado exitosamente a los empleados');
         this.cargarEmpleados();
         this.seleccionados.clear();
-        this.grupoIdSeleccionado = null;
-        this.fechaInicio = '';
-        this.fechaFin = '';
         this.modalAsignacionVisible = false;
       },
       error: (err) => {
@@ -128,5 +133,18 @@ export class AsignarHorarioComponent implements OnInit {
         alert('Ocurrió un error al asignar el grupo horario.');
       },
     });
+  }
+
+  cerrarModalAsignacion(): void {
+    this.modalAsignacionVisible = false;
+  }
+
+  abrirFormularioAsignacion(): void {
+    if (this.seleccionados.size === 0) {
+      alert('Debes seleccionar al menos un empleado.');
+      return;
+    }
+
+    this.modalAsignacionVisible = true;
   }
 }

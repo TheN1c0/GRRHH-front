@@ -73,7 +73,13 @@ export class HorarioService {
       }
     );
   }
+  actualizarHorarioPersonalizado(id: number, data: any) {
+    return this.http.put(`/api/horario_empleado/${id}/`, data);
+  }
 
+  crearHorarioPersonalizado(data: any) {
+    return this.http.post(`/api/horario_empleado/`, data);
+  }
   obtenerGrupo(id: number): Observable<GrupoHorario> {
     return this.http.get<GrupoHorario>(
       `${this.baseUrl}/grupo-horarios/${id}/`,
@@ -96,12 +102,8 @@ export class HorarioService {
     );
   }
   asignarHorarioEmpleadoBulk(data: HorarioEmpleado[]): Observable<any> {
-    return this.http.post(
-      `${this.baseUrl}/horario-empleado/crear-multiples/`,
-      data,
-      {
-        withCredentials: true,
-      }
-    );
+    return this.http.post(`${this.baseUrl}/asignacion-horaria-masiva/`, data, {
+      withCredentials: true,
+    });
   }
 }

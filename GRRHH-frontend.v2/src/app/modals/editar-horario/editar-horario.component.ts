@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HorarioService } from '../../services/horario.service';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  AbstractControl,
+} from '@angular/forms';
 import { GrupoHorario } from '../../interfaces/grupo-horario.models';
 import { Empleado } from '../../interfaces/empleado.model';
-import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editar-horario',
@@ -15,19 +19,10 @@ export class EditarHorarioComponent implements OnInit {
   @Input() grupoOriginal!: GrupoHorario;
   @Input() empleadosSeleccionados: Empleado[] = [];
   formulario!: FormGroup;
-  diasSemana = [
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-    'Domingo',
-  ];
-  horariosEditados: any[] = [];
+
   constructor(
-    private HorarioService: HorarioService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private HorarioService: HorarioService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +39,7 @@ export class EditarHorarioComponent implements OnInit {
           dia: [h.dia],
           hora_entrada: [h.hora_entrada],
           hora_salida: [h.hora_salida],
+          es_personalizado: [h.es_personalizado === true],
         })
       );
     });
@@ -53,24 +49,63 @@ export class EditarHorarioComponent implements OnInit {
     return this.formulario.get('horarios') as FormArray;
   }
 
-  guardarCambios(): void {
-    const payload = this.formulario.value.horarios;
+  asFormGroup(control: AbstractControl): FormGroup {
+    return control as FormGroup;
+  }
 
-    this.HorarioService.actualizarHorarios(payload).subscribe({
-      next: () => {
-        this.cerrar.emit(); // Cierra el modal
-      },
-      error: (err) => {
-        console.error('❌ Error al actualizar horarios:', err);
-        alert('❌ Hubo un problema al guardar los cambios.');
-      },
-    });
+  guardarCambios(): void {
+    const horarios = this.formulario.value.horarios;
+
+    if (!this.empleadosSeleccionados.length) {
+      alert('⚠️ Debes seleccionar al menos un empleado.');
+      return;
+    }
+
+    for (const h of horarios) {
+      if (!h.hora_entrada || !h.hora_salida) {
+        alert(`⛔ Horario incompleto en ${h.dia}`);
+        return;
+      }
+      if (h.hora_entrada >= h.hora_salida) {
+        alert(`⛔ Entrada no puede ser igual o mayor que salida en ${h.dia}`);
+        return;
+      }
+
+      const data = {
+        dia: h.dia,
+        hora_entrada: h.hora_entrada,
+        hora_salida: h.hora_salida,
+      };
+
+      if (h.es_personalizado) {
+        this.HorarioService.actualizarHorarioPersonalizado(
+          h.id,
+          data
+        ).subscribe({
+          next: () => console.log(`✅ Actualizado ${h.dia}`),
+          error: (err) => console.error(`❌ Error actualizando ${h.dia}`, err),
+        });
+      } else {
+        this.empleadosSeleccionados.forEach((emp) => {
+          const payload = {
+            ...data,
+            empleado_id: emp.id,
+            grupo_horario_id: this.grupoOriginal.id,
+            fecha_inicio: new Date().toISOString().slice(0, 10),
+            es_personalizado: true,
+          };
+          this.HorarioService.crearHorarioPersonalizado(payload).subscribe({
+            next: () => console.log(`🆕 Creado para ${emp.id} (${h.dia})`),
+            error: (err) => console.error(`❌ Error creando`, err),
+          });
+        });
+      }
+    }
+
+    setTimeout(() => this.cerrar.emit(), 500);
   }
 
   cancelar(): void {
     this.cerrar.emit();
-  }
-  asFormGroup(control: AbstractControl): FormGroup {
-    return control as FormGroup;
   }
 }

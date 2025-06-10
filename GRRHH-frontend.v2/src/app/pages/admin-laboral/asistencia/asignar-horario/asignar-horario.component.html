@@ -44,7 +44,7 @@
             <h3>Editar Grupo Horario Personalizado</h3>
 
             <!-- Reutilizar tabla de días editable si ya la tienes -->
-            <app-editar-horario *ngIf="grupoSeleccionado" [grupoOriginal]="grupoSeleccionado"
+            <app-editar-horario *ngIf="grupoSeleccionado" [grupoOriginal]="grupoSeleccionado!"
                 [empleadosSeleccionados]="empleadosSeleccionados">
             </app-editar-horario>
 
@@ -55,3 +55,15 @@
         </div>
     </div>
 </ng-container>
+
+<!-- 🧩 Modal de asignación -->
+<ng-container *ngIf="modalAsignacionVisible">
+    <div class="modal-overlay">
+        <div class="modal-contenido">
+            <app-modal-asignar-horario [grupoOriginal]="grupoSeleccionado!" [grupos]="grupos"
+                (asignar)="asignarGrupoAGrupoSeleccionado($event)"
+                (cancelar)="cerrarModalAsignacion()"></app-modal-asignar-horario>
+        </div>
+    </div>
+</ng-container>
+<button (click)="modalAsignacionVisible = true">Probar modal</button>

@@ -1,25 +1,36 @@
-<h3>✏️ Editar Grupo Horario</h3>
+<h3>✏️ Editar Horarios del Empleado</h3>
 
-<form [formGroup]="formulario" (ngSubmit)="guardarCambios()" class="formulario-edicion">
-    <table class="tabla-edicion">
-        <thead>
-            <tr>
-                <th>Día</th>
-                <th>Hora Entrada</th>
-                <th>Hora Salida</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let h of horarios.controls; let i = index" [formGroup]="asFormGroup(h)">
-                <td>{{ h.get('dia')?.value }}</td>
-                <td><input type="time" formControlName="hora_entrada" /></td>
-                <td><input type="time" formControlName="hora_salida" /></td>
-            </tr>
-        </tbody>
-    </table>
+<p *ngIf="empleadosSeleccionados.length === 1">
+    👤 Editando: {{ empleadosSeleccionados[0].primer_nombre }} {{ empleadosSeleccionados[0].apellido_paterno }}
+</p>
+<p *ngIf="empleadosSeleccionados.length > 1">
+    👥 Editando horarios para {{ empleadosSeleccionados.length }} empleados
+</p>
 
-    <div class="acciones-modal">
-        <button type="submit">💾 Guardar</button>
-        <button type="button" (click)="cancelar()">❌ Cancelar</button>
-    </div>
-</form>
+<table class="tabla-edicion">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let h of horarios.controls; let i = index" [formGroup]="asFormGroup(h)">
+            <td data-label="Día">{{ h.get('dia')?.value }}</td>
+
+            <td><input type="time" formControlName="hora_entrada" /></td>
+            <td><input type="time" formControlName="hora_salida" /></td>
+            <td>
+                <span *ngIf="h.get('es_personalizado')?.value">🌟 Personalizado</span>
+                <span *ngIf="!h.get('es_personalizado')?.value">Grupo base</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="acciones-modal">
+    <button (click)="guardarCambios()">💾 Guardar</button>
+    <button (click)="cancelar()">❌ Cancelar</button>
+</div>

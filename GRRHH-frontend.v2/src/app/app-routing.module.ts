@@ -46,6 +46,7 @@ const routes: Routes = [
         path: 'admin-laboral/asistencia/asignar-horario',
         component: AsignarHorarioComponent,
       },
+
       {
         path: 'admin-laboral/asistencia/registros',
         component: RegistrosComponent,

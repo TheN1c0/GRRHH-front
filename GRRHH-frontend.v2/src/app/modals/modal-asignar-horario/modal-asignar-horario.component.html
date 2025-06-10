@@ -1,0 +1,38 @@
+<div class="modal-backdrop">
+    <div class="modal">
+        <h2>Asignar Horario</h2>
+
+        <form [formGroup]="formulario">
+            <!-- Selección de grupo -->
+            <div class="campo">
+                <label for="grupo_horario">Grupo Horario:</label>
+                <select id="grupo_horario" formControlName="grupo_horario" required>
+                    <option [ngValue]="null" disabled selected>Seleccione un grupo</option>
+                    <option *ngFor="let grupo of grupos" [ngValue]="grupo.id">
+                        {{ grupo.nombre }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Fecha inicio -->
+            <div class="campo">
+                <label for="fecha_inicio">Fecha Inicio:</label>
+                <input type="date" id="fecha_inicio" formControlName="fecha_inicio" required />
+            </div>
+
+            <!-- Fecha fin -->
+            <div class="campo">
+                <label for="fecha_fin">Fecha Fin (opcional):</label>
+                <input type="date" id="fecha_fin" formControlName="fecha_fin" />
+            </div>
+
+            <!-- Acciones -->
+            <div class="acciones">
+                <button type="button" (click)="submit()" [disabled]="formulario.invalid">
+                    Asignar
+                </button>
+                <button type="button" (click)="cancelar.emit()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
