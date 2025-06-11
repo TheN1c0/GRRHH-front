@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { NotasService } from '../../services/notas.service';
+import { HistorialService } from '../../services/historial.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,8 +12,11 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private http: HttpClient,
-    private notasService: NotasService
+    private notasService: NotasService,
+    private historialService: HistorialService
   ) {}
+  //-------------Historial-----------------------
+  historial: any[] = [];
   //-------------Notas-----------------------
   notas: any[] = [];
   nuevaNota: string = '';
@@ -34,6 +38,10 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         console.error('No se pudo obtener accesos', err);
       },
+    });
+    this.historialService.getHistorial().subscribe({
+      next: (data) => (this.historial = data),
+      error: (err) => console.error('Error al obtener historial', err),
     });
   }
 

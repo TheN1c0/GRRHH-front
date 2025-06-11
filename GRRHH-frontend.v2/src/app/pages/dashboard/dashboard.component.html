@@ -30,10 +30,40 @@
     </ul>
   </div>
 
-  <div class="card">Resumen 3</div>
-  <div class="card chart">📈 Gráfico</div>
-  <div class="card highlight">💵 Total: $3.295</div>
-  <div class="card list">✔️ Tareas</div>
-  <div class="card circle">🔵 78%</div>
-  <div class="card bars">📊 Barras</div>
+  <div class="card historial-card">
+    <h4>Historial de cambios</h4>
+    <div class="historial-scroll">
+      <div *ngFor="let item of historial" class="historial-item">
+        <div class="historial-linea">
+          <span class="label">Fecha:</span> {{ item.fecha | date:'shortDate' }}
+        </div>
+        <div class="historial-linea">
+          <span class="label">Hora:</span> {{ item.fecha | date:'shortTime' }}
+        </div>
+        <div class="historial-linea">
+          <span class="label">Acción:</span>
+          <span [ngClass]="{
+    'accion-crear': item.accion.toLowerCase().includes('crear'),
+    'accion-editar': item.accion.toLowerCase().includes('editar'),
+    'accion-eliminar': item.accion.toLowerCase().includes('eliminar')
+  }">
+            {{ item.accion }}
+          </span>
+        </div>
+
+        <div class="historial-linea">
+          <span class="label">Detalle:</span>
+          <span class="detalle-corta" [title]="item.detalle">
+            {{ item.detalle }}
+          </span>
+        </div>
+
+        <div class="historial-linea usuario">
+          <span class="label">Usuario:</span> {{ item.usuario }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </section>
