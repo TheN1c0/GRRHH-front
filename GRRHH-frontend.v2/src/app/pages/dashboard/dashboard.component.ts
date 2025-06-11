@@ -8,10 +8,20 @@ import { AuthService } from '../../services/auth.service';
 export class DashboardComponent {
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.authService.getDashboard().subscribe({
-      next: (res) => console.log('Dashboard:', res),
-      error: (err) => console.error('No autenticado:', err),
+  ultimoAcceso: any;
+
+  usuarioActual: string = '';
+  accesos: any[] = [];
+
+  ngOnInit() {
+    this.authService.getUltimoAcceso().subscribe({
+      next: (data) => {
+        this.accesos = data;
+        this.usuarioActual = localStorage.getItem('usuario') || 'Desconocido';
+      },
+      error: (err) => {
+        console.error('No se pudo obtener accesos', err);
+      },
     });
   }
 }

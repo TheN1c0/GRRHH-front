@@ -31,6 +31,7 @@ export class PortalComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
         alert('¡Inicio de sesión exitoso!');
+        localStorage.setItem('usuario', (response as any).username);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
