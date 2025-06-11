@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { LoginResponse } from '../../interfaces/user.model';
+
 @Component({
   selector: 'app-portal-de-acceso',
   templateUrl: './portal-de-acceso.component.html',
@@ -16,7 +16,7 @@ export class PortalDeAccesoComponent {
 
   onLogin() {
     this.authService.login(this.email, this.password).subscribe({
-      next: (response: LoginResponse) => {
+      next: (response) => {
         localStorage.setItem('usuario', (response as any).username);
         console.log('Inicio de sesiónn exitoso:', response);
         alert('¡Inicio de sesión exitoso!');
