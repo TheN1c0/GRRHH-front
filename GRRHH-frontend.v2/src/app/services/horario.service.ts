@@ -101,9 +101,29 @@ export class HorarioService {
       }
     );
   }
+  eliminarHorariosEmpleado(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/horario-empleado/${id}/`, {
+      withCredentials: true,
+    });
+  }
+
   asignarHorarioEmpleadoBulk(data: HorarioEmpleado[]): Observable<any> {
     return this.http.post(`${this.baseUrl}/asignacion-horaria-masiva/`, data, {
       withCredentials: true,
     });
+  }
+  obtenerHorariosEmpleado(empleadoId: number): Observable<Horario[]> {
+    return this.http.get<Horario[]>(
+      `${this.baseUrl}/horarios-empleado/${empleadoId}/`,
+      { withCredentials: true }
+    );
+  }
+  eliminarHorariosEmpleadoMultiples(empleados: number[]): Observable<any> {
+    console.log('🧹 Enviando empleados seleccionados al backend:', empleados);
+    return this.http.post(
+      `${this.baseUrl}/horario-empleado-eliminar-multiples/`,
+      { empleados },
+      { withCredentials: true }
+    );
   }
 }

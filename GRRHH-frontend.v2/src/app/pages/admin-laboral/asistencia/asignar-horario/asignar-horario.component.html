@@ -3,7 +3,7 @@
 <!-- 🔘 Botones de acción -->
 <div class="botones-accion">
     <button (click)="abrirFormularioAsignacion()">AGREGAR</button>
-    <button [disabled]="seleccionados.size === 0" (click)="abrirModalEditar()">EDITAR</button>
+
     <button [disabled]="seleccionados.size === 0" (click)="eliminarAsignaciones()">ELIMINAR</button>
 </div>
 
@@ -38,23 +38,7 @@
 </table>
 
 <!-- ✏️ Modal de edición -->
-<ng-container *ngIf="modalEditarVisible">
-    <div class="modal-overlay">
-        <div class="modal-contenido">
-            <h3>Editar Grupo Horario Personalizado</h3>
 
-            <!-- Reutilizar tabla de días editable si ya la tienes -->
-            <app-editar-horario *ngIf="grupoSeleccionado" [grupoOriginal]="grupoSeleccionado!"
-                [empleadosSeleccionados]="empleadosSeleccionados">
-            </app-editar-horario>
-
-
-
-
-            <button (click)="cerrarModalEditar()">Cerrar</button>
-        </div>
-    </div>
-</ng-container>
 
 <!-- 🧩 Modal de asignación -->
 <ng-container *ngIf="modalAsignacionVisible">

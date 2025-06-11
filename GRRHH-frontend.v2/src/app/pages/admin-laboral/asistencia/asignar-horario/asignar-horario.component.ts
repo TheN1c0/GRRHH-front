@@ -5,7 +5,8 @@ import { EmpleadoService } from '../../../../services/empleado.service';
 import { HorarioEmpleado } from '../../../../interfaces/horario-empleado.model';
 import { GrupoHorario } from '../../../../interfaces/grupo-horario.models';
 import { Empleado } from '../../../../interfaces/empleado.model';
-
+import { Horario } from '../../../../interfaces/horario.models';
+import { GrupoHorarioExpandido } from '../../../../interfaces/grupoHorarioExpandido.models';
 @Component({
   selector: 'app-asignar-horario',
   templateUrl: './asignar-horario.component.html',
@@ -14,7 +15,7 @@ import { Empleado } from '../../../../interfaces/empleado.model';
 export class AsignarHorarioComponent implements OnInit {
   empleados: Empleado[] = [];
   grupos: GrupoHorario[] = [];
-
+  todosHorarios: Horario[] = [];
   seleccionados: Set<number> = new Set();
   empleadosSeleccionados: Empleado[] = [];
 
@@ -25,7 +26,7 @@ export class AsignarHorarioComponent implements OnInit {
   modalEditarVisible = false;
   modalAsignacionVisible = false;
   grupoSeleccionado: GrupoHorario | null = null;
-
+  grupoSeleccionadoExpandido: GrupoHorarioExpandido | null = null;
   constructor(
     private empleadoService: EmpleadoService,
     private horarioService: HorarioService
@@ -67,28 +68,52 @@ export class AsignarHorarioComponent implements OnInit {
   }
 
   abrirModalEditar(): void {
-    console.log();
     const primero = this.empleados.find((e) => this.seleccionados.has(e.id));
 
     if (primero?.grupo_id) {
-      this.horarioService
-        .obtenerGrupo(primero.grupo_id)
-        .subscribe((grupoCompleto) => {
-          if (!grupoCompleto?.horarios?.length) {
-            alert('Este grupo no tiene horarios asignados.');
-            return;
-          }
+      this.horarioService.obtenerGrupo(primero.grupo_id).subscribe((grupo) => {
+        console.log('✅ Grupo base:', grupo);
 
-          this.grupoSeleccionado = grupoCompleto;
-          this.empleadosSeleccionados = this.empleados.filter((e) =>
-            this.seleccionados.has(e.id)
-          );
-          this.modalEditarVisible = true;
-        });
+        // Obtener todos los horarios si no están cargados aún
+        if (!this.todosHorarios.length) {
+          this.horarioService.obtenerHorarios().subscribe((todos) => {
+            this.todosHorarios = todos;
+
+            this.aplicarHorariosAlGrupo(grupo, todos);
+          });
+        } else {
+          this.aplicarHorariosAlGrupo(grupo, this.todosHorarios);
+        }
+      });
     } else {
       alert('No se encontró grupo asignado.');
     }
   }
+
+  aplicarHorariosAlGrupo(grupo: GrupoHorario, todos: Horario[]): void {
+    const horariosDelGrupo = todos.filter((h) =>
+      grupo.horarios.includes(h.id!)
+    );
+
+    // 1️⃣ Este objeto es solo para el modal (con horarios completos)
+    this.grupoSeleccionadoExpandido = {
+      ...grupo,
+      horarios: horariosDelGrupo,
+    };
+
+    // 2️⃣ Este objeto puede mantener los IDs si se necesita para otra lógica
+    this.grupoSeleccionado = {
+      ...grupo,
+      horarios: grupo.horarios,
+    };
+
+    this.empleadosSeleccionados = this.empleados.filter((e) =>
+      this.seleccionados.has(e.id)
+    );
+
+    this.modalEditarVisible = true;
+  }
+
   cerrarModalEditar(): void {
     this.modalEditarVisible = false;
     this.cargarEmpleados();
@@ -96,11 +121,33 @@ export class AsignarHorarioComponent implements OnInit {
   }
 
   eliminarAsignaciones(): void {
-    if (!confirm('¿Estás seguro de eliminar las asignaciones seleccionadas?'))
+    const empleadosIds = Array.from(this.seleccionados);
+
+    if (empleadosIds.length === 0) {
+      alert('⚠️ No hay empleados seleccionados.');
       return;
-    // Aquí iría lógica real de eliminación
-    alert(`Se eliminarían: ${Array.from(this.seleccionados).join(', ')}`);
-    this.seleccionados.clear();
+    }
+
+    if (
+      !confirm(
+        '¿Eliminar todas las asignaciones de los empleados seleccionados?'
+      )
+    )
+      return;
+
+    this.horarioService
+      .eliminarHorariosEmpleadoMultiples(empleadosIds)
+      .subscribe({
+        next: (res) => {
+          alert(res.mensaje);
+          this.seleccionados.clear();
+          this.cargarEmpleados(); // Vuelve a cargar la tabla
+        },
+        error: (err) => {
+          console.error('❌ Error al eliminar:', err);
+          alert('Error al eliminar las asignaciones.');
+        },
+      });
   }
 
   asignarGrupoAGrupoSeleccionado(evento: {

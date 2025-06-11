@@ -17,4 +17,5 @@ export interface Empleado {
   fecha_inicio?: string;
   fecha_fin?: string;
   nombre_cargo?: string;
+  horario_empleado_id?: number;
 }

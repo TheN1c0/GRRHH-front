@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { GrupoHorario } from '../../interfaces/grupo-horario.models';
 import { Empleado } from '../../interfaces/empleado.model';
-
+import { GrupoHorarioExpandido } from '../../interfaces/grupoHorarioExpandido.models';
 @Component({
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
@@ -16,7 +16,7 @@ import { Empleado } from '../../interfaces/empleado.model';
 })
 export class EditarHorarioComponent implements OnInit {
   @Output() cerrar = new EventEmitter<void>();
-  @Input() grupoOriginal!: GrupoHorario;
+  @Input() grupoOriginal!: GrupoHorarioExpandido;
   @Input() empleadosSeleccionados: Empleado[] = [];
   formulario!: FormGroup;
 
@@ -30,16 +30,71 @@ export class EditarHorarioComponent implements OnInit {
       horarios: this.fb.array([]),
     });
 
+    // Caso 1: No hay empleados seleccionados (no debería ocurrir normalmente)
+    if (!this.empleadosSeleccionados?.length) {
+      this.cargarHorariosBase();
+      return;
+    }
+
+    // Caso 2: Solo un empleado seleccionado - cargamos sus horarios personalizados
+    if (this.empleadosSeleccionados.length === 1) {
+      const empleado = this.empleadosSeleccionados[0];
+      this.cargarHorariosPersonalizados(empleado.id);
+      return;
+    }
+
+    // Caso 3: Múltiples empleados seleccionados - cargamos horarios base del grupo
+    this.cargarHorariosBase();
+  }
+
+  private cargarHorariosBase(): void {
     const formArray = this.formulario.get('horarios') as FormArray;
+    formArray.clear();
 
     this.grupoOriginal.horarios.forEach((h: any) => {
       formArray.push(
         this.fb.group({
           id: [h.id],
-          dia: [h.dia],
+          dia: [h.dia_semana],
           hora_entrada: [h.hora_entrada],
           hora_salida: [h.hora_salida],
-          es_personalizado: [h.es_personalizado === true],
+          es_personalizado: [false], // Todos son horarios base
+        })
+      );
+    });
+  }
+
+  private cargarHorariosPersonalizados(empleadoId: number): void {
+    this.HorarioService.obtenerHorariosEmpleado(empleadoId).subscribe({
+      next: (personalizados) => {
+        this.combinarHorariosConBase(personalizados);
+      },
+      error: (err) => {
+        console.error('❌ Error cargando horarios personalizados:', err);
+        // Si falla, cargamos los horarios base como fallback
+        this.cargarHorariosBase();
+      },
+    });
+  }
+
+  private combinarHorariosConBase(personalizados: any[]): void {
+    const formArray = this.formulario.get('horarios') as FormArray;
+    formArray.clear();
+
+    this.grupoOriginal.horarios.forEach((hBase: any) => {
+      const horarioPersonalizado = personalizados.find(
+        (p) => p.dia_semana === hBase.dia_semana
+      );
+
+      formArray.push(
+        this.fb.group({
+          id: [horarioPersonalizado?.id || hBase.id],
+          dia: [hBase.dia_semana],
+          hora_entrada: [
+            horarioPersonalizado?.hora_entrada || hBase.hora_entrada,
+          ],
+          hora_salida: [horarioPersonalizado?.hora_salida || hBase.hora_salida],
+          es_personalizado: [!!horarioPersonalizado],
         })
       );
     });

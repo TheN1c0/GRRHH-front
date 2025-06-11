@@ -136,16 +136,26 @@ export class GruposHorarioComponent implements OnInit {
 
   // 👉 ELIMINAR
   eliminarSeleccionados(): void {
-    const eliminaciones = Array.from(this.seleccionados).map((id) =>
-      this.horarioService.eliminarHorario(id)
-    );
+    const ids = Array.from(this.seleccionados);
 
-    Promise.all(eliminaciones.map((obs) => obs.toPromise()))
-      .then(() => {
-        this.cargarHorarios();
+    if (ids.length === 0) {
+      alert('⚠️ No hay horarios seleccionados');
+      return;
+    }
+
+    if (!confirm('¿Estás seguro de eliminar estos horarios asignados?')) return;
+
+    this.horarioService.eliminarHorariosEmpleadoMultiples(ids).subscribe({
+      next: () => {
+        alert('✅ Horarios eliminados correctamente');
         this.seleccionados.clear();
-      })
-      .catch((err) => console.error('Error al eliminar:', err));
+        this.cargarHorarios(); // ← Este método ya lo tienes
+      },
+      error: (err) => {
+        console.error('❌ Error al eliminar:', err);
+        alert('Ocurrió un error al eliminar los horarios.');
+      },
+    });
   }
 
   // 👉 AGRUPAR
