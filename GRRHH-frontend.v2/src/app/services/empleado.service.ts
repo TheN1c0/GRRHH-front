@@ -27,14 +27,13 @@ export class EmpleadoService {
 
   constructor(private http: HttpClient) {}
 
-  getEmpleados(): Observable<Empleado[]> {
-    return this.http.get<Empleado[]>(
-      `${environment.apiUrl}personal/api/empleados/`,
-      {
-        withCredentials: true,
-      }
-    );
+  getEmpleados(params: any = {}): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}personal/api/empleados/`, {
+      params,
+      withCredentials: true,
+    });
   }
+
   updateEmpleado(id: number, data: any): Observable<any> {
     return this.http.put(
       `${environment.apiUrl}personal/api/empleados/${id}/`,
@@ -135,6 +134,20 @@ export class EmpleadoService {
       {
         withCredentials: true,
       }
+    );
+  }
+  desvincularEmpleado(id: number): Observable<any> {
+    return this.http.post(
+      `${environment.apiUrl}personal/api/desvincular_empleado/`,
+      { id },
+      { withCredentials: true }
+    );
+  }
+  cambiarEstadoEmpleado(id: number): Observable<any> {
+    return this.http.post(
+      `${environment.apiUrl}personal/api/cambiar_estado_empleado/`,
+      { id },
+      { withCredentials: true }
     );
   }
 }

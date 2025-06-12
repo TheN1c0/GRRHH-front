@@ -1,11 +1,11 @@
 /* @import "bourbon@5.*"; */
 
 // Breakpoints
-$bp-maggie: 15em;
-$bp-lisa: 30em;
-$bp-bart: 48em;
-$bp-marge: 62em;
-$bp-homer: 75em;
+$bp-maggie: 15em; // ≈ 240px – muy pequeño (smartwatch, dispositivos reducidos)
+$bp-lisa: 30em; // ≈ 480px – celulares
+$bp-bart: 48em; // ≈ 768px – tablets (modo vertical)
+$bp-marge: 62em; // ≈ 992px – tablets (modo horizontal) o pantallas medianas
+$bp-homer: 75em; // ≈ 1200px – escritorio grande
 
 // Styles
 html {
@@ -38,6 +38,7 @@ a {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
 
     @media (min-width: $bp-bart) {
         margin: 2%;
@@ -69,6 +70,18 @@ a {
 
     @media (min-width: $bp-marge) {
         font-size: 1em;
+    }
+
+    @media (max-width: $bp-lisa) {
+        tbody tr {
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+            margin-top: 1rem;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
     }
 
     thead {
@@ -247,6 +260,25 @@ a {
 
 }
 
+@media (max-width: $bp-bart) {
+    .responsive-table tbody tr.expandible {
+        cursor: pointer;
+    }
+
+    .detalle-colaborador {
+        display: none;
+    }
+
+    .expandido .detalle-colaborador {
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .detalle-colaborador td {
+        padding: 0.3rem 0;
+    }
+}
+
 .barra-superior {
     display: flex;
     flex-wrap: wrap;
@@ -272,6 +304,7 @@ a {
 
 .barra-filtros {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
 }
@@ -297,7 +330,19 @@ a {
     padding: 0.5rem;
     border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 14px;
+    min-width: 180px;
+    max-width: 100%;
+    width: auto;
+
+    @media (max-width: 768px) {
+        flex: 1 1 100%;
+        /* que se extienda en pantallas chicas */
+        width: 100%;
+    }
 }
+
+
 
 .foto-colaborador {
     width: 40px;
@@ -384,4 +429,100 @@ a {
 
 .cancelar:hover {
     background-color: #bdbdbd;
+}
+
+.ocultarInactivos {
+    color: black;
+}
+
+.paginacion-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 0.8rem;
+}
+
+.select-page-size select {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    justify-content: center;
+
+    /* Para que los botones no se encojan */
+    button {
+        flex: 0 0 auto;
+        min-width: 36px;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        border-radius: 6px;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    button.activa {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.paginacion {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+
+
+}
+
+.paginacion button {
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    padding: 0.4rem 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.paginacion button:hover {
+    background-color: #cceeff;
+}
+
+.paginacion button.activa {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------- */
+@media (max-width: 768px) {
+    .fila-colaborador {
+        border-top: 1px solid #ccc;
+        padding: 1rem 0;
+        cursor: pointer;
+        color: black;
+    }
+
+    .cabecera {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .contenido {
+        margin-top: 0.5rem;
+        font-size: 14px;
+        display: none;
+    }
+
+    .expandido .contenido {
+        display: block;
+    }
 }
