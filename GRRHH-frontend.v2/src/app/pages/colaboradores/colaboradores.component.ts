@@ -25,19 +25,24 @@ export class ColaboradoresComponent implements OnInit {
   tamanoPagina = 5;
   totalEmpleados = 0;
 
+  esMovil = false;
   filaExpandidaId: number | null = null;
   alternarFila(colaborador: any) {
     this.filaExpandidaId =
       this.filaExpandidaId === colaborador.id ? null : colaborador.id;
   }
   ngOnInit(): void {
+    this.detectarDispositivo();
+    window.addEventListener('resize', () => this.detectarDispositivo());
     setTimeout(() => {
       this.cargarEmpleados();
       this.cargarCargos();
       this.cargarDepartamentos();
     }, 100);
   }
-
+  detectarDispositivo() {
+    this.esMovil = window.innerWidth <= 768;
+  }
   confirmarDesvincular(colaborador: any) {
     this.colaboradores.forEach((c) => (c.confirmar = false));
     colaborador.confirmar = true;

@@ -260,6 +260,7 @@ a {
 
 }
 
+/*  */
 @media (max-width: $bp-bart) {
     .responsive-table tbody tr.expandible {
         cursor: pointer;
@@ -288,6 +289,7 @@ a {
     margin-bottom: 1.5rem;
 }
 
+
 .btn-agregar {
     background-color: #cceeff;
     color: rgb(0, 0, 0);
@@ -301,6 +303,8 @@ a {
 .btn-agregar:hover {
     background-color: #4da2cc;
 }
+
+/* barra-filtros desktop */
 
 .barra-filtros {
     display: flex;
@@ -335,14 +339,49 @@ a {
     max-width: 100%;
     width: auto;
 
+
     @media (max-width: 768px) {
-        flex: 1 1 100%;
+        flex: 1 1 auto;
         /* que se extienda en pantallas chicas */
         width: 100%;
     }
 }
 
+/* barra-filtros desktop fin */
+@media (max-width: 600px) {
+    .barra-filtros {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-inline: 0.5rem;
 
+    }
+
+    .barra-filtros select,
+    .barra-filtros input {
+        font-size: 12px; // 
+        padding: 0.2rem 0.4rem;
+        border-radius: 6px;
+
+    }
+
+    .busqueda input {
+        width: 100%;
+        max-width: 100%;
+
+    }
+
+    .icono-buscar {
+        font-size: 0.9rem;
+        right: 0.5rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .barra-filtros {
+        padding-inline: 0 !important;
+    }
+}
 
 .foto-colaborador {
     width: 40px;

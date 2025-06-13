@@ -18,14 +18,14 @@
         <span class="icono-buscar">🔍</span>
       </div>
       <select class="dropdown-filtro" [(ngModel)]="filtroDepartamento" (change)="aplicarFiltros()">
-        <option value="">Filtrar por Departamento...</option>
+        <option value="">{{ esMovil ? 'Filtrar departamento' : 'Filtrar por Departamento...' }}</option>
         <option *ngFor="let d of departamentos" [value]="d.id">
           {{ d.nombre }}
         </option>
       </select>
 
       <select class="dropdown-filtro" [(ngModel)]="filtroCargo" (change)="aplicarFiltros()">
-        <option value="">Filtrar por cargo...</option>
+        <option value="">{{ esMovil ? 'Filtrar cargo' : 'Filtrar por cargo...' }}</option>
         <option *ngFor="let c of cargos" [value]="c.id">
           {{ c.nombre }}
         </option>
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Tabla de colaboradores -->
-  <table class="responsive-table">
+  <table class="responsive-table" *ngIf="!esMovil">
     <thead>
       <tr>
         <th>Foto</th>
@@ -47,6 +47,8 @@
       </tr>
     </thead>
     <tbody>
+      <!-- ------------------Vista de escritorio-------------------------------------------------- -->
+
       <tr *ngFor="let colaborador of colaboradores">
         <td>
           <img [src]="colaborador.foto" alt="Foto" class="foto-colaborador" />
@@ -89,10 +91,50 @@
         </td>
       </tr>
 
+      <!-- -------------------------------------------------------------- -->
+
 
     </tbody>
 
   </table>
+  <!-- ------------------Vista de móvil-------------------------------------------- -->
+  <!-- Vista móvil (fuera de tabla) -->
+  <div class="vista-movil" *ngIf="esMovil">
+    <div class="fila-colaborador" *ngFor="let colaborador of colaboradores"
+      [class.expandido]="filaExpandidaId === colaborador.id" (click)="alternarFila(colaborador)">
+      <div class="cabecera">
+        <div class="nombre">
+          {{ colaborador.primer_nombre }} {{ colaborador.otros_nombres }}
+          {{ colaborador.apellido_paterno }} {{ colaborador.apellido_materno }}
+        </div>
+        <div [class.activo]="colaborador.estado === 'activo'" [class.inactivo]="colaborador.estado === 'inactivo'">
+          {{ colaborador.estado }}
+        </div>
+      </div>
+
+      <div class="contenido" *ngIf="filaExpandidaId === colaborador.id">
+        <div><strong>Cargo:</strong> {{ colaborador.nombre_cargo }}</div>
+        <div><strong>Área:</strong> {{ colaborador.nombre_departamento }}</div>
+
+        <div class="btn-desvincular-wrapper" [class.abierto]="colaborador.confirmar">
+          <button class="btn-editar" (click)="abrirModalEditar(colaborador); $event.stopPropagation()">Editar</button>
+          <button class="btn-desvincular" (click)="toggleConfirm(colaborador); $event.stopPropagation()">
+            <span *ngIf="!colaborador.confirmar">
+              {{ colaborador.estado === 'activo' ? 'Desvincular' : 'Reintegrar' }}
+            </span>
+            <span *ngIf="colaborador.confirmar">¿Seguro?</span>
+          </button>
+
+          <div class="confirmacion">
+            <button (click)="cambiarEstado(colaborador); $event.stopPropagation()" class="confirmar">Sí</button>
+            <button (click)="colaborador.confirmar = false; $event.stopPropagation()" class="cancelar">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------- -->
   <div class="paginacion-wrapper">
     <div class="select-page-size">
       <select [(ngModel)]="tamanoPagina" (change)="cargarEmpleados(1)">
