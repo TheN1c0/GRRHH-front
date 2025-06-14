@@ -14,30 +14,46 @@ import { GruposHorarioComponent } from './pages/admin-laboral/asistencia/grupos-
 import { AsignarHorarioComponent } from './pages/admin-laboral/asistencia/asignar-horario/asignar-horario.component';
 import { RegistrosComponent } from './pages/admin-laboral/asistencia/registros/registros.component';
 import { EstructuraOrganizacionalComponent } from './pages/admin-laboral/estructura-organizacional/estructura-organizacional.component';
+import { CuentaComponent } from './pages/ajustes/cuenta/cuenta.component';
+import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.component';
 
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
 
 const routes: Routes = [
+  // 🔁 Redirección raíz
   { path: '', redirectTo: 'portal', pathMatch: 'full' },
+
+  // 🏠 Páginas públicas o de acceso
   { path: 'portal', component: PortalComponent },
   { path: 'portal-de-acceso', component: PortalDeAccesoComponent },
   { path: 'inicio', component: InicioComponent },
+
+  //  Layout con sidebar/header y sus hijos
   {
     path: '',
-    component: LayoutadminComponent, // contiene header y sidebar
+    component: LayoutadminComponent,
     children: [
+      //  Principales
       { path: 'dashboard', component: DashboardComponent },
       { path: 'colaboradores', component: ColaboradoresComponent },
       { path: 'liquidaciones', component: LiquidacionesComponent },
       { path: 'reportes', component: ReportesComponent },
       { path: 'reclutamiento', component: ReclutamientoComponent },
+
+      //  Administración Laboral
       { path: 'admin-laboral/prevision', component: PrevisionComponent },
       {
         path: 'admin-laboral/tipos-contrato',
         component: TiposContratoComponent,
       },
+      {
+        path: 'admin-laboral/estructura',
+        component: EstructuraOrganizacionalComponent,
+      },
       { path: 'admin-laboral/cargas', component: CargasComponent },
+
+      // Asistencia
       {
         path: 'admin-laboral/asistencia/grupos-horario',
         component: GruposHorarioComponent,
@@ -46,19 +62,16 @@ const routes: Routes = [
         path: 'admin-laboral/asistencia/asignar-horario',
         component: AsignarHorarioComponent,
       },
-
       {
         path: 'admin-laboral/asistencia/registros',
         component: RegistrosComponent,
       },
-
-      {
-        path: 'admin-laboral/estructura',
-        component: EstructuraOrganizacionalComponent,
-      },
+      { path: 'ajustes/cuenta', component: CuentaComponent },
+      { path: 'ajustes/seguridad', component: SeguridadComponent },
     ],
   },
 
+  //  Redirecciones finales
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' },
 ];

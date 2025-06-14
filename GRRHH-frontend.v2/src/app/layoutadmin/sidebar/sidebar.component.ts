@@ -8,15 +8,29 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
   adminLaboralOpen: boolean = false;
   ajustesOpen: boolean = false;
-  toggleAdminLaboral() {
-    this.adminLaboralOpen = !this.adminLaboralOpen;
+  menuActivo: 'adminLaboral' | 'ajustes' | null = null;
+  asistenciaOpen: boolean = false;
+
+  toggleMenu(menu: 'adminLaboral' | 'ajustes') {
+    this.menuActivo = this.menuActivo === menu ? null : menu;
+
+    // Opcional: cerrar asistencia si se cambia de menú
+    if (menu !== 'adminLaboral') {
+      this.asistenciaOpen = false;
+    }
   }
-  asistenciaOpen = false;
-  toggleAsistencia() {
+
+  toggleAsistencia(event: Event) {
+    event.stopPropagation(); // evita cerrar menú padre
     this.asistenciaOpen = !this.asistenciaOpen;
   }
 
+  toggleAdminLaboral() {
+    this.menuActivo =
+      this.menuActivo === 'adminLaboral' ? null : 'adminLaboral';
+  }
+
   toggleAjustes() {
-    this.ajustesOpen = !this.ajustesOpen;
+    this.menuActivo = this.menuActivo === 'ajustes' ? null : 'ajustes';
   }
 }

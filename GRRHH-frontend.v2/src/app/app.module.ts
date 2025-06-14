@@ -37,6 +37,8 @@ import { AsignarHorarioComponent } from './pages/admin-laboral/asistencia/asigna
 import { RegistrosComponent } from './pages/admin-laboral/asistencia/registros/registros.component';
 import { EditarHorarioComponent } from './modals/editar-horario/editar-horario.component';
 import { ModalAsignarHorarioComponent } from './modals/modal-asignar-horario/modal-asignar-horario.component';
+import { CuentaComponent } from './pages/ajustes/cuenta/cuenta.component';
+import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { ModalAsignarHorarioComponent } from './modals/modal-asignar-horario/mod
     RegistrosComponent,
     EditarHorarioComponent,
     ModalAsignarHorarioComponent,
+    CuentaComponent,
+    SeguridadComponent,
   ],
   imports: [
     BrowserModule,

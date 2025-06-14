@@ -28,19 +28,22 @@
     <li routerLink="/reclutamiento" routerLinkActive="active">
       <span>💼</span> Reclutamiento
     </li>
+
+
     <!-- Toggle principal -->
-    <li class="has-submenu" (click)="toggleAdminLaboral()">
+    <li class="has-submenu" (click)="toggleMenu('adminLaboral')">
       <span>⚙️</span> Administración Laboral
-      <span class="arrow" [class.rotate]="adminLaboralOpen">▸</span>
+      <span class="arrow" [class.rotate]="menuActivo === 'adminLaboral'">▸</span>
     </li>
 
-    <!-- Submenú (más pequeño) -->
-    <ul *ngIf="adminLaboralOpen" class="submenu">
+    <!-- Submenú -->
+    <ul *ngIf="menuActivo === 'adminLaboral'" class="submenu">
       <li routerLink="/admin-laboral/prevision" routerLinkActive="active">Previsión</li>
       <li routerLink="/admin-laboral/tipos-contrato" routerLinkActive="active">Tipos de Contrato</li>
       <li routerLink="/admin-laboral/estructura" routerLinkActive="active">Estructura Organizacional</li>
       <li routerLink="/admin-laboral/cargas" routerLinkActive="active">Cargas Familiares</li>
-      <li class="has-submenu" (click)="toggleAsistencia()">
+
+      <li class="has-submenu" (click)="toggleAsistencia($event)">
         <span>🕘</span> Asistencia
         <span class="arrow" [class.rotate]="asistenciaOpen">▸</span>
       </li>
@@ -49,18 +52,22 @@
         <li routerLink="/admin-laboral/asistencia/asignar-horario" routerLinkActive="active">Asignar Horario</li>
         <li routerLink="/admin-laboral/asistencia/registros" routerLinkActive="active">Registros</li>
       </ul>
+    </ul>
 
+    <!-- Ajustes -->
+    <li class="has-submenu" (click)="toggleMenu('ajustes')">
+      <span>🔧</span> Ajustes
+      <span class="arrow" [class.rotate]="menuActivo === 'ajustes'">▸</span>
+    </li>
+    <ul *ngIf="menuActivo === 'ajustes'" class="submenu">
+      <li routerLink="/ajustes/cuenta" routerLinkActive="active">Mi cuenta</li>
+      <li routerLink="/ajustes/seguridad" routerLinkActive="active">Seguridad y sesiones</li>
     </ul>
 
 
-    <li routerLink="/soporte" routerLinkActive="active">
-      <span>🛠</span> Soporte
-    </li>
-    <li routerLink="/visualizacion" routerLinkActive="active">
-      <span>👁</span> Visualización
-    </li>
-    <li routerLink="/ajustes" routerLinkActive="active">
-      <span>🔧</span> Ajustes
-    </li>
+
+
   </ul>
+
+
 </aside>
