@@ -16,15 +16,16 @@ export interface ReporteMensual {
   providedIn: 'root',
 })
 export class ReporteService {
-  private apiUrl = environment.apiUrl + 'personal/api/reporte-mensual/';
-
   constructor(private http: HttpClient) {}
 
   obtenerReporte(mes: number, anio: number): Observable<ReporteMensual> {
     const params = { mes: mes.toString(), anio: anio.toString() };
-    return this.http.get<ReporteMensual>(this.apiUrl, {
-      params,
-      withCredentials: true,
-    });
+    return this.http.get<ReporteMensual>(
+      `${environment.personalUrl}/reporte-mensual/`,
+      {
+        params,
+        withCredentials: true,
+      }
+    );
   }
 }

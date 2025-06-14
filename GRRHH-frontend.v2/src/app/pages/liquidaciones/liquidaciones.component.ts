@@ -21,7 +21,7 @@ export class LiquidacionesComponent {
 
   ngOnInit() {
     this.http
-      .get(`${environment.apiUrl}personal/api/contratos/`)
+      .get(`${environment.personalUrl}/contratos/`)
       .subscribe((res: any) => {
         this.contratos = res;
       });
@@ -39,13 +39,9 @@ export class LiquidacionesComponent {
     this.form.contrato_id = Number(this.form.contrato_id);
 
     this.http
-      .post(
-        `${environment.apiUrl}personal/api/liquidaciones/generar/`,
-        this.form,
-        {
-          responseType: 'blob',
-        }
-      )
+      .post(`${environment.personalUrl}/liquidaciones/generar/`, this.form, {
+        responseType: 'blob',
+      })
       .subscribe({
         next: (blob: Blob) => {
           const a = document.createElement('a');

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EmpleadoService } from '../../../services/empleado.service';
 import { environment } from '../../../../environments/environment';
@@ -19,7 +19,11 @@ export class PostulanteListadoComponent implements OnInit {
     private http: HttpClient,
     private empleadoService: EmpleadoService
   ) {}
+  @Output() abrirModal = new EventEmitter<any>();
 
+  abrirContratacion(postulante: any) {
+    this.abrirModal.emit(postulante);
+  }
   ngOnInit(): void {
     this.obtenerPostulantes();
     this.obtenerCargos();

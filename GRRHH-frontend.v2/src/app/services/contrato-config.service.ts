@@ -5,8 +5,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ContratoConfigService {
-  private reglasUrl = `${environment.apiUrl}personal/api/reglas-contrato/`;
-  private tiposUrl = `${environment.apiUrl}personal/api/tipo-contrato/`;
+  private reglasUrl = `${environment.personalUrl}/reglas-contrato/`;
+  private tiposUrl = `${environment.personalUrl}/tipo-contrato/`;
 
   constructor(private http: HttpClient) {}
 

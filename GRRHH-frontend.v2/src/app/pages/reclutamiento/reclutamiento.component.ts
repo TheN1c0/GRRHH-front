@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ReclutamientoComponent {
   modo: 'formulario' | 'listado' | 'contratar' | null = null;
+
+  postulanteSeleccionado: any = null;
 }

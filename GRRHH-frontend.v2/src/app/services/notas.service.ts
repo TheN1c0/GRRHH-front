@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class NotasService {
-  private apiUrl = 'http://localhost:8000/auth/api/notas/';
-
   constructor(private http: HttpClient) {}
 
   obtenerNotas(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl, { withCredentials: true });
+    return this.http.get<any[]>(`${environment.authUrl}/api/notas/`, {
+      withCredentials: true,
+    });
   }
 
   crearNota(contenido: string): Observable<any> {
     return this.http.post(
-      this.apiUrl,
+      `${environment.authUrl}/api/notas/`,
       { contenido },
       { withCredentials: true }
     );
@@ -24,14 +24,14 @@ export class NotasService {
 
   editarNota(id: number, contenido: string): Observable<any> {
     return this.http.put(
-      this.apiUrl,
+      `${environment.authUrl}/api/notas/`,
       { id, contenido },
       { withCredentials: true }
     );
   }
 
   eliminarNota(id: number): Observable<any> {
-    return this.http.request('DELETE', this.apiUrl, {
+    return this.http.request('DELETE', `${environment.authUrl}/api/notas/`, {
       body: { id },
       withCredentials: true,
     });

@@ -1,0 +1,88 @@
+form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+fieldset {
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: grid;
+    gap: 1rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    background-color: #f9f9f9;
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+    padding: 0 0.5rem;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    color: #1a1a1a;
+}
+
+input,
+select {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    align-self: flex-end;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background-color: #007b5e;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background-color: #005c46;
+    }
+}
+
+/* Responsive layout para pantallas pequeñas */
+@media (max-width: 600px) {
+    fieldset {
+        grid-template-columns: 1fr;
+    }
+
+    form {
+        padding: 1rem;
+    }
+}
+
+.cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+h2 {
+    color: #1a1a1a;
+}

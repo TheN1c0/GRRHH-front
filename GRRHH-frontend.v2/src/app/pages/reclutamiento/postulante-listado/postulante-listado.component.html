@@ -30,23 +30,31 @@
   </thead>
   <tbody>
     <tr *ngFor="let p of filtrar()">
-      <td>{{ p.primer_nombre }} {{ p.apellido_paterno }}</td>
-      <td>{{ p.email }}</td>
-      <td>{{ p.cargo_postulado }}</td>
-      <td>{{ p.estado }}</td>
-      <td>{{ p.fecha_postulacion | date }}</td>
-      <td>
+      <td data-label="Nombre">{{ p.primer_nombre }} {{ p.apellido_paterno }}</td>
+      <td data-label="Correo">{{ p.correo }}</td>
+      <td data-label="Cargo">{{ p.cargo_postulado }}</td>
+      <td data-label="Estado">{{ p.estado }}</td>
+      <td data-label="Fecha">{{ p.fecha_postulacion | date }}</td>
+      <td data-label="Etiquetas">
         <span *ngFor="let etiqueta of p.etiquetas" class="etiqueta">
           {{ etiqueta.nombre }}
         </span>
       </td>
-      <td>
+      <td data-label="Acciones">
         <button>👁️</button>
-        <button (click)="contratarPostulante(p)">✅</button>
+        <button (click)="abrirContratacion(p)">✅</button>
       </td>
     </tr>
-    <!-- Mostrar el formulario de contratación -->
-    <app-postulante-contratar *ngIf="postulanteSeleccionado"
-      [postulante]="postulanteSeleccionado"></app-postulante-contratar>
+
+
   </tbody>
 </table>
+<!-- Modal de contratación -->
+<ng-container *ngIf="postulanteSeleccionado">
+  <div class="modal-overlay">
+    <div class="modal-contenido">
+      <app-postulante-contratar [postulante]="postulanteSeleccionado"
+        (cerrar)="postulanteSeleccionado = null"></app-postulante-contratar>
+    </div>
+  </div>
+</ng-container>

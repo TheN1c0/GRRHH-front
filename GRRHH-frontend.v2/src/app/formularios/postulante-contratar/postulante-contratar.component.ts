@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrevisionService } from '../../services/prevision.service';
 import { EmpleadoService } from 'app/services/empleado.service';
@@ -19,6 +19,7 @@ export class PostulanteContratarComponent implements OnInit {
   cesantias: Cesantia[] = [];
   cargos: any[] = [];
   tiposContrato: any[] = [];
+  @Output() cerrar = new EventEmitter<void>();
 
   formulario!: FormGroup;
   constructor(

@@ -39,7 +39,7 @@ export class AsignarHorarioComponent implements OnInit {
 
   cargarEmpleados(): void {
     this.empleadoService.getEmpleados().subscribe((data) => {
-      this.empleados = data;
+      this.empleados = data.results;
     });
   }
 
