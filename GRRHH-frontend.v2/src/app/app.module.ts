@@ -39,6 +39,7 @@ import { EditarHorarioComponent } from './modals/editar-horario/editar-horario.c
 import { ModalAsignarHorarioComponent } from './modals/modal-asignar-horario/modal-asignar-horario.component';
 import { CuentaComponent } from './pages/ajustes/cuenta/cuenta.component';
 import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.component';
+import { ContratoAsignacionComponent } from './modals/contrato-asignacion/contrato-asignacion.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.componen
     ModalAsignarHorarioComponent,
     CuentaComponent,
     SeguridadComponent,
+    ContratoAsignacionComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,7 @@ export class TiposContratoComponent implements OnInit {
   };
   cargandoTipos = false;
   errorTipos = false;
-
+  modalAsignarVisible = false;
   nuevaRegla: { [key: string]: any } = {
     nombre: '',
     requiere_cotizaciones: true,

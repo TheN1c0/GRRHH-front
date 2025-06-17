@@ -55,3 +55,10 @@
     </div>
   </div>
 </div>
+<app-contrato-asignacion [visible]="modalAsignarVisible" (cerrado)="modalAsignarVisible = false"
+  (contratoGuardado)="cargarTiposContrato()">
+</app-contrato-asignacion>
+
+<button (click)="modalAsignarVisible = true">
+  ➕ Asignar contrato
+</button>

@@ -1,0 +1,33 @@
+<div class="modal" *ngIf="visible" (click)="cerrar()">
+    <div class="modal-contenido" (click)="$event.stopPropagation()">
+        <h3>Asignar o editar contrato</h3>
+
+        <label>Empleado:</label>
+        <select [(ngModel)]="nuevoContrato.empleado">
+            <option *ngFor="let emp of empleadosSinContrato" [value]="emp.id">
+                {{ emp.nombre_usuario || emp.rut }}
+            </option>
+        </select>
+
+        <label>Tipo de contrato:</label>
+        <select [(ngModel)]="nuevoContrato.tipo_contrato">
+            <option *ngFor="let tipo of tiposContrato" [value]="tipo.id">
+                {{ tipo.nombre }}
+            </option>
+        </select>
+
+        <label>Fecha inicio:</label>
+        <input type="date" [(ngModel)]="nuevoContrato.fecha_inicio" />
+
+        <label>Fecha fin (opcional):</label>
+        <input type="date" [(ngModel)]="nuevoContrato.fecha_fin" />
+
+        <label>Sueldo base:</label>
+        <input type="number" [(ngModel)]="nuevoContrato.sueldo_base" />
+
+        <div class="acciones">
+            <button (click)="guardarContrato()">Guardar</button>
+            <button (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</div>
