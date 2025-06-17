@@ -40,6 +40,8 @@ import { ModalAsignarHorarioComponent } from './modals/modal-asignar-horario/mod
 import { CuentaComponent } from './pages/ajustes/cuenta/cuenta.component';
 import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.component';
 import { ContratoAsignacionComponent } from './modals/contrato-asignacion/contrato-asignacion.component';
+import { LucideAngularModule } from 'lucide-angular';
+import { icons } from 'lucide-angular';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,10 @@ import { ContratoAsignacionComponent } from './modals/contrato-asignacion/contra
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
+    LucideAngularModule.pick({
+      Eye: icons.Eye,
+      EyeOff: icons.EyeOff,
+    }),
   ],
   providers: [
     {

@@ -102,6 +102,37 @@ input[type="password"] {
     text-align: center;
 }
 
+.campo-password {
+    position: relative;
+    width: 60%;
+    margin: 0.5rem auto;
+
+    input {
+        width: 100%;
+        padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+        border: none;
+        border-radius: 2rem;
+        text-align: center;
+    }
+
+    .icono-ojo {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    lucide-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #333;
+    }
+}
+
 .registro-text {
     margin: 2rem 0 1rem 0;
     text-align: center;
@@ -145,7 +176,9 @@ input[type="password"] {
 
 
 }
+
 @media (max-width:2559px) {
+
     .left,
     .right {
         height: 100vh;
@@ -182,8 +215,10 @@ input[type="password"] {
     }
 
     input[type="text"],
-    input[type="password"],.registro-text,.registro-btn {
+    input[type="password"],
+    .registro-text,
+    .registro-btn {
         font-size: 2.5rem;
     }
-    
+
 }

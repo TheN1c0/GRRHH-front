@@ -16,6 +16,7 @@ export class PortalComponent {
   // Login
   loginEmail: string = '';
   loginPassword: string = '';
+  mostrarPassword: boolean = false;
 
   // Registro
   registerName: string = '';
