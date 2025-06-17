@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, switchMap, catchError } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
 @Injectable()
 export class TokenRefreshInterceptor implements HttpInterceptor {
   private isRefreshing = false;
@@ -27,7 +27,7 @@ export class TokenRefreshInterceptor implements HttpInterceptor {
 
           return this.http
             .post(
-              'http://localhost:8000/auth/api/refresh/',
+              `${environment.apiUrl}auth/api/refresh/`,
               {},
               { withCredentials: true }
             )

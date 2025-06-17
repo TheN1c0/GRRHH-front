@@ -40,12 +40,6 @@ export class EmpleadoService {
     });
   }
 
-  /*   getCargos(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8000/personal/api/cargos/', {
-      withCredentials: true,
-    });
-  } */
-
   getCargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>(`${environment.personalUrl}/cargos/`, {
       withCredentials: true,
