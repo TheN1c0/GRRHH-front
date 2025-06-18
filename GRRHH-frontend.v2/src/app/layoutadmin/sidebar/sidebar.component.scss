@@ -41,11 +41,25 @@
   color: #fff;
 }
 
+.sidebar li,
+.sidebar .logout-button {
+  user-select: none;
+  /* 👈 impide que se pueda seleccionar texto */
+  caret-color: transparent;
+  /* 👈 oculta el cursor de texto */
+}
+
 .sidebar-menu {
   flex: 1;
   /* 🔧 Empuja el botón hacia abajo */
   overflow-y: auto;
   /* Si hay muchos elementos, permite scroll */
+  scrollbar-width: none;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari */
 }
 
 .logo-container {

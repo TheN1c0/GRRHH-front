@@ -1,1 +1,42 @@
-<p>cuenta works!</p>
+<div class="mi-cuenta">
+    <h2>Mi Cuenta</h2>
+
+    <!-- Datos personales -->
+    <form (ngSubmit)="guardarCambios()" #formCuenta="ngForm">
+        <div class="form-grupo">
+            <label>Nombre completo:</label>
+            <input type="text" [(ngModel)]="cuenta.nombre" name="nombre" required />
+        </div>
+
+        <div class="form-grupo">
+            <label>Correo electrónico:</label>
+            <input type="email" [(ngModel)]="cuenta.email" name="email" required />
+            <div>
+                <small *ngIf="cuenta.email_verificado">✔️ Correo verificado</small>
+                <ng-container *ngIf="!cuenta.email_verificado">
+                    <small>❌ No verificado</small>
+                    <button type="button" (click)="reenviarVerificacionCorreo()">Reenviar verificación</button>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="form-grupo">
+            <label>Teléfono:</label>
+            <input type="tel" [(ngModel)]="cuenta.telefono" name="telefono" />
+            <div>
+                <small *ngIf="cuenta.telefono_verificado">✔️ Teléfono verificado</small>
+                <ng-container *ngIf="!cuenta.telefono_verificado">
+                    <small>❌ No verificado</small>
+                    <button type="button" (click)="reenviarVerificacionTelefono()">Reenviar código</button>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="form-grupo">
+            <label>Nombre de usuario:</label>
+            <input type="text" [(ngModel)]="cuenta.username" name="username" required />
+        </div>
+
+        <button type="submit" [disabled]="formCuenta.invalid">Guardar cambios</button>
+    </form>
+</div>
