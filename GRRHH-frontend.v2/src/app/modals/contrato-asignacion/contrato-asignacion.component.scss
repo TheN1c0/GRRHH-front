@@ -111,17 +111,7 @@
     background-color: #e0e0e0;
 }
 
-.empleados-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 0.5rem;
-    background-color: #fdfdfd;
-}
+
 
 /* --------------------------------------------------------------------------------- */
 .busqueda-empleados {
@@ -194,21 +184,13 @@
         grid-template-columns: 30px 1fr;
     }
 
-    .rut {
-        display: none;
-    }
-}
-
-
-
-/* Responsive para móviles */
-@media (max-width: 500px) {
     .empleado-info {
         font-size: 0.95rem;
     }
 
     .rut {
         font-size: 0.8rem;
+        display: none;
     }
 
     .modal-contenido {
