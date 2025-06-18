@@ -4,6 +4,7 @@
   width: 220px;
   display: flex;
   height: 100vh;
+  flex-direction: column;
 }
 
 .sidebar h2 {
@@ -110,6 +111,7 @@
   background-color: #004d73;
   transition: background-color 0.3s ease, transform 0.2s;
   font-weight: 500;
+  width: 100%;
 }
 
 .logout-button:hover {
