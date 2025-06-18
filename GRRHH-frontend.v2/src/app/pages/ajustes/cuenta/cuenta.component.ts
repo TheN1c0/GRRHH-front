@@ -29,11 +29,11 @@ export class CuentaComponent {
 
   guardarCambios(): void {
     const payload = {
-      nombre: this.cuenta.nombre,
-      apellido: this.cuenta.apellido,
-      username: this.cuenta.username,
+      first_name: this.cuenta.nombre,
+      last_name: this.cuenta.apellido,
       email: this.cuenta.email,
       telefono: this.cuenta.telefono,
+      username: this.cuenta.username,
       nuevo_email: '',
       nuevo_telefono: '',
     };
