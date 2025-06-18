@@ -80,7 +80,7 @@ export class TiposContratoComponent implements OnInit {
 
     this.contratoConfig.crearTipo(this.nuevoTipoContrato).subscribe(() => {
       this.nuevoTipoContrato = { nombre: '', reglas: null };
-      this.cargarTiposContrato();
+      this.cargarTiposContrato(); // actualiza la lista
     });
   }
   tipoEditando: any = null;

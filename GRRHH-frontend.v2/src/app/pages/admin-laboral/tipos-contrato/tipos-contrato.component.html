@@ -10,6 +10,20 @@
   Ocurrió un error al cargar los tipos de contrato.
 </div>
 
+<!-- ----------------------------------CrearTipo-------------------------------------------- -->
+<div class="nuevo-tipo-contrato">
+  <h4>➕ Crear nuevo tipo de contrato</h4>
+  <input [(ngModel)]="nuevoTipoContrato.nombre" placeholder="Nombre del tipo de contrato" />
+  <select [(ngModel)]="nuevoTipoContrato.reglas">
+    <option *ngFor="let regla of reglas" [value]="regla.id">
+      {{ regla.nombre }}
+    </option>
+  </select>
+  <button (click)="agregarTipoContrato()">Crear</button>
+</div>
+
+
+<!-- ----------------------------------CrearTipo-Fin----------------------------------------- -->
 <div class="lista grid-contratos">
   <div class="contrato-card" *ngFor="let tipo of tiposContrato">
     <div *ngIf="tipoEditando?.id !== tipo.id">
