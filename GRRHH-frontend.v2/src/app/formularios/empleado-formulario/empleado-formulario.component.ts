@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EmpleadoService } from '../../services/empleado.service'; // ajusta la ruta según tu estructura
+import { EmpleadoService } from '../../services/empleado.service';
 
 @Component({
   selector: 'app-empleado-formulario',

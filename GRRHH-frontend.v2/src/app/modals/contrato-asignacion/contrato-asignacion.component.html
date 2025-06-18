@@ -2,13 +2,25 @@
     <div class="modal-contenido" (click)="$event.stopPropagation()">
         <h3>Asignar o editar contrato</h3>
 
+        <!-- 🔢 Control de cantidad a mostrar -->
+        <div class="fila-control">
+            <label>Mostrar:</label>
+            <select [(ngModel)]="limite" (change)="cargarEmpleados()">
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="15">15</option>
+            </select>
+        </div>
+
+        <!-- 👤 Selección de empleado -->
         <label>Empleado:</label>
         <select [(ngModel)]="nuevoContrato.empleado">
-            <option *ngFor="let emp of empleadosSinContrato" [value]="emp.id">
+            <option *ngFor="let emp of empleados" [value]="emp.id">
                 {{ emp.nombre_usuario || emp.rut }}
             </option>
         </select>
 
+        <!-- 📄 Tipo de contrato -->
         <label>Tipo de contrato:</label>
         <select [(ngModel)]="nuevoContrato.tipo_contrato">
             <option *ngFor="let tipo of tiposContrato" [value]="tipo.id">
@@ -16,18 +28,27 @@
             </option>
         </select>
 
+        <!-- 📆 Fechas -->
         <label>Fecha inicio:</label>
         <input type="date" [(ngModel)]="nuevoContrato.fecha_inicio" />
 
         <label>Fecha fin (opcional):</label>
         <input type="date" [(ngModel)]="nuevoContrato.fecha_fin" />
 
+        <!-- 💰 Sueldo -->
         <label>Sueldo base:</label>
         <input type="number" [(ngModel)]="nuevoContrato.sueldo_base" />
 
+        <!-- ✅ Botones de acción -->
         <div class="acciones">
             <button (click)="guardarContrato()">Guardar</button>
             <button (click)="cerrar()">Cancelar</button>
+        </div>
+
+        <!-- 🔁 Paginación -->
+        <div class="paginacion">
+            <button (click)="retroceder()" [disabled]="offset === 0">← Anterior</button>
+            <button (click)="avanzar()">Siguiente →</button>
         </div>
     </div>
 </div>
