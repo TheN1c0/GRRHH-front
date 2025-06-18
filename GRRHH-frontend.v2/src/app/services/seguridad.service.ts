@@ -10,18 +10,26 @@ export class SeguridadService {
   constructor(private http: HttpClient) {}
 
   listarUsuarios() {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl, {
+      withCredentials: true,
+    });
   }
 
   crearUsuario(usuario: any) {
-    return this.http.post(this.apiUrl, usuario);
+    return this.http.post(this.apiUrl, usuario, {
+      withCredentials: true,
+    });
   }
 
   actualizarUsuario(id: number, datos: any) {
-    return this.http.put(`${this.apiUrl}${id}/`, datos);
+    return this.http.put(`${this.apiUrl}${id}/`, datos, {
+      withCredentials: true,
+    });
   }
 
   eliminarUsuario(id: number) {
-    return this.http.delete(`${this.apiUrl}${id}/`);
+    return this.http.delete(`${this.apiUrl}${id}/`, {
+      withCredentials: true,
+    });
   }
 }
