@@ -4,10 +4,13 @@
     <!-- Datos personales -->
     <form (ngSubmit)="guardarCambios()" #formCuenta="ngForm">
         <div class="form-grupo">
-            <label>Nombre completo:</label>
+            <label>Nombre:</label>
             <input type="text" [(ngModel)]="cuenta.nombre" name="nombre" required />
         </div>
-
+        <div class="form-grupo">
+            <label>Apellido:</label>
+            <input type="text" [(ngModel)]="cuenta.apellido" name="apellido" required />
+        </div>
         <div class="form-grupo">
             <label>Correo electrónico:</label>
             <input type="email" [(ngModel)]="cuenta.email" name="email" required />
