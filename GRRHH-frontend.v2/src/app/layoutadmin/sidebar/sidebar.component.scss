@@ -88,3 +88,22 @@
 .arrow.rotate {
   transform: rotate(90deg);
 }
+
+.logout-button {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background-color: #004d73;
+  transition: background-color 0.3s ease, transform 0.2s;
+  font-weight: 500;
+}
+
+.logout-button:hover {
+  background-color: #007baa;
+  transform: scale(1.02);
+}

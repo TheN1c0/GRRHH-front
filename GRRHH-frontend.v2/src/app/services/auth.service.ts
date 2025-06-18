@@ -18,6 +18,15 @@ export class AuthService {
       { withCredentials: true }
     );
   }
+  logout(): Observable<any> {
+    return this.http.post(
+      `${environment.authUrl}/api/logout/`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+  }
 
   // Método para registrar un nuevo usuario
   register(

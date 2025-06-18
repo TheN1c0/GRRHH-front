@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +13,7 @@ export class SidebarComponent {
   menuActivo: 'adminLaboral' | 'ajustes' | null = null;
   asistenciaOpen: boolean = false;
 
+  constructor(private authService: AuthService, private router: Router) {}
   toggleMenu(menu: 'adminLaboral' | 'ajustes') {
     this.menuActivo = this.menuActivo === menu ? null : menu;
 
@@ -18,6 +21,12 @@ export class SidebarComponent {
     if (menu !== 'adminLaboral') {
       this.asistenciaOpen = false;
     }
+  }
+  cerrarSesion() {
+    this.authService.logout().subscribe({
+      next: () => this.router.navigate(['/portal']),
+      error: () => this.router.navigate(['/portal']),
+    });
   }
 
   toggleAsistencia(event: Event) {
