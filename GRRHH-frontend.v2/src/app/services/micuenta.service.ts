@@ -15,8 +15,8 @@ export class MicuentaService {
   }
 
   actualizarDatos(datos: {
-    nombre: string;
-    apellido: string;
+    first_name: string;
+    last_name: string;
     email: string;
     telefono?: string;
     username: string;
