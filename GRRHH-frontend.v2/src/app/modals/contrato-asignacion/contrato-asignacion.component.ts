@@ -12,7 +12,7 @@ export class ContratoAsignacionComponent implements OnInit {
   @Output() contratoGuardado = new EventEmitter<void>();
 
   empleados: any[] = [];
-  tiposContrato: any[] = [];
+  @Input() tiposContrato: any[] = [];
   paginaActual = 1;
   tamanoPagina = 5;
   totalEmpleados = 0;
