@@ -32,10 +32,11 @@
                     <small>❌ No verificado</small>
                     <button type="button" (click)="reenviarVerificacionTelefono()">Reenviar código</button>
 
-                    <div *ngIf="smsEnviado" style="margin-top: 0.5rem;">
-                        <input type="text" [(ngModel)]="codigoSMS" placeholder="Código de verificación"
-                            name="codigo_sms" />
-                        <button type="button" (click)="verificarCodigoSMS()">Verificar teléfono</button>
+                    <!-- Mostrar campo de código solo si ya fue enviado -->
+                    <div *ngIf="smsEnviado" class="codigo-verificacion">
+                        <label>Ingresa el código SMS:</label>
+                        <input type="text" [(ngModel)]="codigoSMS" name="codigoSMS" />
+                        <button type="button" (click)="verificarCodigoSMS()">Confirmar código</button>
                     </div>
                 </ng-container>
             </div>
