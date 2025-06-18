@@ -14,7 +14,7 @@ export class SeguridadComponent {
   constructor(private seguridadService: SeguridadService) {}
 
   ngOnInit(): void {
-    this.cargarUsuarios();
+    /* this.cargarUsuarios(); */
   }
 
   cargarUsuarios() {
