@@ -17,9 +17,16 @@
         <div class="empleados-lista">
             <label *ngFor="let emp of empleados" class="empleado-item">
                 <input type="radio" name="empleado" [value]="emp.id" [(ngModel)]="nuevoContrato.empleado" />
-                {{ getNombreEmpleado(emp) }}
-            </label>
 
+                <div class="empleado-info">
+                    <div class="nombre">
+                        {{ emp.primer_nombre }} {{ emp.apellido_paterno }}
+                    </div>
+                    <div class="rut">
+                        {{ emp.rut }}
+                    </div>
+                </div>
+            </label>
         </div>
 
         <!-- 🔁 Paginación -->
