@@ -32,12 +32,12 @@ export class CuentaComponent {
       nombre: this.cuenta.nombre,
       apellido: this.cuenta.apellido,
       username: this.cuenta.username,
+      email: this.cuenta.email,
       telefono: this.cuenta.telefono,
-      nuevo_telefono: '', // ← por defecto vacío
-      nuevo_email: '', // ← por defecto vacío
+      nuevo_email: '',
+      nuevo_telefono: '',
     };
 
-    // Si el email cambió, lo mandamos como nuevo_email
     if (
       this.cuenta.email !== this.cuenta.nuevo_email &&
       !this.cuenta.email_verificado
@@ -45,7 +45,6 @@ export class CuentaComponent {
       payload.nuevo_email = this.cuenta.email;
     }
 
-    // Si el teléfono cambió, lo mandamos como nuevo_telefono
     if (
       this.cuenta.telefono !== this.cuenta.nuevo_telefono &&
       !this.cuenta.telefono_verificado
