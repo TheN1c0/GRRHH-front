@@ -37,6 +37,7 @@ export class CuentaComponent {
       nuevo_email: '',
       nuevo_telefono: '',
     };
+    console.log('Payload enviado:', payload);
 
     if (
       this.cuenta.email !== this.cuenta.nuevo_email &&
