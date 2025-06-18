@@ -2,7 +2,7 @@
     <div class="modal-contenido" (click)="$event.stopPropagation()">
         <h3>Asignar o editar contrato</h3>
 
-        <!-- 🔢 Selector de tamaño de página -->
+        <!-- 🔢 Control de paginación -->
         <div class="fila-control">
             <label>Mostrar:</label>
             <select [(ngModel)]="tamanoPagina" (change)="cargarEmpleados(1)">
@@ -12,13 +12,24 @@
             </select>
         </div>
 
-        <!-- 👤 Empleado -->
+        <!-- 👤 Lista de empleados paginada -->
         <label>Empleado:</label>
-        <select [(ngModel)]="nuevoContrato.empleado">
-            <option *ngFor="let emp of empleados" [value]="emp.id">
+        <div class="empleados-lista">
+            <label *ngFor="let emp of empleados" class="empleado-item">
+                <input type="radio" name="empleado" [value]="emp.id" [(ngModel)]="nuevoContrato.empleado" />
                 {{ emp.primer_nombre || emp.apellido_paterno || emp.rut }}
-            </option>
-        </select>
+            </label>
+        </div>
+
+        <!-- 🔁 Paginación -->
+        <div class="paginacion-wrapper">
+            <div class="paginacion">
+                <button *ngFor="let pagina of totalPaginasArray()" [class.activa]="pagina === paginaActual"
+                    (click)="cargarEmpleados(pagina)">
+                    {{ pagina }}
+                </button>
+            </div>
+        </div>
 
         <!-- 📄 Tipo de contrato -->
         <label>Tipo de contrato:</label>
@@ -42,17 +53,7 @@
         <!-- ✅ Acciones -->
         <div class="acciones">
             <button (click)="guardarContrato()">Guardar</button>
-            <button (click)="cerrar()">Cancelar</button>
-        </div>
-
-        <!-- 🔁 Paginación numérica -->
-        <div class="paginacion-wrapper">
-            <div class="paginacion">
-                <button *ngFor="let pagina of totalPaginasArray()" [class.activa]="pagina === paginaActual"
-                    (click)="cargarEmpleados(pagina)">
-                    {{ pagina }}
-                </button>
-            </div>
+            <button class="cancelar" (click)="cerrar()">Cancelar</button>
         </div>
     </div>
 </div>
