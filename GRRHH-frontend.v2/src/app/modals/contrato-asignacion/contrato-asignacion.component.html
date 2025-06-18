@@ -13,21 +13,28 @@
         </div>
 
         <!-- 👤 Lista de empleados paginada -->
-        <label>Empleado:</label>
+        <!-- 🔍 Barra de búsqueda -->
+        <div class="busqueda-empleados">
+            <input type="text" [(ngModel)]="filtroEmpleado" (ngModelChange)="filtrarEmpleados()"
+                placeholder="Buscar empleado por nombre o RUT..." />
+        </div>
+
+        <!-- 🧾 Encabezado tipo tabla -->
+        <div class="empleados-header">
+            <span></span> <!-- espacio para el radio -->
+            <span>Nombre</span>
+            <span>RUT</span>
+        </div>
+
+        <!-- 📋 Lista de empleados -->
         <div class="empleados-lista">
             <label *ngFor="let emp of empleados" class="empleado-item">
                 <input type="radio" name="empleado" [value]="emp.id" [(ngModel)]="nuevoContrato.empleado" />
-
-                <div class="empleado-info">
-                    <div class="nombre">
-                        {{ emp.primer_nombre }} {{ emp.apellido_paterno }}
-                    </div>
-                    <div class="rut">
-                        {{ emp.rut }}
-                    </div>
-                </div>
+                <span class="nombre">{{ emp.primer_nombre }} {{ emp.apellido_paterno }}</span>
+                <span class="rut">{{ emp.rut }}</span>
             </label>
         </div>
+
 
         <!-- 🔁 Paginación -->
         <div class="paginacion-wrapper">
