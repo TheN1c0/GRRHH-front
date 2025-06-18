@@ -1,1 +1,43 @@
-<p>seguridad works!</p>
+<h2>👥 Administración de Usuarios RRHH</h2>
+<button (click)="abrirModal()">+ Crear Usuario</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Superusuario</th>
+            <th>Solo lectura</th>
+            <th>Puede eliminar</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.is_superuser ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos?.solo_lectura ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos?.puede_eliminar ? '✅' : '❌' }}</td>
+            <td>
+                <button (click)="editar(usuario)">✏️</button>
+                <button (click)="eliminar(usuario.id)">🗑️</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div *ngIf="mostrarFormulario" class="modal">
+    <form (ngSubmit)="guardar()">
+        <input [(ngModel)]="form.username" name="username" placeholder="Usuario" required />
+        <input [(ngModel)]="form.email" name="email" placeholder="Email" type="email" required />
+        <input [(ngModel)]="form.password" name="password" placeholder="Contraseña" type="password"
+            [required]="esNuevo" />
+        <label><input type="checkbox" [(ngModel)]="form.is_superuser" name="is_superuser" /> Superusuario</label>
+        <label><input type="checkbox" [(ngModel)]="form.solo_lectura" name="solo_lectura" /> Solo lectura</label>
+        <label><input type="checkbox" [(ngModel)]="form.puede_eliminar" name="puede_eliminar" /> Puede eliminar</label>
+        <button type="submit">Guardar</button>
+        <button type="button" (click)="cerrarModal()">Cancelar</button>
+    </form>
+</div>
