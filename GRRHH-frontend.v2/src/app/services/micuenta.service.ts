@@ -10,12 +10,10 @@ export class MicuentaService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtener los datos del usuario autenticado
   obtenerDatos(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl, { withCredentials: true });
   }
 
-  // Actualizar nombre, correo, teléfono, username
   actualizarDatos(datos: {
     nombre: string;
     apellido: string;
@@ -25,16 +23,22 @@ export class MicuentaService {
     nuevo_email?: string;
     nuevo_telefono?: string;
   }): Observable<any> {
-    return this.http.put(this.baseUrl, datos);
+    return this.http.put(this.baseUrl, datos, { withCredentials: true });
   }
 
-  // Enviar correo de verificación
   verificarCorreo(): Observable<any> {
-    return this.http.post(`${this.baseUrl}verificar-correo/`, {});
+    return this.http.post(
+      `${this.baseUrl}verificar-correo/`,
+      {},
+      { withCredentials: true }
+    );
   }
 
-  // Enviar mensaje SMS de verificación
   verificarTelefono(): Observable<any> {
-    return this.http.post(`${this.baseUrl}verificar-telefono/`, {});
+    return this.http.post(
+      `${this.baseUrl}verificar-telefono/`,
+      {},
+      { withCredentials: true }
+    );
   }
 }
