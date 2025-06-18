@@ -16,6 +16,7 @@ import { RegistrosComponent } from './pages/admin-laboral/asistencia/registros/r
 import { EstructuraOrganizacionalComponent } from './pages/admin-laboral/estructura-organizacional/estructura-organizacional.component';
 import { CuentaComponent } from './pages/ajustes/cuenta/cuenta.component';
 import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.component';
+import { VerificarEmailComponent } from './pages/verificar-email/verificar-email.component';
 
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { LayoutadminComponent } from './layoutadmin/layoutadmin/layoutadmin.component';
@@ -70,7 +71,7 @@ const routes: Routes = [
       { path: 'ajustes/seguridad', component: SeguridadComponent },
     ],
   },
-
+  { path: 'verificar-email', component: VerificarEmailComponent },
   //  Redirecciones finales
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' },

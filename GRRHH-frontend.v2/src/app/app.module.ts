@@ -42,6 +42,7 @@ import { SeguridadComponent } from './pages/ajustes/seguridad/seguridad.componen
 import { ContratoAsignacionComponent } from './modals/contrato-asignacion/contrato-asignacion.component';
 import { LucideAngularModule } from 'lucide-angular';
 import { icons } from 'lucide-angular';
+import { VerificarEmailComponent } from './pages/verificar-email/verificar-email.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { icons } from 'lucide-angular';
     CuentaComponent,
     SeguridadComponent,
     ContratoAsignacionComponent,
+    VerificarEmailComponent,
   ],
   imports: [
     BrowserModule,

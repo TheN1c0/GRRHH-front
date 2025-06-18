@@ -1,0 +1,15 @@
+<div class="verificacion-email">
+    <h2>Verificación de correo</h2>
+
+    <div *ngIf="estado === 'cargando'">
+        <p>⏳ Verificando tu correo...</p>
+    </div>
+
+    <div *ngIf="estado === 'exito'" style="color: green">
+        <p>{{ mensaje }}</p>
+    </div>
+
+    <div *ngIf="estado === 'error'" style="color: red">
+        <p>{{ mensaje }}</p>
+    </div>
+</div>
