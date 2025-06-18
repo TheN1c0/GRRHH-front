@@ -10,6 +10,24 @@
   Ocurrió un error al cargar los tipos de contrato.
 </div>
 
+<!-- ----------------------------------Reglas-------------------------------------------- -->
+<div class="nueva-regla-contrato">
+  <h4>➕ Crear nueva regla de contrato</h4>
+  <input [(ngModel)]="nuevaRegla['nombre']" />
+
+
+  <div class="checkboxes">
+    <label *ngFor="let campo of getClaves(nuevaRegla)">
+      <input type="checkbox" [(ngModel)]="nuevaRegla[campo]" />
+      {{ formatearTexto(campo) }}
+    </label>
+  </div>
+
+  <button (click)="agregarRegla()">Crear regla</button>
+</div>
+<!-- ----------------------------------Reglas-Fin------------------------------------------- -->
+
+
 <!-- ----------------------------------CrearTipo-------------------------------------------- -->
 <div class="nuevo-tipo-contrato">
   <h4>➕ Crear nuevo tipo de contrato</h4>
