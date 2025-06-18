@@ -17,8 +17,9 @@
         <div class="empleados-lista">
             <label *ngFor="let emp of empleados" class="empleado-item">
                 <input type="radio" name="empleado" [value]="emp.id" [(ngModel)]="nuevoContrato.empleado" />
-                {{ emp.primer_nombre || emp.apellido_paterno || emp.rut }}
+                {{ getNombreEmpleado(emp) }}
             </label>
+
         </div>
 
         <!-- 🔁 Paginación -->

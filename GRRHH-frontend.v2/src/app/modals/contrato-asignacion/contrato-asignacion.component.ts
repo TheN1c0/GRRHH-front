@@ -53,6 +53,14 @@ export class ContratoAsignacionComponent implements OnInit {
       error: (err) => console.error('Error al cargar empleados:', err),
     });
   }
+  getNombreEmpleado(emp: any): string {
+    return (
+      emp.primer_nombre ||
+      emp.apellido_paterno ||
+      emp.rut ||
+      'Empleado sin nombre'
+    );
+  }
 
   totalPaginasArray(): number[] {
     const totalPaginas = Math.ceil(this.totalEmpleados / this.tamanoPagina);
