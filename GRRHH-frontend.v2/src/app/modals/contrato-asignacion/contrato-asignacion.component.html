@@ -5,7 +5,7 @@
         <!-- 🔢 Control de cantidad a mostrar -->
         <div class="fila-control">
             <label>Mostrar:</label>
-            <select [(ngModel)]="limite" (change)="cargarEmpleados()">
+            <select [(ngModel)]="limite" (change)="cargarEmpleados(1)">
                 <option [value]="5">5</option>
                 <option [value]="10">10</option>
                 <option [value]="15">15</option>
@@ -47,7 +47,7 @@
 
         <!-- 🔁 Paginación -->
         <div class="paginacion">
-            <button (click)="retroceder()" [disabled]="offset === 0">← Anterior</button>
+            <button (click)="retroceder()" [disabled]="paginaActual === 1">← Anterior</button>
             <button (click)="avanzar()">Siguiente →</button>
         </div>
     </div>

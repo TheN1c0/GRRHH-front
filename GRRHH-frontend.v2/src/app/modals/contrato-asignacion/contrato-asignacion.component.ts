@@ -14,8 +14,9 @@ export class ContratoAsignacionComponent implements OnInit {
   empleadosSinContrato: any[] = [];
   tiposContrato: any[] = [];
   empleados: any[] = [];
+  paginaActual = 1;
   limite = 10;
-  offset = 0;
+
   nuevoContrato = {
     empleado: null,
     tipo_contrato: null,
@@ -30,39 +31,40 @@ export class ContratoAsignacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.contratoService.getEmpleadosSinContrato().subscribe((data) => {
-      this.empleadosSinContrato = data;
-    });
-
     this.contratoService.getTipos().subscribe((data) => {
       this.tiposContrato = data;
     });
-    this.cargarEmpleados(); // 👈 ahora usas la función paginada
+    this.cargarEmpleados();
 
     this.contratoService.getTipos().subscribe((data) => {
       this.tiposContrato = data;
     });
   }
+
   avanzar() {
-    this.offset += this.limite;
-    this.cargarEmpleados();
+    this.cargarEmpleados(this.paginaActual + 1);
   }
 
   retroceder() {
-    if (this.offset >= this.limite) {
-      this.offset -= this.limite;
-      this.cargarEmpleados();
+    if (this.paginaActual > 1) {
+      this.cargarEmpleados(this.paginaActual - 1);
     }
   }
 
-  cargarEmpleados() {
+  cargarEmpleados(pagina: number = 1): void {
     const params = {
-      limit: this.limite,
-      offset: this.offset,
+      page: pagina,
+      page_size: this.limite,
     };
 
-    this.empleadoService.getEmpleados(params).subscribe((data: any) => {
-      this.empleados = data.results || data; // si usas paginación de DRF
+    this.empleadoService.getEmpleados(params).subscribe({
+      next: (res: any) => {
+        this.empleados = res.results;
+        this.paginaActual = pagina;
+      },
+      error: (err) => {
+        console.error('Error al cargar empleados:', err);
+      },
     });
   }
 
