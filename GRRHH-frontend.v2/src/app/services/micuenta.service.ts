@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class MicuentaService {
-  private baseUrl = `${environment.apiUrl}/mi-cuenta/`;
+  private baseUrl = `${environment.authUrl}/mi-cuenta/`;
 
   constructor(private http: HttpClient) {}
 
