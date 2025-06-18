@@ -72,9 +72,35 @@ export class CuentaComponent {
     });
   }
 
+  smsEnviado = false;
+  codigoSMS = '';
+
   reenviarVerificacionTelefono(): void {
-    this.cuentaService.verificarTelefono().subscribe(() => {
-      alert('Mensaje SMS reenviado.');
+    this.cuentaService.verificarTelefono().subscribe({
+      next: () => {
+        this.smsEnviado = true;
+        alert('Código SMS enviado. Revisa tu teléfono.');
+      },
+      error: () => alert('Error al enviar el SMS'),
+    });
+  }
+
+  verificarCodigoSMS(): void {
+    if (!this.codigoSMS.trim()) {
+      alert('Por favor, ingresa el código SMS.');
+      return;
+    }
+
+    this.cuentaService.confirmarTelefono(this.codigoSMS).subscribe({
+      next: () => {
+        this.cuenta.telefono_verificado = true;
+        this.smsEnviado = false;
+        this.codigoSMS = '';
+        alert('Teléfono verificado correctamente.');
+      },
+      error: () => {
+        alert('❌ Código inválido o expirado.');
+      },
     });
   }
 }

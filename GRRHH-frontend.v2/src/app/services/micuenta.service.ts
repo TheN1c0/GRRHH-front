@@ -41,4 +41,11 @@ export class MicuentaService {
       { withCredentials: true }
     );
   }
+  confirmarTelefono(codigo: string): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}confirmar-telefono/`,
+      { code: codigo },
+      { withCredentials: true }
+    );
+  }
 }

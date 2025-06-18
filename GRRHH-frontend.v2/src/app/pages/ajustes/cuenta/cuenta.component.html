@@ -31,9 +31,16 @@
                 <ng-container *ngIf="!cuenta.telefono_verificado">
                     <small>❌ No verificado</small>
                     <button type="button" (click)="reenviarVerificacionTelefono()">Reenviar código</button>
+
+                    <div *ngIf="smsEnviado" style="margin-top: 0.5rem;">
+                        <input type="text" [(ngModel)]="codigoSMS" placeholder="Código de verificación"
+                            name="codigo_sms" />
+                        <button type="button" (click)="verificarCodigoSMS()">Verificar teléfono</button>
+                    </div>
                 </ng-container>
             </div>
         </div>
+
 
         <div class="form-grupo">
             <label>Nombre de usuario:</label>
