@@ -28,16 +28,13 @@ export class CuentaComponent {
   }
 
   guardarCambios(): void {
-    const payload = {
+    const payload: any = {
       first_name: this.cuenta.nombre,
       last_name: this.cuenta.apellido,
       email: this.cuenta.email,
       telefono: this.cuenta.telefono,
       username: this.cuenta.username,
-      nuevo_email: '',
-      nuevo_telefono: '',
     };
-    console.log('Payload enviado:', payload);
 
     if (
       this.cuenta.email !== this.cuenta.nuevo_email &&
@@ -52,6 +49,8 @@ export class CuentaComponent {
     ) {
       payload.nuevo_telefono = this.cuenta.telefono;
     }
+
+    console.log('Payload enviado:', payload);
 
     this.cuentaService.actualizarDatos(payload).subscribe((res) => {
       this.cuenta = res;
