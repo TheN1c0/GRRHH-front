@@ -11,11 +11,11 @@ export class ContratoAsignacionComponent implements OnInit {
   @Output() cerrado = new EventEmitter<void>();
   @Output() contratoGuardado = new EventEmitter<void>();
 
-  empleadosSinContrato: any[] = [];
-  tiposContrato: any[] = [];
   empleados: any[] = [];
+  tiposContrato: any[] = [];
   paginaActual = 1;
-  limite = 10;
+  tamanoPagina = 5;
+  totalEmpleados = 0;
 
   nuevoContrato = {
     empleado: null,
@@ -31,9 +31,6 @@ export class ContratoAsignacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.contratoService.getTipos().subscribe((data) => {
-      this.tiposContrato = data;
-    });
     this.cargarEmpleados();
 
     this.contratoService.getTipos().subscribe((data) => {
@@ -41,41 +38,35 @@ export class ContratoAsignacionComponent implements OnInit {
     });
   }
 
-  avanzar() {
-    this.cargarEmpleados(this.paginaActual + 1);
-  }
-
-  retroceder() {
-    if (this.paginaActual > 1) {
-      this.cargarEmpleados(this.paginaActual - 1);
-    }
-  }
-
   cargarEmpleados(pagina: number = 1): void {
     const params = {
       page: pagina,
-      page_size: this.limite,
+      page_size: this.tamanoPagina,
     };
 
     this.empleadoService.getEmpleados(params).subscribe({
       next: (res: any) => {
         this.empleados = res.results;
+        this.totalEmpleados = res.count;
         this.paginaActual = pagina;
       },
-      error: (err) => {
-        console.error('Error al cargar empleados:', err);
-      },
+      error: (err) => console.error('Error al cargar empleados:', err),
     });
   }
 
-  guardarContrato() {
+  totalPaginasArray(): number[] {
+    const totalPaginas = Math.ceil(this.totalEmpleados / this.tamanoPagina);
+    return Array.from({ length: totalPaginas }, (_, i) => i + 1);
+  }
+
+  guardarContrato(): void {
     this.contratoService.asignarContrato(this.nuevoContrato).subscribe(() => {
       this.contratoGuardado.emit();
       this.cerrar();
     });
   }
 
-  cerrar() {
+  cerrar(): void {
     this.visible = false;
     this.nuevoContrato = {
       empleado: null,

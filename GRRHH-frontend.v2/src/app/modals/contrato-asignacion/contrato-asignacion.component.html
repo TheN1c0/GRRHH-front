@@ -2,17 +2,17 @@
     <div class="modal-contenido" (click)="$event.stopPropagation()">
         <h3>Asignar o editar contrato</h3>
 
-        <!-- 🔢 Control de cantidad a mostrar -->
+        <!-- 🔢 Selector de tamaño de página -->
         <div class="fila-control">
             <label>Mostrar:</label>
-            <select [(ngModel)]="limite" (change)="cargarEmpleados(1)">
-                <option [value]="5">5</option>
-                <option [value]="10">10</option>
-                <option [value]="15">15</option>
+            <select [(ngModel)]="tamanoPagina" (change)="cargarEmpleados(1)">
+                <option [value]="5">5 por página</option>
+                <option [value]="10">10 por página</option>
+                <option [value]="15">15 por página</option>
             </select>
         </div>
 
-        <!-- 👤 Selección de empleado -->
+        <!-- 👤 Empleado -->
         <label>Empleado:</label>
         <select [(ngModel)]="nuevoContrato.empleado">
             <option *ngFor="let emp of empleados" [value]="emp.id">
@@ -39,16 +39,20 @@
         <label>Sueldo base:</label>
         <input type="number" [(ngModel)]="nuevoContrato.sueldo_base" />
 
-        <!-- ✅ Botones de acción -->
+        <!-- ✅ Acciones -->
         <div class="acciones">
             <button (click)="guardarContrato()">Guardar</button>
             <button (click)="cerrar()">Cancelar</button>
         </div>
 
-        <!-- 🔁 Paginación -->
-        <div class="paginacion">
-            <button (click)="retroceder()" [disabled]="paginaActual === 1">← Anterior</button>
-            <button (click)="avanzar()">Siguiente →</button>
+        <!-- 🔁 Paginación numérica -->
+        <div class="paginacion-wrapper">
+            <div class="paginacion">
+                <button *ngFor="let pagina of totalPaginasArray()" [class.activa]="pagina === paginaActual"
+                    (click)="cargarEmpleados(pagina)">
+                    {{ pagina }}
+                </button>
+            </div>
         </div>
     </div>
 </div>
