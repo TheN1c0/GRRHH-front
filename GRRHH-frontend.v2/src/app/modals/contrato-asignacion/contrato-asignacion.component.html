@@ -16,7 +16,7 @@
         <label>Empleado:</label>
         <select [(ngModel)]="nuevoContrato.empleado">
             <option *ngFor="let emp of empleados" [value]="emp.id">
-                {{ emp.primer_nombre || emp.nombre_cargo }}
+                {{ emp.primer_nombre || emp.apellido_paterno || emp.rut }}
             </option>
         </select>
 
