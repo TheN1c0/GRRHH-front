@@ -43,7 +43,10 @@ export class SeguridadComponent {
   }
 
   guardar() {
-    if (this.esNuevo) {
+    console.log('📦 Enviando datos a backend:', this.form);
+    console.log('📦 Enviando datos a backend:', this.esNuevo);
+
+    /* if (this.esNuevo) {
       this.seguridadService.crearUsuario(this.form).subscribe(() => {
         this.cargarUsuarios();
         this.cerrarModal();
@@ -55,7 +58,7 @@ export class SeguridadComponent {
           this.cargarUsuarios();
           this.cerrarModal();
         });
-    }
+    } */
   }
 
   eliminar(id: number) {
