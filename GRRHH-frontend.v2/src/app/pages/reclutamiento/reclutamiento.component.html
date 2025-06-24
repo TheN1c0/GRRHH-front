@@ -1,21 +1,23 @@
+<!-- Botones para cambiar modo -->
 <div class="grid-reclutamiento">
   <div class="tarjeta" (click)="modo = 'formulario'">📤 Agregar Postulante</div>
   <div class="tarjeta" (click)="modo = 'listado'">📋 Ver Postulantes</div>
 </div>
 
+<!-- Contenedor de vistas -->
 <div class="contenedor-contenido">
   <app-postulante-formulario *ngIf="modo === 'formulario'"></app-postulante-formulario>
-  <app-postulante-listado *ngIf="modo === 'listado'"></app-postulante-listado>
-  <!-- <app-postulante-contratar *ngIf="modo === 'contratar'"></app-postulante-contratar> -->
-</div>
-<!-- reclutamiento.component.html -->
-<app-postulante-listado (abrirModal)="postulanteSeleccionado = $event"></app-postulante-listado>
 
+  <app-postulante-listado *ngIf="modo === 'listado'" (abrirModal)="postulanteSeleccionado = $event">
+  </app-postulante-listado>
+</div>
+
+<!-- Modal para contratar -->
 <ng-container *ngIf="postulanteSeleccionado">
   <div class="modal-overlay">
     <div class="modal-contenido">
-      <app-postulante-contratar [postulante]="postulanteSeleccionado"
-        (cerrar)="postulanteSeleccionado = null"></app-postulante-contratar>
+      <app-postulante-contratar [postulante]="postulanteSeleccionado" (cerrar)="postulanteSeleccionado = null">
+      </app-postulante-contratar>
     </div>
   </div>
 </ng-container>

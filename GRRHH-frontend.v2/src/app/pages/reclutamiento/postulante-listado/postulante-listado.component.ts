@@ -15,6 +15,7 @@ export class PostulanteListadoComponent implements OnInit {
   filtroCargo = '';
   filtroEstado = '';
   postulanteSeleccionado: any = null;
+
   constructor(
     private http: HttpClient,
     private empleadoService: EmpleadoService
