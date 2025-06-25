@@ -46,6 +46,12 @@ export class EmpleadoService {
       withCredentials: true,
     });
   }
+  getCargoById(id: number): Observable<Cargo> {
+    return this.http.get<Cargo>(`${environment.personalUrl}/cargos/${id}/`, {
+      withCredentials: true,
+    });
+  }
+
   crearEmpleado(empleado: any): Observable<any> {
     return this.http.post(`${environment.personalUrl}/empleados/`, empleado, {
       withCredentials: true,

@@ -15,7 +15,7 @@ export class PostulanteListadoComponent implements OnInit {
   filtroCargo = '';
   filtroEstado = '';
   postulanteSeleccionado: any = null;
-
+  cargoRelacionado: any = null;
   constructor(
     private http: HttpClient,
     private empleadoService: EmpleadoService
@@ -71,5 +71,44 @@ export class PostulanteListadoComponent implements OnInit {
 
   contratarPostulante(p: any) {
     this.postulanteSeleccionado = p;
+  }
+
+  abrirComparacion(postulante: any) {
+    this.postulanteSeleccionado = postulante;
+
+    // Llama al cargo y guárdalo
+    this.empleadoService
+      .getCargoById(postulante.cargo_postulado)
+      .subscribe((cargo) => {
+        this.cargoRelacionado = cargo;
+      });
+  }
+
+  cerrarModal() {
+    this.postulanteSeleccionado = null;
+    this.cargoRelacionado = null;
+  }
+
+  compararEtiquetas() {
+    const etiquetasCargo =
+      this.cargoRelacionado?.palabras_clave_detalle.map((e: any) =>
+        e.nombre.toLowerCase()
+      ) || [];
+    const etiquetasPostulante =
+      this.postulanteSeleccionado?.etiquetas.map((e: any) =>
+        e.nombre.toLowerCase()
+      ) || [];
+
+    return {
+      coincidencias: etiquetasCargo.filter((nombre: string) =>
+        etiquetasPostulante.includes(nombre)
+      ),
+      faltantes: etiquetasCargo.filter(
+        (nombre: string) => !etiquetasPostulante.includes(nombre)
+      ),
+      extras: etiquetasPostulante.filter(
+        (nombre: string) => !etiquetasCargo.includes(nombre)
+      ),
+    };
   }
 }
