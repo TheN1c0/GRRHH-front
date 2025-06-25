@@ -32,7 +32,7 @@
     <tr *ngFor="let p of filtrar()">
       <td data-label="Nombre">{{ p.primer_nombre }} {{ p.apellido_paterno }}</td>
       <td data-label="Correo">{{ p.correo }}</td>
-      <td data-label="Cargo">{{ p.cargo_postulado.nombre }}</td>
+      <td data-label="Cargo">{{ p.cargo_postulado_nombre }}</td>
       <td data-label="Estado">{{ p.estado }}</td>
       <td data-label="Fecha">{{ p.fecha_postulacion | date }}</td>
       <td data-label="Etiquetas">
