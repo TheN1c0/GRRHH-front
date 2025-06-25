@@ -49,7 +49,7 @@
         <!-- 📄 Tipo de contrato -->
         <label>Tipo de contrato:</label>
         <select [(ngModel)]="nuevoContrato.tipo_contrato">
-            <option *ngFor="let tipo of tiposContrato" [value]="tipo.id">
+            <option *ngFor="let tipo of tiposContrato" [ngValue]="tipo.id">
                 {{ tipo.nombre }}
             </option>
         </select>
