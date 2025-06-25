@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, interval, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Departamento } from '../interfaces/departamento.model';
 import { Cargo } from '../interfaces/cargo.model';
 import { Empleado } from '../interfaces/empleado.model';
+import { delay, tap, take, finalize, switchMap } from 'rxjs/operators';
 import { PalabraClave } from '../interfaces/palabraclave.model';
 /* export interface Empleado {
   id: number;
@@ -120,12 +121,23 @@ export class EmpleadoService {
     );
   }
   obtenerPalabrasClave(): Observable<PalabraClave[]> {
-    return this.http.get<PalabraClave[]>(
-      `${environment.personalUrl}/palabras-clave/`,
-      {
+    // Inicia conteo regresivo de 5 a 1
+    interval(1000)
+      .pipe(
+        take(5),
+        tap((seg) => console.log(`⌛ Esperando: ${5 - seg} segundos...`)),
+        finalize(() =>
+          console.log('🚀 Ejecutando solicitud de palabras clave...')
+        )
+      )
+      .subscribe();
+
+    // Retarda la solicitud real 5 segundos
+    return this.http
+      .get<PalabraClave[]>(`${environment.personalUrl}/palabras-clave/`, {
         withCredentials: true,
-      }
-    );
+      })
+      .pipe(delay(5000));
   }
 
   // ✅ Crear una nueva palabra clave (manual)
