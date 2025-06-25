@@ -119,4 +119,15 @@ export class EmpleadoService {
       { withCredentials: true }
     );
   }
+  obtenerPalabrasClave() {
+    return this.http.get<any[]>(`${environment.personalUrl}/palabras-clave/`);
+  }
+
+  // ✅ Crear una nueva palabra clave (manual)
+  crearPalabraClave(nombre: string) {
+    return this.http.post<any>(`${environment.personalUrl}/palabras-clave/`, {
+      nombre: nombre,
+      categoria: 'habilidad', // o permite elegir más adelante
+    });
+  }
 }

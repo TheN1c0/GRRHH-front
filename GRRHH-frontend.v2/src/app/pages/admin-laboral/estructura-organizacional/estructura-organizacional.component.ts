@@ -12,12 +12,15 @@ import { Cargo } from '../../../interfaces/cargo.model';
 export class EstructuraOrganizacionalComponent implements OnInit {
   departamentos: Departamento[] = [];
   cargos: Cargo[] = [];
-
+  nuevaEtiqueta = '';
+  palabrasDisponibles: any[] = [];
   nuevoDepartamento: string = '';
   nuevoCargo: Partial<Cargo> = {
     nombre: '',
     departamento: undefined,
     superior: undefined,
+    generar_etiquetas_ia: true,
+    palabras_clave: [],
   };
 
   constructor(
@@ -27,6 +30,29 @@ export class EstructuraOrganizacionalComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarDatos();
+    this.cargarPalabrasClave();
+  }
+
+  cargarPalabrasClave() {
+    this.empleadoService.obtenerPalabrasClave().subscribe((res) => {
+      this.palabrasDisponibles = res;
+    });
+  }
+
+  agregarEtiqueta() {
+    if (this.nuevaEtiqueta.trim()) {
+      this.empleadoService
+        .crearPalabraClave(this.nuevaEtiqueta)
+        .subscribe((nueva) => {
+          this.palabrasDisponibles.push(nueva);
+          if (!this.nuevoCargo.palabras_clave) {
+            this.nuevoCargo.palabras_clave = [];
+          }
+          this.nuevoCargo.palabras_clave.push(nueva.id);
+
+          this.nuevaEtiqueta = '';
+        });
+    }
   }
 
   cargarDatos(): void {
@@ -61,13 +87,18 @@ export class EstructuraOrganizacionalComponent implements OnInit {
   }
 
   agregarCargo() {
-    const { nombre, departamento, superior } = this.nuevoCargo;
+    const { nombre, departamento, superior, generar_etiquetas_ia } =
+      this.nuevoCargo;
     if (!nombre || !departamento) return;
 
     const payload = {
       nombre,
       departamento,
       superior: superior || null,
+      generar_etiquetas_ia: !!generar_etiquetas_ia,
+      palabras_clave: this.nuevoCargo.generar_etiquetas_ia
+        ? []
+        : this.nuevoCargo.palabras_clave,
     };
 
     this.empleadoService.crearCargo(payload).subscribe(() => {
@@ -75,6 +106,7 @@ export class EstructuraOrganizacionalComponent implements OnInit {
         nombre: '',
         departamento: undefined,
         superior: undefined,
+        generar_etiquetas_ia: true,
       };
       this.cargarDatos();
     });

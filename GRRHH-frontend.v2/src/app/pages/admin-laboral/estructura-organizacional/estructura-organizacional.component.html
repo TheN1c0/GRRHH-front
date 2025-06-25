@@ -61,8 +61,28 @@
                 <option *ngFor="let c of cargos" [value]="c.id">{{ c.nombre }}</option>
             </select>
 
+
+            <label>
+                <input type="checkbox" [(ngModel)]="nuevoCargo.generar_etiquetas_ia" name="generar_etiquetas_ia" />
+                Generar etiquetas automáticamente con IA
+            </label>
+            <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
+                <label>Seleccionar etiquetas manualmente:</label>
+                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" multiple>
+                    <option *ngFor="let palabra of palabrasDisponibles" [value]="palabra.id">
+                        {{ palabra.nombre }} ({{ palabra.categoria }})
+                    </option>
+                </select>
+
+                <!-- Opcional: agregar nueva etiqueta manual -->
+                <div>
+                    <input [(ngModel)]="nuevaEtiqueta" placeholder="Agregar nueva etiqueta" />
+                    <button type="button" (click)="agregarEtiqueta()">➕</button>
+                </div>
+            </div>
             <button type="submit">Agregar</button>
         </form>
+
 
         <ul class="lista">
             <li *ngFor="let cargo of cargos">
