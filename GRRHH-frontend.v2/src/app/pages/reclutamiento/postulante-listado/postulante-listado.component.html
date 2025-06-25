@@ -50,17 +50,8 @@
 
   </tbody>
 </table>
-<!-- Modal de contratación -->
-<ng-container *ngIf="postulanteSeleccionado">
-  <div class="modal-overlay">
-    <div class="modal-contenido">
-      <app-postulante-contratar [postulante]="postulanteSeleccionado"
-        (cerrar)="postulanteSeleccionado = null"></app-postulante-contratar>
-    </div>
-  </div>
-</ng-container>
-
-<ng-container *ngIf="postulanteSeleccionado">
+<!-- Modal de comparación -->
+<ng-container *ngIf="postulanteSeleccionado && cargoRelacionado">
   <div class="modal-overlay">
     <div class="modal-contenido">
       <button (click)="cerrarModal()">❌ Cerrar</button>
@@ -68,7 +59,7 @@
 
       <h4>🔍 Comparación con el cargo</h4>
 
-      <div *ngIf="cargoRelacionado" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
         <div style="flex: 1;">
           <h5 style="color: green;">✔ Coincidencias</h5>
           <ul>
@@ -90,6 +81,16 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Modal de contratación -->
+<ng-container *ngIf="postulanteSeleccionado && !cargoRelacionado">
+  <div class="modal-overlay">
+    <div class="modal-contenido">
+      <app-postulante-contratar [postulante]="postulanteSeleccionado"
+        (cerrar)="postulanteSeleccionado = null"></app-postulante-contratar>
     </div>
   </div>
 </ng-container>
