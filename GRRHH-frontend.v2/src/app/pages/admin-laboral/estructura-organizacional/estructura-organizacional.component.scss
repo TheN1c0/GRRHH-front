@@ -183,3 +183,30 @@ th {
     gap: 4px;
     margin-top: 0.5rem;
 }
+
+.checkbox-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    margin-top: 0.5rem;
+}
+
+.checkbox-scroll label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.input-filtro {
+    width: 100%;
+    padding: 6px 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

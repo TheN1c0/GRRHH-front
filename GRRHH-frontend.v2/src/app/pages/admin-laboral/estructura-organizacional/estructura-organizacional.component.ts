@@ -61,6 +61,14 @@ export class EstructuraOrganizacionalComponent implements OnInit {
       );
     }
   }
+  filtroEtiqueta = '';
+
+  palabrasDisponiblesFiltradas() {
+    const filtro = this.filtroEtiqueta.toLowerCase();
+    return this.palabrasDisponibles.filter((p) =>
+      `${p.nombre} ${p.categoria}`.toLowerCase().includes(filtro)
+    );
+  }
 
   agregarEtiqueta() {
     if (this.nuevaEtiqueta.trim()) {

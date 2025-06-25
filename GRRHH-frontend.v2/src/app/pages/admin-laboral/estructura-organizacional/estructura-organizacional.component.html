@@ -80,18 +80,19 @@
                 </div>
 
 
-                <!-- Lista de etiquetas agregadas -->
-                <div class="etiquetas-lista" *ngIf="nuevoCargo.palabras_clave?.length">
-                    <p>🧩 Etiquetas agregadas:</p>
-                    <ul>
-                        <li *ngFor="let id of nuevoCargo.palabras_clave">
-                            {{ obtenerNombreEtiqueta(id) }}
-                            <button class="boton-eliminar" type="button" (click)="quitarEtiqueta(id)">
-                                🗑
-                            </button>
-                        </li>
-                    </ul>
+                <!-- Filtro de etiquetas -->
+                <input type="text" [(ngModel)]="filtroEtiqueta" placeholder="🔍 Buscar etiqueta..."
+                    class="input-filtro" />
+
+                <!-- Lista de etiquetas con scroll -->
+                <div class="checkbox-scroll">
+                    <label *ngFor="let palabra of palabrasDisponiblesFiltradas()">
+                        <input type="checkbox" [value]="palabra.id" (change)="toggleEtiqueta(palabra.id, $event)"
+                            [checked]="nuevoCargo.palabras_clave?.includes(palabra.id)" />
+                        {{ palabra.nombre }} ({{ palabra.categoria }})
+                    </label>
                 </div>
+
 
                 <!-- Agregar nueva etiqueta -->
                 <div class="etiqueta-nueva">
