@@ -176,3 +176,10 @@ th {
     border-radius: 4px;
     font-weight: 500;
 }
+
+.checkbox-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 0.5rem;
+}
