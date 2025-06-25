@@ -22,7 +22,9 @@ export class EstructuraOrganizacionalComponent implements OnInit {
     generar_etiquetas_ia: true,
     palabras_clave: [],
   };
-
+  compararIds(a: number, b: number): boolean {
+    return a === b;
+  }
   constructor(
     private empleadoService: EmpleadoService,
     private fb: FormBuilder
@@ -37,6 +39,15 @@ export class EstructuraOrganizacionalComponent implements OnInit {
     this.empleadoService.obtenerPalabrasClave().subscribe((res) => {
       this.palabrasDisponibles = res;
     });
+  }
+  obtenerNombreEtiqueta(id: number): string {
+    const etiqueta = this.palabrasDisponibles.find((p) => p.id === id);
+    return etiqueta ? `${etiqueta.nombre} (${etiqueta.categoria})` : `ID ${id}`;
+  }
+  quitarEtiqueta(id: number) {
+    this.nuevoCargo.palabras_clave = this.nuevoCargo.palabras_clave?.filter(
+      (e) => e !== id
+    );
   }
 
   agregarEtiqueta() {

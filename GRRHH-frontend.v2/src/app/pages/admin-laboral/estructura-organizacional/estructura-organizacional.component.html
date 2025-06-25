@@ -61,25 +61,40 @@
                 <option *ngFor="let c of cargos" [value]="c.id">{{ c.nombre }}</option>
             </select>
 
-
             <label>
                 <input type="checkbox" [(ngModel)]="nuevoCargo.generar_etiquetas_ia" name="generar_etiquetas_ia" />
                 Generar etiquetas automáticamente con IA
             </label>
+
+            <!-- Etiquetas manuales -->
             <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
                 <label>Seleccionar etiquetas manualmente:</label>
-                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" multiple>
-                    <option *ngFor="let palabra of palabrasDisponibles" [value]="palabra.id">
+
+                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" [compareWith]="compararIds"
+                    multiple>
+                    <option *ngFor="let palabra of palabrasDisponibles" [ngValue]="palabra.id">
                         {{ palabra.nombre }} ({{ palabra.categoria }})
                     </option>
                 </select>
 
-                <!-- Opcional: agregar nueva etiqueta manual -->
+                <!-- Lista de etiquetas agregadas -->
+                <div *ngIf="nuevoCargo.palabras_clave?.length">
+                    <p>🧩 Etiquetas agregadas:</p>
+                    <ul>
+                        <li *ngFor="let id of nuevoCargo.palabras_clave">
+                            {{ obtenerNombreEtiqueta(id) }}
+                            <button type="button" (click)="quitarEtiqueta(id)">🗑</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Agregar nueva etiqueta -->
                 <div>
                     <input [(ngModel)]="nuevaEtiqueta" placeholder="Agregar nueva etiqueta" />
                     <button type="button" (click)="agregarEtiqueta()">➕</button>
                 </div>
             </div>
+
             <button type="submit">Agregar</button>
         </form>
 
