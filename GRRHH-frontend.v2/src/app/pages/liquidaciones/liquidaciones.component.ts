@@ -21,7 +21,9 @@ export class LiquidacionesComponent {
 
   ngOnInit() {
     this.http
-      .get(`${environment.personalUrl}/contratos/`, { withCredentials: true })
+      .get(`${environment.personalUrl}/contratos/lista-empleados/`, {
+        withCredentials: true,
+      })
       .subscribe((res: any) => {
         this.contratos = res;
       });
