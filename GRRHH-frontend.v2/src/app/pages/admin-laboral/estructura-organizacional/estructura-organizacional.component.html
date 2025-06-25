@@ -72,10 +72,10 @@
                 <label>Seleccionar etiquetas manualmente:</label>
 
                 <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" multiple>
-
-                    <option *ngFor="let palabra of palabrasDisponibles" [ngValue]="palabra.id">
+                    <option *ngFor="let palabra of palabrasDisponibles" [value]="palabra.id">
                         {{ palabra.nombre }} ({{ palabra.categoria }})
                     </option>
+
                 </select>
 
                 <!-- Lista de etiquetas agregadas -->
