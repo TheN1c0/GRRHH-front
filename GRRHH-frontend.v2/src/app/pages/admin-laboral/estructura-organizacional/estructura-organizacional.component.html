@@ -71,15 +71,6 @@
             <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
                 <label>Seleccionar etiquetas manualmente:</label>
 
-                <div class="checkbox-lista">
-                    <label *ngFor="let palabra of palabrasDisponibles">
-                        <input type="checkbox" [value]="palabra.id" (change)="toggleEtiqueta(palabra.id, $event)"
-                            [checked]="nuevoCargo.palabras_clave?.includes(palabra.id)" />
-                        {{ palabra.nombre }} ({{ palabra.categoria }})
-                    </label>
-                </div>
-
-
                 <!-- Filtro de etiquetas -->
                 <input type="text" [(ngModel)]="filtroEtiqueta" placeholder="🔍 Buscar etiqueta..."
                     class="input-filtro" />
