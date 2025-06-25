@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Departamento } from '../interfaces/departamento.model';
 import { Cargo } from '../interfaces/cargo.model';
 import { Empleado } from '../interfaces/empleado.model';
-
+import { PalabraClave } from '../interfaces/palabraclave.model';
 /* export interface Empleado {
   id: number;
   rut: string;
@@ -119,15 +119,24 @@ export class EmpleadoService {
       { withCredentials: true }
     );
   }
-  obtenerPalabrasClave() {
-    return this.http.get<any[]>(`${environment.personalUrl}/palabras-clave/`);
+  obtenerPalabrasClave(): Observable<PalabraClave[]> {
+    return this.http.get<PalabraClave[]>(
+      `${environment.personalUrl}/palabras-clave/`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   // ✅ Crear una nueva palabra clave (manual)
-  crearPalabraClave(nombre: string) {
-    return this.http.post<any>(`${environment.personalUrl}/palabras-clave/`, {
-      nombre: nombre,
-      categoria: 'habilidad', // o permite elegir más adelante
-    });
+  crearPalabraClave(nombre: string): Observable<PalabraClave> {
+    return this.http.post<PalabraClave>(
+      `${environment.personalUrl}/palabras-clave/`,
+      {
+        nombre: nombre,
+        categoria: 'habilidad',
+      },
+      { withCredentials: true }
+    );
   }
 }
