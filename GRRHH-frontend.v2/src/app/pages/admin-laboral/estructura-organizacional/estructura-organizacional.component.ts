@@ -49,6 +49,18 @@ export class EstructuraOrganizacionalComponent implements OnInit {
       (e) => e !== id
     );
   }
+  toggleEtiqueta(id: number, event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.nuevoCargo.palabras_clave ??= [];
+
+    if (checked && !this.nuevoCargo.palabras_clave.includes(id)) {
+      this.nuevoCargo.palabras_clave.push(id);
+    } else if (!checked) {
+      this.nuevoCargo.palabras_clave = this.nuevoCargo.palabras_clave.filter(
+        (e) => e !== id
+      );
+    }
+  }
 
   agregarEtiqueta() {
     if (this.nuevaEtiqueta.trim()) {

@@ -71,12 +71,13 @@
             <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
                 <label>Seleccionar etiquetas manualmente:</label>
 
-                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" multiple>
-                    <option *ngFor="let palabra of palabrasDisponibles" [value]="palabra.id">
+                <div class="checkbox-lista">
+                    <label *ngFor="let palabra of palabrasDisponibles">
+                        <input type="checkbox" [value]="palabra.id" (change)="toggleEtiqueta(palabra.id, $event)"
+                            [checked]="nuevoCargo.palabras_clave?.includes(palabra.id)" />
                         {{ palabra.nombre }} ({{ palabra.categoria }})
-                    </option>
-
-                </select>
+                    </label>
+                </div>
 
                 <!-- Lista de etiquetas agregadas -->
                 <div class="etiquetas-lista" *ngIf="nuevoCargo.palabras_clave?.length">
@@ -84,7 +85,9 @@
                     <ul>
                         <li *ngFor="let id of nuevoCargo.palabras_clave">
                             {{ obtenerNombreEtiqueta(id) }}
-                            <button class="boton-eliminar" type="button" (click)="quitarEtiqueta(id)">🗑</button>
+                            <button class="boton-eliminar" type="button" (click)="quitarEtiqueta(id)">
+                                🗑
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -95,6 +98,7 @@
                     <button type="button" (click)="agregarEtiqueta()">➕</button>
                 </div>
             </div>
+
 
             <button class="boton-submit" type="submit">Agregar</button>
         </form>
