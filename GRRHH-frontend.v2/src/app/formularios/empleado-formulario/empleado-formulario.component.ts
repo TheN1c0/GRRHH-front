@@ -82,24 +82,33 @@ export class EmpleadoFormularioComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     console.log('Modo:', this.modo);
     console.log('Empleado recibido:', this.empleadoAEditar);
+
     if (this.modo === 'crear') {
-      // Reinicia los campos
+      // Usa el objeto ya definido arriba
       this.nuevoEmpleado = {
-        nombre: '',
-        cargo: '',
-        area: '',
-        telefono: '',
-        rut: '',
-        estado: 'activo',
+        ...this.nuevoEmpleado,
+        prevision: {
+          afp: null,
+          salud: null,
+          seguro_cesantia: null,
+        },
       };
     }
+
     if (
       changes['empleadoAEditar'] &&
       this.modo === 'editar' &&
       this.empleadoAEditar
     ) {
       console.log('Empleado recibido:', this.empleadoAEditar);
-      this.nuevoEmpleado = { ...this.empleadoAEditar }; // Copia los datos al modelo del formulario
+      this.nuevoEmpleado = {
+        ...this.empleadoAEditar,
+        prevision: {
+          afp: this.empleadoAEditar.afp_id || null,
+          salud: this.empleadoAEditar.salud_id || null,
+          seguro_cesantia: this.empleadoAEditar.cesantia_id || null,
+        },
+      };
     }
   }
 
