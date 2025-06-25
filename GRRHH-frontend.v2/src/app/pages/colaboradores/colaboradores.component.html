@@ -49,9 +49,7 @@
       <!-- ------------------Vista de escritorio-------------------------------------------------- -->
 
       <tr *ngFor="let colaborador of colaboradores">
-        <td>
-          <img [src]="colaborador.foto" alt="Foto" class="foto-colaborador" />
-        </td>
+
         <td>
           {{ colaborador.primer_nombre }} {{ colaborador.otros_nombres }}
           {{ colaborador.apellido_paterno }} {{ colaborador.apellido_materno }}

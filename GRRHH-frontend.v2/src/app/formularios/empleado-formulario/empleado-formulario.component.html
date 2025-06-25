@@ -26,6 +26,23 @@
           {{ cargo.nombre }} ({{ cargo.nombre_departamento }})
         </option>
       </select>
+      <label>AFP:</label>
+      <select [(ngModel)]="nuevoEmpleado.prevision.afp" name="afp">
+        <option [value]="null">Selecciona AFP</option>
+        <option *ngFor="let a of listaAFP" [ngValue]="a.id">{{ a.nombre }}</option>
+      </select>
+
+      <label>Salud:</label>
+      <select [(ngModel)]="nuevoEmpleado.prevision.salud" name="salud">
+        <option [value]="null">Selecciona Salud</option>
+        <option *ngFor="let s of listaSalud" [ngValue]="s.id">{{ s.nombre }}</option>
+      </select>
+
+      <label>Seguro Cesantía:</label>
+      <select [(ngModel)]="nuevoEmpleado.prevision.seguro_cesantia" name="seguro_cesantia">
+        <option [value]="null">Selecciona Seguro</option>
+        <option *ngFor="let c of listaCesantia" [ngValue]="c.id">{{ c.nombre }}</option>
+      </select>
 
       <div class="modal-buttons">
         <button type="submit">

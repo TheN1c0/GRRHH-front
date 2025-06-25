@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmpleadoService } from '../../services/empleado.service';
+import { PrevisionService } from '../../services/prevision.service';
 
 @Component({
   selector: 'app-empleado-formulario',
@@ -31,13 +32,21 @@ export class EmpleadoFormularioComponent implements OnChanges {
     telefono: '',
     cargo: null,
     usuario: null,
+    prevision: {
+      afp: null,
+      salud: null,
+      seguro_cesantia: null,
+    },
   };
-
+  listaAFP: any[] = [];
+  listaSalud: any[] = [];
+  listaCesantia: any[] = [];
   listaCargos: any[] = [];
 
   constructor(
     private http: HttpClient,
-    private empleadoService: EmpleadoService
+    private empleadoService: EmpleadoService,
+    private previsionService: PrevisionService
   ) {}
 
   ngOnInit(): void {
@@ -49,8 +58,24 @@ export class EmpleadoFormularioComponent implements OnChanges {
         console.error('Error al cargar cargos:', err);
       },
     });
+
+    this.previsionService.getAFP().subscribe((data) => (this.listaAFP = data));
+    this.previsionService
+      .getSalud()
+      .subscribe((data) => (this.listaSalud = data));
+    this.previsionService
+      .getCesantia()
+      .subscribe((data) => (this.listaCesantia = data));
+
     if (this.modo === 'editar' && this.empleadoAEditar) {
-      this.nuevoEmpleado = { ...this.empleadoAEditar };
+      this.nuevoEmpleado = {
+        ...this.empleadoAEditar,
+        prevision: {
+          afp: this.empleadoAEditar.afp_id || null,
+          salud: this.empleadoAEditar.salud_id || null,
+          seguro_cesantia: this.empleadoAEditar.cesantia_id || null,
+        },
+      };
     }
   }
 
@@ -103,6 +128,24 @@ export class EmpleadoFormularioComponent implements OnChanges {
           },
         });
     }
+    const prevision = this.nuevoEmpleado.prevision;
+
+    this.empleadoService
+      .guardarPrevision({
+        empleado: this.nuevoEmpleado.id,
+        afp: prevision.afp,
+        salud: prevision.salud,
+        seguro_cesantia: prevision.seguro_cesantia,
+      })
+      .subscribe({
+        next: () => {
+          this.cerrar.emit();
+          this.guardado.emit();
+        },
+        error: (err) => {
+          console.error('Error al guardar previsión:', err);
+        },
+      });
   }
 
   cancelar() {

@@ -130,15 +130,15 @@ export class EmpleadoService {
     // Inicia conteo regresivo de 5 a 1
     interval(1000)
       .pipe(
-        take(5),
-        tap((seg) => console.log(`⌛ Esperando: ${5 - seg} segundos...`)),
+        take(2),
+        tap((seg) => console.log(`⌛ Esperando: ${2 - seg} segundos...`)),
         finalize(() =>
           console.log('🚀 Ejecutando solicitud de palabras clave...')
         )
       )
       .subscribe();
 
-    // Retarda la solicitud real 5 segundos
+    // Retarda la solicitud real 2 segundos
     return this.http
       .get<PalabraClave[]>(`${environment.personalUrl}/palabras-clave/`, {
         withCredentials: true,
@@ -156,5 +156,15 @@ export class EmpleadoService {
       },
       { withCredentials: true }
     );
+  }
+  guardarPrevision(data: any) {
+    return this.http.post('/api/datos-previsionales/', data, {
+      withCredentials: true,
+    });
+  }
+  actualizarPrevision(empleadoId: number, data: any) {
+    return this.http.put(`/api/datos-previsionales/${empleadoId}/`, data, {
+      withCredentials: true,
+    });
   }
 }
