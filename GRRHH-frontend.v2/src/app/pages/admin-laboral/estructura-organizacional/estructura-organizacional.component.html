@@ -71,8 +71,8 @@
             <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
                 <label>Seleccionar etiquetas manualmente:</label>
 
-                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" [compareWith]="compararIds"
-                    multiple>
+                <select [(ngModel)]="nuevoCargo.palabras_clave" name="palabras_clave" multiple>
+
                     <option *ngFor="let palabra of palabrasDisponibles" [ngValue]="palabra.id">
                         {{ palabra.nombre }} ({{ palabra.categoria }})
                     </option>
