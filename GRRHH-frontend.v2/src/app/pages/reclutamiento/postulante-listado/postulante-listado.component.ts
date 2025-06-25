@@ -16,6 +16,7 @@ export class PostulanteListadoComponent implements OnInit {
   filtroEstado = '';
   postulanteSeleccionado: any = null;
   cargoRelacionado: any = null;
+  modoModal: 'comparar' | 'contratar' | null = null;
   constructor(
     private http: HttpClient,
     private empleadoService: EmpleadoService
@@ -23,7 +24,9 @@ export class PostulanteListadoComponent implements OnInit {
   @Output() abrirModal = new EventEmitter<any>();
 
   abrirContratacion(postulante: any) {
-    this.abrirModal.emit(postulante);
+    this.postulanteSeleccionado = postulante;
+    this.modoModal = 'contratar';
+    this.cargoRelacionado = null;
   }
   ngOnInit(): void {
     this.obtenerPostulantes();
@@ -75,13 +78,18 @@ export class PostulanteListadoComponent implements OnInit {
 
   abrirComparacion(postulante: any) {
     this.postulanteSeleccionado = postulante;
+    this.modoModal = 'comparar';
 
-    // Llama al cargo y guárdalo
-    this.empleadoService
-      .getCargoById(postulante.cargo_postulado)
-      .subscribe((cargo) => {
+    this.empleadoService.getCargoById(postulante.cargo_postulado).subscribe({
+      next: (cargo) => {
         this.cargoRelacionado = cargo;
-      });
+      },
+      error: (err) => {
+        console.error('❌ Error al obtener cargo:', err);
+        this.cargoRelacionado = null;
+        this.modoModal = null;
+      },
+    });
   }
 
   cerrarModal() {

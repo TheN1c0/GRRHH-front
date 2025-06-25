@@ -51,7 +51,7 @@
   </tbody>
 </table>
 <!-- Modal de comparación -->
-<ng-container *ngIf="postulanteSeleccionado && cargoRelacionado">
+<ng-container *ngIf="modoModal === 'comparar' && postulanteSeleccionado && cargoRelacionado">
   <div class="modal-overlay">
     <div class="modal-comparacion">
       <button class="btn-cerrar" (click)="cerrarModal()">❌ Cerrar</button>
@@ -87,7 +87,7 @@
 
 
 <!-- Modal de contratación -->
-<ng-container *ngIf="postulanteSeleccionado && !cargoRelacionado">
+<ng-container *ngIf="modoModal === 'contratar' && postulanteSeleccionado">
   <div class="modal-overlay">
     <div class="modal-contenido">
       <app-postulante-contratar [postulante]="postulanteSeleccionado"
