@@ -158,13 +158,18 @@ export class EmpleadoService {
     );
   }
   guardarPrevision(data: any) {
-    return this.http.post('/api/datos-previsionales/', data, {
-      withCredentials: true,
-    });
+    return this.http.post(
+      `${environment.personalUrl}/datos-previsionales/`,
+      data,
+      { withCredentials: true }
+    );
   }
+
   actualizarPrevision(empleadoId: number, data: any) {
-    return this.http.put(`/api/datos-previsionales/${empleadoId}/`, data, {
-      withCredentials: true,
-    });
+    return this.http.put(
+      `${environment.personalUrl}/datos-previsionales/${empleadoId}/`,
+      data,
+      { withCredentials: true }
+    );
   }
 }
