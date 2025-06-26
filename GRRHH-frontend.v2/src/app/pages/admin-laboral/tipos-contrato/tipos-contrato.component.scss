@@ -1,3 +1,64 @@
+.titulo-seccion {
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contenedor-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tarjeta {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    flex: 1 1 45%;
+    min-width: 280px;
+}
+
+.tarjeta button {
+    margin-top: 0.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.tarjeta button:hover {
+    background-color: #0056b3;
+}
+
+
+/* en móviles */
+@media (max-width: 600px) {
+    .tarjeta {
+        flex: 1 1 100%;
+    }
+
+    .tarjeta input,
+    .tarjeta select {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .tarjeta button {
+        width: 100%;
+    }
+}
+
 /*  ----------------------------------CrearTipo--------------------------------------------  */
 .nuevo-tipo-contrato {
     margin-bottom: 1.5rem;
@@ -268,3 +329,34 @@
 }
 
 /* --------------------------nueva-regla-fin----------------------------------- */
+
+/*  Botón para abrir el modal de asignación  */
+.boton-asignar-wrapper {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.btn-asignar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-asignar:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 600px) {
+    .boton-asignar-wrapper {
+        text-align: center;
+    }
+
+    .btn-asignar {
+        width: 100%;
+    }
+}

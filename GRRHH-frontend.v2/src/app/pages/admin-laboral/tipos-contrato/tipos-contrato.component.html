@@ -11,36 +11,37 @@
 </div>
 
 <!-- ----------------------------------Reglas-------------------------------------------- -->
-<div class="nueva-regla-contrato" *ngIf="seguridadService.puedeCrear()">
-  <h4>➕ Crear nueva regla de contrato</h4>
-  <input [(ngModel)]="nuevaRegla['nombre']" />
+<div class="contenedor-acciones">
+  <div class="nueva-regla-contrato tarjeta" *ngIf="seguridadService.puedeCrear()">
+    <h4>➕ Crear nueva regla de contrato</h4>
+    <input [(ngModel)]="nuevaRegla['nombre']" />
 
-  <div class="checkboxes">
-    <label *ngFor="let campo of getClaves(nuevaRegla)">
-      <input type="checkbox" [(ngModel)]="nuevaRegla[campo]" />
-      {{ formatearTexto(campo) }}
-    </label>
+    <div class="checkboxes">
+      <label *ngFor="let campo of getClaves(nuevaRegla)">
+        <input type="checkbox" [(ngModel)]="nuevaRegla[campo]" />
+        {{ formatearTexto(campo) }}
+      </label>
+    </div>
+
+    <button (click)="agregarRegla()">Crear regla</button>
   </div>
 
-  <button (click)="agregarRegla()">Crear regla</button>
+  <!-- ----------------------------------Reglas-Fin------------------------------------------- -->
+
+
+  <!-- ----------------------------------CrearTipo-------------------------------------------- -->
+  <div class="nuevo-tipo-contrato tarjeta" *ngIf="seguridadService.puedeCrear()">
+    <h4>➕ Crear nuevo tipo de contrato</h4>
+    <input [(ngModel)]="nuevoTipoContrato.nombre" placeholder="Nombre del tipo de contrato" />
+    <select [(ngModel)]="nuevoTipoContrato.reglas">
+      <option *ngFor="let regla of reglas" [value]="regla.id">
+        {{ regla.nombre }}
+      </option>
+    </select>
+    <button (click)="agregarTipoContrato()">Crear</button>
+  </div>
+
 </div>
-
-<!-- ----------------------------------Reglas-Fin------------------------------------------- -->
-
-
-<!-- ----------------------------------CrearTipo-------------------------------------------- -->
-<div class="nuevo-tipo-contrato" *ngIf="seguridadService.puedeCrear()">
-  <h4>➕ Crear nuevo tipo de contrato</h4>
-  <input [(ngModel)]="nuevoTipoContrato.nombre" placeholder="Nombre del tipo de contrato" />
-  <select [(ngModel)]="nuevoTipoContrato.reglas">
-    <option *ngFor="let regla of reglas" [value]="regla.id">
-      {{ regla.nombre }}
-    </option>
-  </select>
-  <button (click)="agregarTipoContrato()">Crear</button>
-</div>
-
-
 
 <!-- ----------------------------------CrearTipo-Fin----------------------------------------- -->
 <div class="lista grid-contratos">
