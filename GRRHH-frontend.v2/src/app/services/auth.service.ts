@@ -43,7 +43,7 @@ export class AuthService {
 
   getDashboard(): Observable<any> {
     return this.http.get(`${environment.authUrl}/dashboard/`, {
-      withCredentials: true, // <- para que se envíe la cookie HttpOnly
+      withCredentials: true,
     });
   }
   getUltimoAcceso(): Observable<any> {
@@ -58,7 +58,7 @@ export class AuthService {
   }
   obtenerPermisosActuales(): Observable<any> {
     return this.http.get<any>(
-      `${environment.authUrl}/api/permisos-usuario-actual/`,
+      `${environment.personalUrl}/permisos-usuario-actual/`,
       {
         withCredentials: true,
       }
