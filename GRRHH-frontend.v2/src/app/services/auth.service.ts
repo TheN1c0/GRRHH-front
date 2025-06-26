@@ -58,7 +58,7 @@ export class AuthService {
   }
   obtenerPermisosActuales(): Observable<any> {
     return this.http.get<any>(
-      `${environment.authUrl}/permisos-usuario-actual/`,
+      `${environment.authUrl}/api/permisos-usuario-actual/`,
       {
         withCredentials: true,
       }
