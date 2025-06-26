@@ -37,7 +37,7 @@ export class PortalComponent {
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
-        alert('¡Inicio de sesión exitoso!');
+        alert('¡Inicio de sesión exitosooo!');
         localStorage.setItem('usuario', (response as any).username);
 
         // Obtener el perfil del usuario logueado
