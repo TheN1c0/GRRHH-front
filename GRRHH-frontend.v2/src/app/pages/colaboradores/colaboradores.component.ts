@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoService } from '../../services/empleado.service';
+import { SeguridadService } from '../../services/seguridad.service';
 import { EmpleadoFormularioComponent } from '../../formularios/empleado-formulario/empleado-formulario.component';
 import { Empleado } from '../../interfaces/empleado.model';
 import { Departamento } from '../../interfaces/departamento.model';
@@ -13,7 +14,10 @@ export class ColaboradoresComponent implements OnInit {
   mostrarModalEmpleado = false;
   modoFormulario: 'crear' | 'editar' = 'crear';
   colaboradorSeleccionado: any = null;
-  constructor(private empleadoService: EmpleadoService) {}
+  constructor(
+    private empleadoService: EmpleadoService,
+    public seguridadService: SeguridadService
+  ) {}
   busqueda = '';
   filtroCargo = '';
   cargos: any[] = [];
