@@ -36,7 +36,8 @@ export class SeguridadComponent {
       username: usuario.username,
       email: usuario.email,
       is_superuser: usuario.is_superuser,
-      solo_lectura: usuario.permisos?.solo_lectura,
+      puede_crear: usuario.permisos?.puede_crear,
+      puede_editar: usuario.permisos?.puede_editar,
       puede_eliminar: usuario.permisos?.puede_eliminar,
     };
     this.mostrarFormulario = true;

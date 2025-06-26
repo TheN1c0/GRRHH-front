@@ -7,8 +7,9 @@
             <th>Usuario</th>
             <th>Email</th>
             <th>Superusuario</th>
-            <th>Solo lectura</th>
-            <th>Puede eliminar</th>
+            <th>Crear</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -17,7 +18,8 @@
             <td>{{ usuario.username }}</td>
             <td>{{ usuario.email }}</td>
             <td>{{ usuario.is_superuser ? '✅' : '❌' }}</td>
-            <td>{{ usuario.permisos?.solo_lectura ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos?.puede_crear ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos?.puede_editar ? '✅' : '❌' }}</td>
             <td>{{ usuario.permisos?.puede_eliminar ? '✅' : '❌' }}</td>
             <td>
                 <button (click)="editar(usuario)">✏️</button>
@@ -35,7 +37,8 @@
         <input [(ngModel)]="form.password" name="password" placeholder="Contraseña" type="password"
             [required]="esNuevo" />
         <label><input type="checkbox" [(ngModel)]="form.is_superuser" name="is_superuser" /> Superusuario</label>
-        <label><input type="checkbox" [(ngModel)]="form.solo_lectura" name="solo_lectura" /> Solo lectura</label>
+        <label><input type="checkbox" [(ngModel)]="form.puede_crear" name="puede_crear" /> Puede crear</label>
+        <label><input type="checkbox" [(ngModel)]="form.puede_editar" name="puede_editar" /> Puede editar</label>
         <label><input type="checkbox" [(ngModel)]="form.puede_eliminar" name="puede_eliminar" /> Puede eliminar</label>
         <button type="submit">Guardar</button>
         <button type="button" (click)="cerrarModal()">Cancelar</button>
