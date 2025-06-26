@@ -38,6 +38,9 @@ export class SeguridadService {
   puedeEliminar(): boolean {
     return this.permisos.puede_eliminar || this.permisos.isSuperuser;
   }
+  esSuperusuario(): boolean {
+    return this.permisos.isSuperuser;
+  }
 
   //  Métodos HTTP
   listarUsuarios(): Observable<any[]> {

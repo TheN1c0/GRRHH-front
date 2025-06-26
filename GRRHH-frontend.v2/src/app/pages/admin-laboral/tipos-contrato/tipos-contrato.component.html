@@ -11,10 +11,9 @@
 </div>
 
 <!-- ----------------------------------Reglas-------------------------------------------- -->
-<div class="nueva-regla-contrato">
+<div class="nueva-regla-contrato" *ngIf="seguridadService.puedeCrear()">
   <h4>➕ Crear nueva regla de contrato</h4>
   <input [(ngModel)]="nuevaRegla['nombre']" />
-
 
   <div class="checkboxes">
     <label *ngFor="let campo of getClaves(nuevaRegla)">
@@ -25,11 +24,12 @@
 
   <button (click)="agregarRegla()">Crear regla</button>
 </div>
+
 <!-- ----------------------------------Reglas-Fin------------------------------------------- -->
 
 
 <!-- ----------------------------------CrearTipo-------------------------------------------- -->
-<div class="nuevo-tipo-contrato">
+<div class="nuevo-tipo-contrato" *ngIf="seguridadService.puedeCrear()">
   <h4>➕ Crear nuevo tipo de contrato</h4>
   <input [(ngModel)]="nuevoTipoContrato.nombre" placeholder="Nombre del tipo de contrato" />
   <select [(ngModel)]="nuevoTipoContrato.reglas">
@@ -41,6 +41,7 @@
 </div>
 
 
+
 <!-- ----------------------------------CrearTipo-Fin----------------------------------------- -->
 <div class="lista grid-contratos">
   <div class="contrato-card" *ngFor="let tipo of tiposContrato">
@@ -48,21 +49,28 @@
       <h3>{{ tipo.nombre }}</h3>
       <p class="regla-aplicada">🔗 Regla: {{ tipo.reglas_nombre || 'No asignada' }}</p>
       <div class="acciones">
-        <button (click)="editarTipo(tipo)">Editar</button>
-        <button (click)="eliminarTipoContrato(tipo.id)"> Eliminar</button>
-        <button (click)="abrirModalReglas(tipo)">Editar/visualizar reglas</button>
+        <button *ngIf="seguridadService.puedeEditar()" (click)="editarTipo(tipo)">
+          Editar
+        </button>
+        <button *ngIf="seguridadService.puedeEliminar()" (click)="eliminarTipoContrato(tipo.id)">
+          Eliminar
+        </button>
+        <button *ngIf="seguridadService.puedeEditar()" (click)="abrirModalReglas(tipo)">
+          Editar/visualizar reglas
+        </button>
       </div>
     </div>
 
     <div *ngIf="tipoEditando?.id === tipo.id" class="edicion-contrato">
       <input [(ngModel)]="tipoEditando.nombre" placeholder="Nuevo nombre" />
-      <button (click)="guardarEdicionTipo()"> Guardar</button>
-      <button (click)="cancelarEdicionTipo()"> Cancelar</button>
+      <button (click)="guardarEdicionTipo()">Guardar</button>
+      <button (click)="cancelarEdicionTipo()">Cancelar</button>
     </div>
   </div>
 </div>
+
 <!-- 🪟 Ventana emergente para editar reglas -->
-<div class="modal-reglas" *ngIf="tipoParaEditarReglas" (click)="cerrarModalReglas()">
+<div class="modal-reglas" *ngIf="tipoParaEditarReglas && seguridadService.puedeEditar()" (click)="cerrarModalReglas()">
   <div class="modal-contenido" (click)="$event.stopPropagation()">
     <h3>Editar reglas para: {{ tipoParaEditarReglas.nombre }}</h3>
 
@@ -82,15 +90,18 @@
     </div>
 
     <div class="acciones">
-      <button (click)="guardarReglasEditadas()"> Guardar</button>
-      <button (click)="cerrarModalReglas()"> Cancelar</button>
+      <button (click)="guardarReglasEditadas()">Guardar</button>
+      <button (click)="cerrarModalReglas()">Cancelar</button>
     </div>
   </div>
 </div>
-<app-contrato-asignacion [visible]="modalAsignarVisible" [tiposContrato]="tiposContrato"
-  (cerrado)="modalAsignarVisible = false" (contratoGuardado)="cargarTiposContrato()">
+
+<!-- 🧩 Componente de asignación de contrato -->
+<app-contrato-asignacion *ngIf="seguridadService.puedeCrear()" [visible]="modalAsignarVisible"
+  [tiposContrato]="tiposContrato" (cerrado)="modalAsignarVisible = false" (contratoGuardado)="cargarTiposContrato()">
 </app-contrato-asignacion>
 
-<button (click)="modalAsignarVisible = true">
+<!-- Botón para abrir el modal de asignación -->
+<button *ngIf="seguridadService.puedeCrear()" (click)="modalAsignarVisible = true">
   ➕ Asignar contrato
 </button>

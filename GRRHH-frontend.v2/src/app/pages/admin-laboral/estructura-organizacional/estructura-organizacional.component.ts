@@ -3,7 +3,7 @@ import { EmpleadoService } from '../../../services/empleado.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Departamento } from '../../../interfaces/departamento.model';
 import { Cargo } from '../../../interfaces/cargo.model';
-
+import { SeguridadService } from '../../../services/seguridad.service';
 @Component({
   selector: 'app-estructura-organizacional',
   templateUrl: './estructura-organizacional.component.html',
@@ -27,6 +27,7 @@ export class EstructuraOrganizacionalComponent implements OnInit {
   }
   constructor(
     private empleadoService: EmpleadoService,
+    public seguridadService: SeguridadService,
     private fb: FormBuilder
   ) {}
 

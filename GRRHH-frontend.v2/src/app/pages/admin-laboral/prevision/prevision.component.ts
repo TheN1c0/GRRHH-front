@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PrevisionService } from '../../../services/prevision.service';
+import { SeguridadService } from '../../../services/seguridad.service';
 @Component({
   selector: 'app-prevision',
   templateUrl: './prevision.component.html',
@@ -16,7 +17,10 @@ export class PrevisionComponent {
     porcentaje_trabajador: null,
     porcentaje_empleador: null,
   };
-  constructor(private previsionService: PrevisionService) {}
+  constructor(
+    private previsionService: PrevisionService,
+    public seguridadService: SeguridadService
+  ) {}
   ngOnInit(): void {
     this.cargarTodo();
   }

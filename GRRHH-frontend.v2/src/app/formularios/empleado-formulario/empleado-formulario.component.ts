@@ -9,7 +9,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { EmpleadoService } from '../../services/empleado.service';
 import { PrevisionService } from '../../services/prevision.service';
-
+import { SeguridadService } from '../../services/seguridad.service';
 @Component({
   selector: 'app-empleado-formulario',
   templateUrl: './empleado-formulario.component.html',
@@ -46,6 +46,7 @@ export class EmpleadoFormularioComponent implements OnChanges {
   constructor(
     private http: HttpClient,
     private empleadoService: EmpleadoService,
+    public seguridadService: SeguridadService,
     private previsionService: PrevisionService
   ) {}
 

@@ -5,12 +5,14 @@
     <section class="panel">
         <h3>📁 Departamentos</h3>
 
+        <!-- Formulario para crear -->
         <form (ngSubmit)="agregarDepartamento()" class="formulario">
             <input type="text" [(ngModel)]="nuevoDepartamento" name="nombre_departamento"
-                placeholder="Nombre del departamento" required />
-            <button type="submit">Agregar</button>
+                placeholder="Nombre del departamento" required [disabled]="!seguridadService.puedeCrear()" />
+            <button type="submit" [disabled]="!seguridadService.puedeCrear()">Agregar</button>
         </form>
 
+        <!-- Tabla de departamentos -->
         <section class="tabla-lista">
             <table>
                 <thead>
@@ -22,60 +24,66 @@
                 <tbody>
                     <tr *ngFor="let d of departamentos">
                         <td>
+                            <!-- Edición -->
                             <input *ngIf="editandoDepartamentoId === d.id" [(ngModel)]="nombreEditado" type="text"
-                                class="input-edicion" />
+                                class="input-edicion" [disabled]="!seguridadService.puedeEditar()" />
                             <span *ngIf="editandoDepartamentoId !== d.id">{{ d.nombre }}</span>
                         </td>
                         <td>
                             <ng-container *ngIf="editandoDepartamentoId === d.id; else botonesNormales">
-                                <button (click)="guardarEdicionDepartamento(d.id)">💾 Guardar</button>
+                                <button (click)="guardarEdicionDepartamento(d.id)"
+                                    [disabled]="!seguridadService.puedeEditar()">💾
+                                    Guardar</button>
                                 <button (click)="cancelarEdicionDepartamento()">❌ Cancelar</button>
                             </ng-container>
                             <ng-template #botonesNormales>
-                                <button (click)="activarEdicionDepartamento(d)">✏️ Editar</button>
-                                <button (click)="eliminarDepartamento(d.id)">🗑</button>
+                                <button (click)="activarEdicionDepartamento(d)"
+                                    [disabled]="!seguridadService.puedeEditar()">✏️
+                                    Editar</button>
+                                <button (click)="eliminarDepartamento(d.id)"
+                                    [disabled]="!seguridadService.puedeEliminar()">🗑</button>
                             </ng-template>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </section>
-
     </section>
+
 
     <!-- 🟦 Cargos -->
     <section class="panel">
         <h3>🧑‍💼 Cargos</h3>
 
+        <!-- Formulario de creación -->
         <form (ngSubmit)="agregarCargo()" class="formulario">
             <input type="text" [(ngModel)]="nuevoCargo.nombre" name="nombre_cargo" placeholder="Nombre del cargo"
-                required />
+                required [disabled]="!seguridadService.puedeCrear()" />
 
-            <select [(ngModel)]="nuevoCargo.departamento" name="departamento_cargo" required>
+            <select [(ngModel)]="nuevoCargo.departamento" name="departamento_cargo" required
+                [disabled]="!seguridadService.puedeCrear()">
                 <option [ngValue]="undefined" disabled selected>Departamento</option>
                 <option *ngFor="let dep of departamentos" [value]="dep.id">{{ dep.nombre }}</option>
             </select>
 
-            <select [(ngModel)]="nuevoCargo.superior" name="superior_cargo">
+            <select [(ngModel)]="nuevoCargo.superior" name="superior_cargo" [disabled]="!seguridadService.puedeCrear()">
                 <option [ngValue]="undefined">Sin superior</option>
                 <option *ngFor="let c of cargos" [value]="c.id">{{ c.nombre }}</option>
             </select>
 
             <label>
                 <input type="checkbox" [(ngModel)]="nuevoCargo.generar_etiquetas_ia" class="etiquetas-manual"
-                    name="generar_etiquetas_ia" />
+                    name="generar_etiquetas_ia" [disabled]="!seguridadService.puedeCrear()" />
                 Generar etiquetas automáticamente con IA
             </label>
 
             <!-- Etiquetas manuales -->
-            <div *ngIf="!nuevoCargo.generar_etiquetas_ia">
+            <div *ngIf="!nuevoCargo.generar_etiquetas_ia && seguridadService.puedeCrear()">
                 <label>Seleccionar etiquetas manualmente:</label>
 
-                <!-- Filtro de etiquetas -->
                 <input type="text" [(ngModel)]="filtroEtiqueta" placeholder="🔍 Buscar etiqueta..."
                     class="input-filtro" />
 
-                <!-- Lista de etiquetas con scroll -->
                 <div class="checkbox-scroll">
                     <label *ngFor="let palabra of palabrasDisponiblesFiltradas()">
                         <input type="checkbox" [value]="palabra.id" (change)="toggleEtiqueta(palabra.id, $event)"
@@ -84,23 +92,20 @@
                     </label>
                 </div>
 
-
-                <!-- Agregar nueva etiqueta -->
                 <div class="etiqueta-nueva">
                     <input [(ngModel)]="nuevaEtiqueta" placeholder="Agregar nueva etiqueta" />
                     <button type="button" (click)="agregarEtiqueta()">➕</button>
                 </div>
             </div>
 
-
-            <button class="boton-submit" type="submit">Agregar</button>
+            <button class="boton-submit" type="submit" [disabled]="!seguridadService.puedeCrear()">Agregar</button>
         </form>
 
-
+        <!-- Lista de cargos -->
         <ul class="lista">
             <li *ngFor="let cargo of cargos">
                 <!-- Modo edición -->
-                <ng-container *ngIf="editandoCargoId === cargo.id; else vista">
+                <ng-container *ngIf="editandoCargoId === cargo.id && seguridadService.puedeEditar(); else vista">
                     <input [(ngModel)]="cargoEditado.nombre" placeholder="Nuevo nombre" />
 
                     <select [(ngModel)]="cargoEditado.departamento">
@@ -113,8 +118,6 @@
                     </select>
 
                     <button (click)="guardarEdicionCargo()">💾</button>
-
-
                     <button (click)="cancelarEdicionCargo()">❌</button>
                 </ng-container>
 
@@ -122,8 +125,9 @@
                 <ng-template #vista>
                     {{ cargo.nombre }} ({{ cargo.departamento_nombre || 'Sin depto' }})
                     <span *ngIf="cargo.superior_nombre">→ {{ cargo.superior_nombre }}</span>
-                    <button (click)="activarEdicionCargo(cargo)">✏️</button>
-                    <button (click)="eliminarCargo(cargo.id)">🗑</button>
+                    <button (click)="activarEdicionCargo(cargo)"
+                        [disabled]="!seguridadService.puedeEditar()">✏️</button>
+                    <button (click)="eliminarCargo(cargo.id)" [disabled]="!seguridadService.puedeEliminar()">🗑</button>
                 </ng-template>
             </li>
         </ul>

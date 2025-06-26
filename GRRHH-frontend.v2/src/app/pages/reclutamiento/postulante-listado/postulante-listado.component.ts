@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EmpleadoService } from '../../../services/empleado.service';
 import { environment } from '../../../../environments/environment';
 import { Empleado } from '../../../interfaces/empleado.model';
-
+import { SeguridadService } from '../../../services/seguridad.service';
 @Component({
   selector: 'app-postulante-listado',
   templateUrl: './postulante-listado.component.html',
@@ -19,7 +19,8 @@ export class PostulanteListadoComponent implements OnInit {
   modoModal: 'comparar' | 'contratar' | null = null;
   constructor(
     private http: HttpClient,
-    private empleadoService: EmpleadoService
+    private empleadoService: EmpleadoService,
+    public seguridadService: SeguridadService
   ) {}
   @Output() abrirModal = new EventEmitter<any>();
 

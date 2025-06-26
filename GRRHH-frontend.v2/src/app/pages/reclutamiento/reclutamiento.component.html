@@ -1,13 +1,16 @@
 <!-- Botones para cambiar modo -->
 <div class="grid-reclutamiento">
-  <div class="tarjeta" (click)="modo = 'formulario'">📤 Agregar Postulante</div>
-  <div class="tarjeta" (click)="modo = 'listado'">📋 Ver Postulantes</div>
+  <div class="tarjeta" *ngIf="seguridadService.puedeCrear()" (click)="modo = 'formulario'">
+    📤 Agregar Postulante
+  </div>
+  <div class="tarjeta" (click)="modo = 'listado'">
+    📋 Ver Postulantes
+  </div>
 </div>
 
 <!-- Contenedor de vistas -->
 <div class="contenedor-contenido">
   <app-postulante-formulario *ngIf="modo === 'formulario'"></app-postulante-formulario>
-
   <app-postulante-listado *ngIf="modo === 'listado'" (abrirModal)="postulanteSeleccionado = $event">
   </app-postulante-listado>
 </div>

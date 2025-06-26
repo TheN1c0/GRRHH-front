@@ -42,8 +42,7 @@
       </td>
       <td data-label="Acciones">
         <button (click)="abrirComparacion(p)">👁️</button>
-
-        <button (click)="abrirContratacion(p)">✅</button>
+        <button *ngIf="seguridadService.puedeCrear()" (click)="abrirContratacion(p)">✅</button>
       </td>
     </tr>
 

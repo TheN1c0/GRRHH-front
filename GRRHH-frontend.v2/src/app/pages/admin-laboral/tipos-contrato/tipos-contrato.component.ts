@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContratoConfigService } from '../../../services/contrato-config.service';
-
+import { SeguridadService } from '../../../services/seguridad.service';
 @Component({
   selector: 'app-tipos-contrato',
   templateUrl: './tipos-contrato.component.html',
@@ -27,7 +27,10 @@ export class TiposContratoComponent implements OnInit {
     aplica_seguro_invalidez: true,
   };
 
-  constructor(private contratoConfig: ContratoConfigService) {}
+  constructor(
+    private contratoConfig: ContratoConfigService,
+    public seguridadService: SeguridadService
+  ) {}
 
   ngOnInit(): void {
     this.cargarReglas();

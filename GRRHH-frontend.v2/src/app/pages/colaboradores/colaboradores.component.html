@@ -1,9 +1,10 @@
 <div class="container">
   <!-- Barra superior interna -->
   <div class="barra-superior">
-    <button class="btn-agregar" (click)="abrirModalCrear()">
+    <button class="btn-agregar" (click)="abrirModalCrear()" *ngIf="seguridadService.puedeCrear()">
       + Agregar Colaborador
     </button>
+
     <app-empleado-formulario [visible]="mostrarModalEmpleado" [modo]="modoFormulario"
       [empleadoAEditar]="colaboradorSeleccionado" (cerrar)="mostrarModalEmpleado = false"
       (guardado)="refrescarEmpleados()"></app-empleado-formulario>
@@ -62,7 +63,8 @@
           </span>
         </td>
         <td>
-          <button class="btn-editar" (click)="abrirModalEditar(colaborador)">
+          <!-- Mostrar solo si tiene permiso para editar -->
+          <button class="btn-editar" *ngIf="seguridadService.puedeEditar()" (click)="abrirModalEditar(colaborador)">
             Editar
           </button>
 
@@ -83,6 +85,7 @@
           </div>
         </td>
       </tr>
+
 
       <!-- -------------------------------------------------------------- -->
 

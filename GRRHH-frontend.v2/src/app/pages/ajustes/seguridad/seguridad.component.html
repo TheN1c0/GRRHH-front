@@ -37,6 +37,15 @@
         <input [(ngModel)]="form.email" name="email" placeholder="Email" type="email" required />
         <input [(ngModel)]="form.password" name="password" placeholder="Contraseña" type="password"
             [required]="esNuevo" />
+
+        <!-- Solo superusuarios pueden ver esta opción -->
+        <div *ngIf="seguridadService.esSuperusuario()">
+            <label>
+                <input type="checkbox" [(ngModel)]="form.is_superuser" name="is_superuser" />
+                Superusuario
+            </label>
+        </div>
+
         <div *ngIf="form.permisos">
             <label>
                 <input type="checkbox" [(ngModel)]="form.permisos.puede_crear" name="puede_crear" />
@@ -51,7 +60,9 @@
                 Puede eliminar
             </label>
         </div>
+
         <button type="submit">Guardar</button>
         <button type="button" (click)="cerrarModal()">Cancelar</button>
     </form>
+
 </div>

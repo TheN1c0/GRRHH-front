@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { SeguridadService } from '../../services/seguridad.service';
 @Component({
   selector: 'app-reclutamiento',
   templateUrl: './reclutamiento.component.html',
@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class ReclutamientoComponent {
   modo: 'formulario' | 'listado' | 'contratar' | null = null;
-
+  constructor(public seguridadService: SeguridadService) {}
   postulanteSeleccionado: any = null;
 }

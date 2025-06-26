@@ -1,7 +1,11 @@
 <div class="modal-overlay" *ngIf="visible">
   <div class="modal-content">
-    <h2>Agregar Colaborador</h2>
-    <form (ngSubmit)="guardar()">
+    <h2>{{ modo === 'editar' ? 'Editar Colaborador' : 'Agregar Colaborador' }}</h2>
+
+    <!-- Bloquear acceso si no tiene permisos -->
+    <form
+      *ngIf="(modo === 'editar' && seguridadService.puedeEditar()) || (modo === 'crear' && seguridadService.puedeCrear())"
+      (ngSubmit)="guardar()">
       <input type="text" [(ngModel)]="nuevoEmpleado.primer_nombre" name="primer_nombre" placeholder="Primer nombre"
         required />
       <input type="text" [(ngModel)]="nuevoEmpleado.otros_nombres" name="otros_nombres" placeholder="Otros nombres" />
@@ -13,6 +17,7 @@
       <input type="date" [(ngModel)]="nuevoEmpleado.fecha_nacimiento" name="fecha_nacimiento" required />
       <input type="text" [(ngModel)]="nuevoEmpleado.direccion" name="direccion" placeholder="Dirección" required />
       <input type="text" [(ngModel)]="nuevoEmpleado.telefono" name="telefono" placeholder="Teléfono" required />
+
       <div class="datos-adicionales" *ngIf="empleadoAEditar">
         <p><strong>Contrato actual:</strong> {{ empleadoAEditar.contrato }}</p>
         <p><strong>AFP:</strong> {{ empleadoAEditar.afp }}</p>
@@ -26,6 +31,7 @@
           {{ cargo.nombre }} ({{ cargo.nombre_departamento }})
         </option>
       </select>
+
       <label>AFP:</label>
       <select [(ngModel)]="nuevoEmpleado.prevision.afp" name="afp">
         <option [value]="null">Selecciona AFP</option>
@@ -45,11 +51,16 @@
       </select>
 
       <div class="modal-buttons">
-        <button type="submit">
-          {{ modo === "editar" ? "Actualizar" : "Guardar" }}
-        </button>
+        <button type="submit">{{ modo === "editar" ? "Actualizar" : "Guardar" }}</button>
         <button type="button" (click)="cancelar()">Cancelar</button>
       </div>
     </form>
+
+    <!-- Mensaje si no tiene permisos -->
+    <div
+      *ngIf="(modo === 'editar' && !seguridadService.puedeEditar()) || (modo === 'crear' && !seguridadService.puedeCrear())"
+      class="alerta-permisos">
+      No tienes permisos para {{ modo === 'editar' ? 'editar' : 'crear' }} colaboradores.
+    </div>
   </div>
 </div>
