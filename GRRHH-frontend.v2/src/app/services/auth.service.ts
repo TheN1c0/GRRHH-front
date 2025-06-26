@@ -56,4 +56,12 @@ export class AuthService {
       withCredentials: true,
     });
   }
+  obtenerPermisosActuales(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.authUrl}/permisos-usuario-actual/`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 }

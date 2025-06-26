@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SeguridadService } from '../../services/seguridad.service';
 
 @Component({
   selector: 'app-portal',
@@ -23,17 +24,34 @@ export class PortalComponent {
   registerEmail: string = '';
   registerPassword: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private seguridadService: SeguridadService,
+    private router: Router
+  ) {}
 
   onLogin() {
     this.errorMessage = ''; // Limpiar mensaje anterior
     console.log(this.loginEmail, this.loginPassword);
+
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
         alert('¡Inicio de sesión exitoso!');
         localStorage.setItem('usuario', (response as any).username);
-        this.router.navigate(['/dashboard']);
+
+        // Obtener el perfil del usuario logueado
+        this.authService.obtenerPermisosActuales().subscribe({
+          next: (usuario) => {
+            console.log('👤 Perfil obtenido:', usuario);
+            this.seguridadService.setPermisos(usuario.permisos || {});
+            this.router.navigate(['/dashboard']);
+          },
+          error: (err) => {
+            console.error('❌ Error al obtener el perfil:', err);
+            this.errorMessage = 'No se pudo cargar el perfil del usuario';
+          },
+        });
       },
       error: (error) => {
         console.error('Error en el inicio de sesión:', error);
