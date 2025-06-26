@@ -24,7 +24,7 @@ export class PortalDeAccesoComponent {
       next: (response) => {
         localStorage.setItem('usuario', (response as any).username);
         console.log('Inicio de sesiónn exitoso:', response);
-        alert('¡Inicio de sesión exitoso!');
+        alert('¡Inicio de sesión exitoso! (portal-de-acceso)');
         console.log('Respuesta completa del login:', response);
         // Obtener el perfil del usuario logueado
         this.authService.obtenerPermisosActuales().subscribe({
