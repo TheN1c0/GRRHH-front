@@ -66,7 +66,9 @@
             Editar
           </button>
 
-          <div class="btn-desvincular-wrapper" [class.abierto]="colaborador.confirmar">
+          <!-- Mostrar solo si tiene permiso para eliminar -->
+          <div class="btn-desvincular-wrapper" *ngIf="seguridadService.puedeEliminar()"
+            [class.abierto]="colaborador.confirmar">
             <button class="btn-desvincular" (click)="toggleConfirm(colaborador)">
               <span *ngIf="!colaborador.confirmar">
                 {{ colaborador.estado === 'activo' ? 'Desvincular' : 'Reintegrar' }}
@@ -74,15 +76,9 @@
               <span *ngIf="colaborador.confirmar">¿Seguro?</span>
             </button>
 
-
             <div class="confirmacion">
-              <button (click)="cambiarEstado(colaborador)" class="confirmar">
-                Sí
-              </button>
-
-              <button (click)="colaborador.confirmar = false" class="cancelar">
-                No
-              </button>
+              <button (click)="cambiarEstado(colaborador)" class="confirmar">Sí</button>
+              <button (click)="colaborador.confirmar = false" class="cancelar">No</button>
             </div>
           </div>
         </td>
@@ -95,7 +91,7 @@
 
   </table>
   <!-- ------------------Vista de móvil-------------------------------------------- -->
-  <!-- Vista móvil (fuera de tabla) -->
+
   <div class="vista-movil" *ngIf="esMovil">
     <div class="fila-colaborador" *ngFor="let colaborador of colaboradores"
       [class.expandido]="filaExpandidaId === colaborador.id" (click)="alternarFila(colaborador)">
@@ -113,18 +109,32 @@
         <div><strong>Cargo:</strong> {{ colaborador.nombre_cargo }}</div>
         <div><strong>Área:</strong> {{ colaborador.nombre_departamento }}</div>
 
-        <div class="btn-desvincular-wrapper" [class.abierto]="colaborador.confirmar">
-          <button class="btn-editar" (click)="abrirModalEditar(colaborador); $event.stopPropagation()">Editar</button>
-          <button class="btn-desvincular" (click)="toggleConfirm(colaborador); $event.stopPropagation()">
+        <!-- Mostrar solo si tiene permiso para editar o eliminar -->
+        <div class="btn-desvincular-wrapper" *ngIf="seguridadService.puedeEditar() || seguridadService.puedeEliminar()"
+          [class.abierto]="colaborador.confirmar">
+          <!-- Botón editar: requiere permiso para editar -->
+          <button *ngIf="seguridadService.puedeEditar()" class="btn-editar"
+            (click)="abrirModalEditar(colaborador); $event.stopPropagation()">
+            Editar
+          </button>
+
+          <!-- Botón desvincular/reintegrar: requiere permiso para eliminar -->
+          <button *ngIf="seguridadService.puedeEliminar()" class="btn-desvincular"
+            (click)="toggleConfirm(colaborador); $event.stopPropagation()">
             <span *ngIf="!colaborador.confirmar">
               {{ colaborador.estado === 'activo' ? 'Desvincular' : 'Reintegrar' }}
             </span>
             <span *ngIf="colaborador.confirmar">¿Seguro?</span>
           </button>
 
-          <div class="confirmacion">
-            <button (click)="cambiarEstado(colaborador); $event.stopPropagation()" class="confirmar">Sí</button>
-            <button (click)="colaborador.confirmar = false; $event.stopPropagation()" class="cancelar">No</button>
+          <!-- Confirmación de acción -->
+          <div class="confirmacion" *ngIf="seguridadService.puedeEliminar()">
+            <button (click)="cambiarEstado(colaborador); $event.stopPropagation()" class="confirmar">
+              Sí
+            </button>
+            <button (click)="colaborador.confirmar = false; $event.stopPropagation()" class="cancelar">
+              No
+            </button>
           </div>
         </div>
       </div>
