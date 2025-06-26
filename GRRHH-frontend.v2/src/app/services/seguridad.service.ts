@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { UsuarioRRHH } from '../interfaces/usuario-rrhh.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,15 +13,15 @@ export class SeguridadService {
   constructor(private http: HttpClient) {}
 
   //  Listar usuarios
-  listarUsuarios(): Observable<any[]> {
+  listarUsuarios(): Observable<UsuarioRRHH[]> {
     return this.http
-      .get<any[]>(this.apiUrl, {
+      .get<UsuarioRRHH[]>(this.apiUrl, {
         withCredentials: true,
       })
       .pipe(
         catchError((error) => {
           console.error('❌ Error al listar usuarios:', error);
-          return of([]); // Devuelve array vacío si hay error
+          return of([]);
         })
       );
   }

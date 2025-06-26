@@ -1,6 +1,7 @@
 <h2>👥 Administración de Usuarios RRHH</h2>
 <button (click)="abrirModal()">+ Crear Usuario</button>
 
+<!-- Tabla -->
 <table>
     <thead>
         <tr>
@@ -18,9 +19,9 @@
             <td>{{ usuario.username }}</td>
             <td>{{ usuario.email }}</td>
             <td>{{ usuario.is_superuser ? '✅' : '❌' }}</td>
-            <td>{{ usuario.permisos?.puede_crear ? '✅' : '❌' }}</td>
-            <td>{{ usuario.permisos?.puede_editar ? '✅' : '❌' }}</td>
-            <td>{{ usuario.permisos?.puede_eliminar ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos.puede_crear ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos.puede_editar ? '✅' : '❌' }}</td>
+            <td>{{ usuario.permisos.puede_eliminar ? '✅' : '❌' }}</td>
             <td>
                 <button (click)="editar(usuario)">✏️</button>
                 <button (click)="eliminar(usuario.id)">🗑️</button>
@@ -36,10 +37,20 @@
         <input [(ngModel)]="form.email" name="email" placeholder="Email" type="email" required />
         <input [(ngModel)]="form.password" name="password" placeholder="Contraseña" type="password"
             [required]="esNuevo" />
-        <label><input type="checkbox" [(ngModel)]="form.is_superuser" name="is_superuser" /> Superusuario</label>
-        <label><input type="checkbox" [(ngModel)]="form.puede_crear" name="puede_crear" /> Puede crear</label>
-        <label><input type="checkbox" [(ngModel)]="form.puede_editar" name="puede_editar" /> Puede editar</label>
-        <label><input type="checkbox" [(ngModel)]="form.puede_eliminar" name="puede_eliminar" /> Puede eliminar</label>
+        <div *ngIf="form.permisos">
+            <label>
+                <input type="checkbox" [(ngModel)]="form.permisos.puede_crear" name="puede_crear" />
+                Puede crear
+            </label>
+            <label>
+                <input type="checkbox" [(ngModel)]="form.permisos.puede_editar" name="puede_editar" />
+                Puede editar
+            </label>
+            <label>
+                <input type="checkbox" [(ngModel)]="form.permisos.puede_eliminar" name="puede_eliminar" />
+                Puede eliminar
+            </label>
+        </div>
         <button type="submit">Guardar</button>
         <button type="button" (click)="cerrarModal()">Cancelar</button>
     </form>

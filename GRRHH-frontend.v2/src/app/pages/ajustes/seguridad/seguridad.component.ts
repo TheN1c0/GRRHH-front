@@ -1,60 +1,63 @@
 import { Component } from '@angular/core';
 import { SeguridadService } from '../../../services/seguridad.service';
+import { UsuarioRRHH } from '../../../interfaces/usuario-rrhh.model';
 @Component({
   selector: 'app-seguridad',
   templateUrl: './seguridad.component.html',
   styleUrl: './seguridad.component.scss',
 })
 export class SeguridadComponent {
-  usuarios: any[] = [];
+  usuarios: UsuarioRRHH[] = [];
   mostrarFormulario = false;
   esNuevo = true;
-  form: any = {};
 
-  constructor(private seguridadService: SeguridadService) {}
+  form: Partial<UsuarioRRHH & { password?: string }> = {};
+
+  constructor(public seguridadService: SeguridadService) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
   }
 
-  cargarUsuarios() {
+  cargarUsuarios(): void {
     this.seguridadService.listarUsuarios().subscribe((data) => {
       this.usuarios = data;
     });
   }
 
-  abrirModal() {
+  abrirModal(): void {
     this.esNuevo = true;
     this.form = {};
     this.mostrarFormulario = true;
   }
 
-  editar(usuario: any) {
+  editar(usuario: UsuarioRRHH): void {
     this.esNuevo = false;
     this.form = {
       id: usuario.id,
       username: usuario.username,
       email: usuario.email,
       is_superuser: usuario.is_superuser,
-      puede_crear: usuario.permisos?.puede_crear,
-      puede_editar: usuario.permisos?.puede_editar,
-      puede_eliminar: usuario.permisos?.puede_eliminar,
+      permisos: {
+        puede_crear: usuario.permisos?.puede_crear ?? false,
+        puede_editar: usuario.permisos?.puede_editar ?? false,
+        puede_eliminar: usuario.permisos?.puede_eliminar ?? false,
+      },
     };
     this.mostrarFormulario = true;
   }
 
-  guardar() {
-    console.log('📦 Enviando datos a backend:', this.form);
-    console.log('📦 Enviando datos a backend:', this.esNuevo);
+  guardar(): void {
+    const data = { ...this.form };
 
     if (this.esNuevo) {
-      this.seguridadService.crearUsuario(this.form).subscribe(() => {
+      this.seguridadService.crearUsuario(data).subscribe(() => {
         this.cargarUsuarios();
         this.cerrarModal();
       });
-    } else {
+    } else if (this.form.id) {
       this.seguridadService
-        .actualizarUsuario(this.form.id, this.form)
+        .actualizarUsuario(this.form.id, data)
         .subscribe(() => {
           this.cargarUsuarios();
           this.cerrarModal();
@@ -62,7 +65,7 @@ export class SeguridadComponent {
     }
   }
 
-  eliminar(id: number) {
+  eliminar(id: number): void {
     if (confirm('¿Seguro que deseas eliminar este usuario?')) {
       this.seguridadService.eliminarUsuario(id).subscribe(() => {
         this.cargarUsuarios();
@@ -70,7 +73,7 @@ export class SeguridadComponent {
     }
   }
 
-  cerrarModal() {
+  cerrarModal(): void {
     this.mostrarFormulario = false;
     this.form = {};
   }
