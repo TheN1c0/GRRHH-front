@@ -1,0 +1,86 @@
+.mi-cuenta {
+    background-color: #f4f8fb;
+    border: 1px solid #cbd5e1;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    color: #1e293b;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.mi-cuenta h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+.form-grupo {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-grupo input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #1e293b;
+}
+
+.form-grupo small {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+button[type="submit"],
+.form-grupo button {
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover,
+.form-grupo button:hover {
+    background-color: #1e3a8a;
+}
+
+button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.codigo-verificacion {
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .mi-cuenta {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .form-grupo input {
+        font-size: 0.95rem;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+}
