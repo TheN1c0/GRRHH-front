@@ -90,10 +90,11 @@ input[type="password"] {
     margin: 0.5rem auto;
 
     input {
-        width: 100%;
         padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+        /* espacio para el ojo */
         border: none;
         border-radius: 2rem;
+        width: 100%;
         text-align: center;
     }
 
@@ -113,6 +114,10 @@ input[type="password"] {
         height: 1.25rem;
         color: #333;
     }
+}
+
+.campo-password input::placeholder {
+    text-align: center;
 }
 
 .registro-text {
@@ -201,4 +206,21 @@ input[type="password"] {
         font-size: 2.5rem;
     }
 
+}
+
+.login-btn {
+    background-color: #f77a2c;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #d56623;
 }
