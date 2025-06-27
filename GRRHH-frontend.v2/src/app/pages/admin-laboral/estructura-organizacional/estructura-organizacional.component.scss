@@ -210,3 +210,44 @@ th {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+
+button {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 1.5rem;
+    background-color: #002f53;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+button:hover {
+    background-color: #004a7c;
+}
+
+
+button[disabled] {
+    background-color: #a1a1aa;
+    cursor: not-allowed;
+}
+
+
+td button,
+.etiqueta-nueva button,
+.modal-buttons button {
+    margin-right: 0.4rem;
+    margin-top: 0.3rem;
+}
+
+
+small,
+.etiqueta-nueva label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #334155;
+    margin-right: 0.5rem;
+}
