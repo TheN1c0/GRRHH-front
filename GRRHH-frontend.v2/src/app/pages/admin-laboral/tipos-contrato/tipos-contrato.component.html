@@ -104,7 +104,17 @@
 
 <!-- Botón para abrir el modal de asignación -->
 <div class="boton-asignar-wrapper" *ngIf="seguridadService.puedeCrear()">
-  <button class="btn-asignar" (click)="modalAsignarVisible = true">
+  <button (click)="modalAsignarVisible = true" style="
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  " onmouseover="this.style.backgroundColor='#218838'" onmouseout="this.style.backgroundColor='#28a745'">
     ➕ Asignar contrato
   </button>
+
 </div>
