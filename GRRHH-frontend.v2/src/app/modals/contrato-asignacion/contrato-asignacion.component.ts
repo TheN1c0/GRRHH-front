@@ -81,8 +81,6 @@ export class ContratoAsignacionComponent implements OnInit {
   }
 
   guardarContrato(): void {
-    console.log('📤 Enviando contrato:', this.nuevoContrato);
-
     this.contratoService.asignarContrato(this.nuevoContrato).subscribe(() => {
       this.contratoGuardado.emit();
       this.cerrar();

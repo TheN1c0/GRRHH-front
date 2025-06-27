@@ -45,7 +45,6 @@ export class AsignarHorarioComponent implements OnInit {
 
   cargarGrupos(): void {
     this.horarioService.obtenerGrupos().subscribe((data) => {
-      console.log('📦 Grupos recibidos:', data);
       this.grupos = data;
     });
   }
@@ -72,8 +71,6 @@ export class AsignarHorarioComponent implements OnInit {
 
     if (primero?.grupo_id) {
       this.horarioService.obtenerGrupo(primero.grupo_id).subscribe((grupo) => {
-        console.log('✅ Grupo base:', grupo);
-
         // Obtener todos los horarios si no están cargados aún
         if (!this.todosHorarios.length) {
           this.horarioService.obtenerHorarios().subscribe((todos) => {

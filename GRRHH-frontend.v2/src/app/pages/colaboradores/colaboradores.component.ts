@@ -92,7 +92,7 @@ export class ColaboradoresComponent implements OnInit {
   abrirModalEditar(colaborador: any) {
     this.modoFormulario = 'editar';
     this.colaboradorSeleccionado = colaborador;
-    console.log(this.colaboradorSeleccionado);
+
     this.mostrarModalEmpleado = true;
   }
   cargarEmpleados(pagina: number = 1) {

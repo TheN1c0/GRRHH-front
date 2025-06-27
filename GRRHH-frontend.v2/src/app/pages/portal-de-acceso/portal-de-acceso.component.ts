@@ -23,9 +23,9 @@ export class PortalDeAccesoComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         localStorage.setItem('usuario', (response as any).username);
-        console.log('Inicio de sesiónn exitoso:', response);
+        /* console.log('Inicio de sesiónn exitoso:', response); */
         alert('¡Inicio de sesión exitoso! (portal-de-acceso)');
-        console.log('Respuesta completa del login:', response);
+        /* console.log('Respuesta completa del login:', response); */
         // Obtener el perfil del usuario logueado
         this.authService.obtenerPermisosActuales().subscribe({
           next: (usuario) => {
@@ -51,11 +51,11 @@ export class PortalDeAccesoComponent {
   onRegister() {
     this.authService.register(this.email, this.password, this.name).subscribe({
       next: (response) => {
-        console.log('Registro exitoso:', response);
+        /* console.log('Registro exitoso:', response); */
         alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
       },
       error: (error) => {
-        console.error('Error en el registro:', error);
+        /* console.error('Error en el registro:', error); */
         this.errorMessage = 'Hubo un error al registrarse';
       },
     });

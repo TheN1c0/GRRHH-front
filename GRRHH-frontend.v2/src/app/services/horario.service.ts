@@ -139,7 +139,6 @@ export class HorarioService {
     );
   }
   eliminarHorariosEmpleadoMultiples(empleados: number[]): Observable<any> {
-    console.log('🧹 Enviando empleados seleccionados al backend:', empleados);
     return this.http.post(
       `${environment.personalUrl}/horario-empleado-eliminar-multiples/`,
       { empleados },

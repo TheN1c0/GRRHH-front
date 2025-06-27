@@ -81,9 +81,6 @@ export class EmpleadoFormularioComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Modo:', this.modo);
-    console.log('Empleado recibido:', this.empleadoAEditar);
-
     if (this.modo === 'crear') {
       // Usa el objeto ya definido arriba
       this.nuevoEmpleado = {
@@ -101,7 +98,6 @@ export class EmpleadoFormularioComponent implements OnChanges {
       this.modo === 'editar' &&
       this.empleadoAEditar
     ) {
-      console.log('Empleado recibido:', this.empleadoAEditar);
       this.nuevoEmpleado = {
         ...this.empleadoAEditar,
         prevision: {

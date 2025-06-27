@@ -50,8 +50,6 @@ export class CuentaComponent {
       payload.nuevo_telefono = this.cuenta.telefono;
     }
 
-    console.log('Payload enviado:', payload);
-
     this.cuentaService.actualizarDatos(payload).subscribe((res) => {
       this.cuenta = res;
       alert('Cambios guardados correctamente.');

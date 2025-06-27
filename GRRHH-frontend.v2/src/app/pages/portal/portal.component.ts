@@ -32,18 +32,15 @@ export class PortalComponent {
 
   onLogin() {
     this.errorMessage = ''; // Limpiar mensaje anterior
-    console.log(this.loginEmail, this.loginPassword);
 
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: (response) => {
-        console.log('Inicio de sesión exitoso:', response);
         alert('¡Inicio de sesión exitosooo (portal)!');
         localStorage.setItem('usuario', (response as any).username);
 
         // Obtener el perfil del usuario logueado
         this.authService.obtenerPermisosActuales().subscribe({
           next: (usuario) => {
-            console.log('👤 Perfil obtenido:', usuario);
             this.seguridadService.setPermisos(usuario.permisos || {});
             this.router.navigate(['/dashboard']);
           },

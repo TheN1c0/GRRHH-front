@@ -19,58 +19,40 @@
     align-items: center;
 }
 
-.logo {
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin-bottom: 1rem;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo img {
-    height: 200px;
-    width: 200px;
+    max-width: 80%;
+    height: auto;
+    max-height: 400px;
+    transition: all 0.3s ease;
+}
 
+@media (min-width: 1024px) {
+    .logo img {
+        max-height: 500px;
+    }
 }
 
 .logo h1 {
-    font-size: 1.5rem;
-    color: #80392f;
-    font-weight: bold;
-}
-
-.image-container {
-    border-radius: 2rem;
-    overflow: hidden;
-    width: 80%;
-    margin-bottom: 2rem;
-}
-
-.image-container img {
-    width: 100%;
-    height: auto;
-}
-
-.quienes-somos {
-    position: relative;
-    /* Referencia para el absolute */
-    background: #002f53;
-    color: white;
-    padding: 2rem;
-    border-radius: 1.5rem;
     font-size: 2rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    /* Evita que se salga */
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    cursor: pointer;
+    margin-top: 1rem;
 }
 
-.quienes-somos:hover {
-    border-color: #f77a2c;
-}
+
+
 
 
 
@@ -170,9 +152,7 @@ input[type="password"] {
         width: 80%;
     }
 
-    .image-container {
-        width: 100%;
-    }
+
 
 
 }

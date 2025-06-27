@@ -103,6 +103,8 @@
 </app-contrato-asignacion>
 
 <!-- Botón para abrir el modal de asignación -->
-<button *ngIf="seguridadService.puedeCrear()" (click)="modalAsignarVisible = true">
-  ➕ Asignar contrato
-</button>
+<div class="boton-asignar-wrapper" *ngIf="seguridadService.puedeCrear()">
+  <button class="btn-asignar" (click)="modalAsignarVisible = true">
+    ➕ Asignar contrato
+  </button>
+</div>

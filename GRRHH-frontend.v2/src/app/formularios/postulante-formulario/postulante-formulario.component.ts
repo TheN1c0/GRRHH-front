@@ -60,8 +60,7 @@ export class PostulanteFormularioComponent implements OnInit {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('access') || ''}`,
     });
-    console.log('Formulario:', this.formulario.value);
-    console.log('Archivo:', this.archivoCV);
+
     this.http
       .post(`${environment.apiUrl}personal/api/postulantes/`, formData, {
         headers,

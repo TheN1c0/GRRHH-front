@@ -23,7 +23,6 @@ export class SeguridadComponent {
     this.seguridadService.listarUsuarios().subscribe((data) => {
       this.usuarios = data;
     });
-    console.log(this.usuarios);
   }
 
   abrirModal(): void {

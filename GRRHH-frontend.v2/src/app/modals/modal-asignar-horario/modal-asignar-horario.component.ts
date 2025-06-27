@@ -25,11 +25,8 @@ export class ModalAsignarHorarioComponent {
       fecha_fin: [null],
     });
   }
-  ngOnChanges(): void {
-    console.log('📥 Grupos recibidos en modal:', this.grupos);
-  }
+  ngOnChanges(): void {}
   submit(): void {
-    console.log(this.formulario.value);
     if (this.formulario.invalid) return;
 
     const { grupo_horario, fecha_inicio, fecha_fin } = this.formulario.value;
