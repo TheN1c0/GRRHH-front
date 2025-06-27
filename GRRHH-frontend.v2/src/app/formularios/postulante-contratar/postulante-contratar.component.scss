@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 70vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -23,6 +23,7 @@
     /* evita superposición con header */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: relative;
+
 }
 
 form {
