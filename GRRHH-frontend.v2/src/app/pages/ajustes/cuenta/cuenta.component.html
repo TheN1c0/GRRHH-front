@@ -26,20 +26,22 @@
         <div class="form-grupo">
             <label>Teléfono:</label>
             <input type="tel" [(ngModel)]="cuenta.telefono" name="telefono" />
-            <div>
+
+            <!-- <div>
                 <small *ngIf="cuenta.telefono_verificado">✔️ Teléfono verificado</small>
                 <ng-container *ngIf="!cuenta.telefono_verificado">
                     <small>❌ No verificado</small>
                     <button type="button" (click)="reenviarVerificacionTelefono()">Reenviar código</button>
 
-                    <!-- Mostrar campo de código solo si ya fue enviado -->
+                   
                     <div *ngIf="smsEnviado" class="codigo-verificacion">
                         <label>Ingresa el código SMS:</label>
                         <input type="text" [(ngModel)]="codigoSMS" name="codigoSMS" />
                         <button type="button" (click)="verificarCodigoSMS()">Confirmar código</button>
                     </div>
                 </ng-container>
-            </div>
+            </div> -->
+
         </div>
 
 
