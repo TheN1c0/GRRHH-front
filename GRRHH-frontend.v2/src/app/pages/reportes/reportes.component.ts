@@ -51,14 +51,6 @@ export class ReportesComponent implements OnInit {
       tipo: 'porcentaje',
       detalle: 'Proporción pagada respecto a empleados contratados',
     },
-    {
-      id: 6,
-      titulo: '🚫 Ausentismo laboral',
-      valor: 0,
-      clave: 'ausentismo_laboral',
-      tipo: 'porcentaje',
-      detalle: 'Porcentaje de días laborales no asistidos',
-    },
   ];
 
   tarjetaActiva: any = null;
