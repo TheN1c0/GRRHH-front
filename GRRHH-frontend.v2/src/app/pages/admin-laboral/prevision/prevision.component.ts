@@ -54,8 +54,8 @@ export class PrevisionComponent {
       this.cargarTodo();
     });
   }
-
   agregarCesantia() {
+    console.log('Se ejecutó agregarCesantia'); // Agregado
     this.previsionService.crearCesantia(this.cesantia).subscribe(() => {
       this.cesantia = {
         nombre: '',
