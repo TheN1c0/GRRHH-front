@@ -118,7 +118,6 @@ export class EmpleadoFormularioComponent implements OnChanges {
         },
         error: (err) => {
           console.error('Error al crear empleado:', err);
-          // Aquí podrías mostrar un error al usuario
         },
       });
     } else if (this.modo === 'editar') {
@@ -134,14 +133,23 @@ export class EmpleadoFormularioComponent implements OnChanges {
           },
         });
     }
+
     const prevision = this.nuevoEmpleado.prevision;
+
+    // ✅ Console log agregado aquí
+    console.log('Previsión a enviar:', {
+      empleado: this.nuevoEmpleado.id,
+      afp: prevision?.afp,
+      salud: prevision?.salud,
+      seguro_cesantia: prevision?.seguro_cesantia,
+    });
 
     this.empleadoService
       .guardarPrevision({
         empleado: this.nuevoEmpleado.id,
-        afp: prevision.afp,
-        salud: prevision.salud,
-        seguro_cesantia: prevision.seguro_cesantia,
+        afp: prevision?.afp,
+        salud: prevision?.salud,
+        seguro_cesantia: prevision?.seguro_cesantia,
       })
       .subscribe({
         next: () => {
