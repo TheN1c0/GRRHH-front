@@ -22,6 +22,10 @@ export class PrevisionComponent {
     public seguridadService: SeguridadService
   ) {}
   ngOnInit(): void {
+    console.log(
+      'seguridadService.puedeCrear() =>',
+      this.seguridadService.puedeCrear()
+    );
     this.cargarTodo();
   }
   cargarTodo() {
