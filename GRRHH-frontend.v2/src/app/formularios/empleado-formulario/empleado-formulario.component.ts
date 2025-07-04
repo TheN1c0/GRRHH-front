@@ -110,6 +110,10 @@ export class EmpleadoFormularioComponent implements OnChanges {
   }
 
   guardar() {
+    console.log(
+      '📝 Datos que se van a enviar:',
+      JSON.parse(JSON.stringify(this.nuevoEmpleado))
+    );
     if (this.modo === 'crear') {
       this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe({
         next: () => {
