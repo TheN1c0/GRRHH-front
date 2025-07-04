@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PrevisionService } from '../../../services/prevision.service';
 import { SeguridadService } from '../../../services/seguridad.service';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-prevision',
   templateUrl: './prevision.component.html',
@@ -21,6 +23,23 @@ export class PrevisionComponent {
     private previsionService: PrevisionService,
     public seguridadService: SeguridadService
   ) {}
+  @ViewChild('formSalud') formSalud!: NgForm;
+  @ViewChild('formCesantia') formCesantia!: NgForm;
+
+  ngAfterViewInit() {
+    // Esperar un poco para que Angular evalúe los formularios
+    setTimeout(() => {
+      console.log('🩺 Formulario Salud - válido:', !this.formSalud.invalid);
+      console.log(
+        '💼 Formulario Cesantía - válido:',
+        !this.formCesantia.invalid
+      );
+
+      console.log('Detalles formSalud:', this.formSalud);
+      console.log('Detalles formCesantia:', this.formCesantia);
+    }, 500);
+  }
+
   ngOnInit(): void {
     console.log(
       'seguridadService.puedeCrear() =>',
