@@ -1,34 +1,51 @@
 <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" enctype="multipart/form-data" class="formulario">
   <label>Primer nombre:</label>
-  <input formControlName="primer_nombre" type="text" />
+  <input formControlName="primer_nombre" type="text" required
+    [ngClass]="{'error': formulario.get('primer_nombre')?.invalid && formulario.get('primer_nombre')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Apellido paterno:</label>
-  <input formControlName="apellido_paterno" type="text" />
+  <input formControlName="apellido_paterno" type="text" required
+    [ngClass]="{'error': formulario.get('apellido_paterno')?.invalid && formulario.get('apellido_paterno')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Apellido materno:</label>
-  <input formControlName="apellido_materno" type="text" />
+  <input formControlName="apellido_materno" type="text" required
+    [ngClass]="{'error': formulario.get('apellido_materno')?.invalid && formulario.get('apellido_materno')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Correo:</label>
-  <input formControlName="correo" type="email" />
+  <input formControlName="correo" type="email" required
+    [ngClass]="{'error': formulario.get('correo')?.invalid && formulario.get('correo')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Teléfono:</label>
-  <input formControlName="telefono" type="text" />
+  <input formControlName="telefono" type="text" required
+    [ngClass]="{'error': formulario.get('telefono')?.invalid && formulario.get('telefono')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Dirección:</label>
-  <input formControlName="direccion" type="text" />
+  <input formControlName="direccion" type="text" required
+    [ngClass]="{'error': formulario.get('direccion')?.invalid && formulario.get('direccion')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Fecha de nacimiento:</label>
-  <input formControlName="fecha_nacimiento" type="date" required />
+  <input formControlName="fecha_nacimiento" type="date" required
+    [ngClass]="{'error': formulario.get('fecha_nacimiento')?.invalid && formulario.get('fecha_nacimiento')?.touched}"
+    placeholder="Campo requerido" />
 
   <label>Cargo postulado:</label>
-  <select formControlName="cargo_postulado">
+  <select formControlName="cargo_postulado" required
+    [ngClass]="{'error': formulario.get('cargo_postulado')?.invalid && formulario.get('cargo_postulado')?.touched}">
     <option *ngFor="let cargo of cargos" [value]="cargo.id">
       {{ cargo.nombre }}
     </option>
   </select>
 
   <label>Curriculum (PDF):</label>
-  <input type="file" (change)="seleccionarArchivo($event)" />
+  <input type="file" (change)="seleccionarArchivo($event)" required
+    [ngClass]="{'error': formulario.get('curriculum')?.invalid && formulario.get('curriculum')?.touched}"
+    placeholder="Campo requerido" />
 
   <button type="submit">Enviar</button>
 </form>
