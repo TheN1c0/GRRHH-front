@@ -13,8 +13,9 @@ import { Empleado } from '../../interfaces/empleado.model';
 export class PostulanteFormularioComponent implements OnInit {
   formulario: FormGroup;
   archivoCV: File | null = null;
-  cargos: any[] = [];
   archivoInvalido = false;
+  formularioEnviado: boolean = false;
+  cargos: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +44,7 @@ export class PostulanteFormularioComponent implements OnInit {
   }
 
   enviarFormulario() {
+    this.formularioEnviado = true;
     this.archivoInvalido = !this.archivoCV;
 
     if (this.formulario.invalid || this.archivoInvalido) {
@@ -53,12 +55,9 @@ export class PostulanteFormularioComponent implements OnInit {
     const formData = new FormData();
     for (const key in this.formulario.value) {
       let valor = this.formulario.value[key];
-
-      // Si es fecha, formatear a YYYY-MM-DD
       if (key === 'fecha_nacimiento' && valor instanceof Date) {
         valor = valor.toISOString().split('T')[0];
       }
-
       formData.append(key, valor);
     }
 

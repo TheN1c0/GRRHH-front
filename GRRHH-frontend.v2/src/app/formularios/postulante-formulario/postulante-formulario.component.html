@@ -1,66 +1,68 @@
 <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" enctype="multipart/form-data" class="formulario">
+
   <label>Primer nombre:</label>
   <input formControlName="primer_nombre" type="text"
-    [ngClass]="{ 'input-error': formulario.get('primer_nombre')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('primer_nombre')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('primer_nombre')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('primer_nombre')?.invalid && formularioEnviado" class="mensaje-error">
     Este campo es obligatorio
   </div>
 
   <label>Apellido paterno:</label>
   <input formControlName="apellido_paterno" type="text"
-    [ngClass]="{ 'input-error': formulario.get('apellido_paterno')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('apellido_paterno')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('apellido_paterno')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('apellido_paterno')?.invalid && formularioEnviado" class="mensaje-error">
     Este campo es obligatorio
   </div>
 
   <label>Apellido materno:</label>
   <input formControlName="apellido_materno" type="text"
-    [ngClass]="{ 'input-error': formulario.get('apellido_materno')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('apellido_materno')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('apellido_materno')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('apellido_materno')?.invalid && formularioEnviado" class="mensaje-error">
     Este campo es obligatorio
   </div>
 
   <label>Correo:</label>
   <input formControlName="correo" type="email"
-    [ngClass]="{ 'input-error': formulario.get('correo')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('correo')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('correo')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('correo')?.invalid && formularioEnviado" class="mensaje-error">
     Ingresa un correo válido
   </div>
 
   <label>Teléfono:</label>
   <input formControlName="telefono" type="text"
-    [ngClass]="{ 'input-error': formulario.get('telefono')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('telefono')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('telefono')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('telefono')?.invalid && formularioEnviado" class="mensaje-error">
     Este campo es obligatorio
   </div>
 
   <label>Dirección:</label>
   <input formControlName="direccion" type="text"
-    [ngClass]="{ 'input-error': formulario.get('direccion')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('direccion')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('direccion')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('direccion')?.invalid && formularioEnviado" class="mensaje-error">
     Este campo es obligatorio
   </div>
 
   <label>Fecha de nacimiento:</label>
   <input formControlName="fecha_nacimiento" type="date"
-    [ngClass]="{ 'input-error': formulario.get('fecha_nacimiento')?.invalid && formulario.touched }" />
-  <div *ngIf="formulario.get('fecha_nacimiento')?.invalid && formulario.touched" class="mensaje-error">
+    [ngClass]="{ 'input-error': formulario.get('fecha_nacimiento')?.invalid && formularioEnviado }" />
+  <div *ngIf="formulario.get('fecha_nacimiento')?.invalid && formularioEnviado" class="mensaje-error">
     Selecciona una fecha válida
   </div>
 
   <label>Cargo postulado:</label>
   <select formControlName="cargo_postulado"
-    [ngClass]="{ 'input-error': formulario.get('cargo_postulado')?.invalid && formulario.touched }">
+    [ngClass]="{ 'input-error': formulario.get('cargo_postulado')?.invalid && formularioEnviado }">
     <option value="" disabled selected>Selecciona un cargo</option>
     <option *ngFor="let cargo of cargos" [value]="cargo.id">{{ cargo.nombre }}</option>
   </select>
-  <div *ngIf="formulario.get('cargo_postulado')?.invalid && formulario.touched" class="mensaje-error">
+  <div *ngIf="formulario.get('cargo_postulado')?.invalid && formularioEnviado" class="mensaje-error">
     Selecciona un cargo
   </div>
 
   <label>Curriculum (PDF):</label>
-  <input type="file" (change)="seleccionarArchivo($event)" [ngClass]="{ 'input-error': archivoInvalido }" />
-  <div *ngIf="archivoInvalido" class="mensaje-error">
+  <input type="file" (change)="seleccionarArchivo($event)"
+    [ngClass]="{ 'input-error': archivoInvalido && formularioEnviado }" />
+  <div *ngIf="archivoInvalido && formularioEnviado" class="mensaje-error">
     Selecciona un archivo PDF
   </div>
 
