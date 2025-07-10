@@ -14,6 +14,7 @@ export class PostulanteFormularioComponent implements OnInit {
   formulario: FormGroup;
   archivoCV: File | null = null;
   cargos: any[] = [];
+  archivoInvalido = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,9 +39,17 @@ export class PostulanteFormularioComponent implements OnInit {
 
   seleccionarArchivo(event: any) {
     this.archivoCV = event.target.files[0];
+    this.archivoInvalido = !this.archivoCV;
   }
 
   enviarFormulario() {
+    this.archivoInvalido = !this.archivoCV;
+
+    if (this.formulario.invalid || this.archivoInvalido) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+
     const formData = new FormData();
     for (const key in this.formulario.value) {
       let valor = this.formulario.value[key];

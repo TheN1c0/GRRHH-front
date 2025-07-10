@@ -52,7 +52,17 @@
     }
 }
 
-/* RESPONSIVO */
+.input-error {
+    border: 1px solid red;
+}
+
+.mensaje-error {
+    color: red;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+
 @media (max-width: 768px) {
     .formulario {
         grid-template-columns: 1fr;
