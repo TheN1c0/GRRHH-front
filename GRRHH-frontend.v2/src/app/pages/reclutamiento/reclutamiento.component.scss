@@ -27,7 +27,8 @@
     position: relative;
     padding: 1rem;
     color: black;
-    max-height: calc(100vh - 200px); /* Adjust this value based on your layout needs */
+    max-height: calc(100vh - 200px);
+    /* Adjust this value based on your layout needs */
     overflow-y: auto;
 }
 
@@ -59,7 +60,6 @@
     max-width: 600px;
     width: 100%;
     max-width: 850px;
-    max-height: 80vh;
     overflow-y: auto;
     border-radius: 12px;
     position: relative;
