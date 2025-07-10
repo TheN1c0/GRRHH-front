@@ -24,10 +24,11 @@
 }
 
 .contenedor-contenido {
-
     position: relative;
     padding: 1rem;
     color: black;
+    max-height: calc(100vh - 200px); /* Adjust this value based on your layout needs */
+    overflow-y: auto;
 }
 
 .modal-overlay {
